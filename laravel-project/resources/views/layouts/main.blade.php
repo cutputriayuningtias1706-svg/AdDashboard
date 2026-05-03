@@ -10,12 +10,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         * { font-family:'Inter',sans-serif; }
+        
+        /* ── Dark Mode Base ── */
+        :root {
+            --bg-page: #f5f7fb;
+            --bg-card: #ffffff;
+            --bg-sidebar: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border-color: #e8ecf0;
+            --bg-hover: #f8fafc;
+        }
+
+        .dark {
+            --bg-page: #0f172a;
+            --bg-card: #1e293b;
+            --bg-sidebar: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border-color: #334155;
+            --bg-hover: #1e293b;
+        }
+
+        body { background: var(--bg-page); color: var(--text-main); transition: background 0.3s, color 0.3s; }
 
         /* ── Sidebar ── */
         .sidebar { 
-            background:#fff; border-right:1px solid #e8ecf0; 
+            background: var(--bg-sidebar); border-right: 1px solid var(--border-color); 
             width: 80px; 
-            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1), background 0.3s, border-color 0.3s; 
             overflow: hidden;
             white-space: nowrap;
             z-index: 1000;
@@ -32,7 +55,7 @@
             padding: 0;
             margin: 2px 10px;
             border-radius: 12px;
-            font-size:.875rem; font-weight:500; color:#64748b;
+            font-size:.875rem; font-weight:500; color: var(--text-muted);
             transition:all .2s; cursor:pointer; position:relative;
             overflow: hidden;
         }
@@ -58,10 +81,11 @@
             pointer-events: auto;
         }
 
-        .nav-item:hover { background:#f8fafc; color:#2563eb; }
+        .nav-item:hover { background: var(--bg-hover); color:#2563eb; }
         .nav-item.active {
-            background: #f1f5f9;
+            background: var(--bg-hover);
             color:#2563eb; font-weight: 600;
+            border: 1px solid var(--border-color);
         }
         .nav-item.active i { color: #2563eb; }
         .nav-item.active::before { 
@@ -107,14 +131,14 @@
         /* ── Shimmer Effect ── */
         .shimmer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #fff; z-index: 9999; display: flex; flex-direction: column;
+            background: var(--bg-page); z-index: 9999; display: flex; flex-direction: column;
             transition: opacity 0.4s ease, visibility 0.4s;
         }
         .shimmer-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
         
         .shimmer-bar {
             height: 4px; width: 100%;
-            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background: linear-gradient(90deg, var(--bg-page) 25%, var(--border-color) 50%, var(--bg-page) 75%);
             background-size: 200% 100%;
             animation: shimmer-loading 1.5s infinite;
         }
@@ -128,8 +152,8 @@
             flex: 1; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
         }
         .shimmer-item {
-            height: 20px; background: #f0f0f0; border-radius: 4px;
-            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+            height: 20px; background: var(--border-color); border-radius: 4px;
+            background: linear-gradient(90deg, var(--border-color) 25%, var(--bg-hover) 50%, var(--border-color) 75%);
             background-size: 200% 100%;
             animation: shimmer-loading 1.5s infinite;
         }
@@ -137,16 +161,17 @@
         /* ── Table Freeze & Scroll ── */
         .table-container { width: 100%; overflow-x: auto; position: relative; border-radius: 12px; }
         .sticky-col { 
-            position: sticky; left: 0; background: #fff; z-index: 20;
+            position: sticky; left: 0; background: var(--bg-card); z-index: 20;
             min-width: 80px;
         }
         .sticky-col-2 {
-            position: sticky; left: 80px; background: #fff; z-index: 20;
+            position: sticky; left: 80px; background: var(--bg-card); z-index: 20;
             min-width: 200px;
             box-shadow: 4px 0 8px rgba(0,0,0,0.05);
         }
-        thead th.sticky-col, thead th.sticky-col-2 { background: #f8fafc; z-index: 30; }
-        tr:hover .sticky-col, tr:hover .sticky-col-2 { background: #f1f5f9; }
+        thead th.sticky-col, thead th.sticky-col-2 { background: var(--bg-hover); z-index: 30; }
+        tr:hover .sticky-col, tr:hover .sticky-col-2 { background: var(--bg-hover); }
+        .dark thead th { border-color: var(--border-color); }
         
         /* ── Ad Asset Styles ── */
         .ad-asset-thumb {
@@ -235,12 +260,62 @@
             box-shadow: 0 8px 20px -6px rgba(59,130,246,0.15) !important;
             transform: translateY(-2px);
         }
+        .dark .active-metric-tab {
+            background: rgba(59,130,246,0.1) !important;
+            border-color: #3b82f6 !important;
+        }
         .active-metric-tab .metric-icon-container {
             transform: scale(1.1);
         }
+
+        /* ── Helper Classes ── */
+        .bg-primary-card { background: var(--bg-card) !important; border: 1px solid var(--border-color) !important; }
+        .text-main { color: var(--text-main) !important; }
+        .text-muted { color: var(--text-muted) !important; }
+
+        /* ── Dark Mode Toggle Button ── */
+        .dark-toggle {
+            position: fixed; bottom: 24px; right: 24px;
+            width: 50px; height: 50px; border-radius: 25px;
+            background: #2563eb; color: #fff;
+            display: flex; items-center: center; justify-content: center;
+            cursor: pointer; z-index: 2000;
+            box-shadow: 0 4px 15px rgba(37,99,235,0.4);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 2px solid rgba(255,255,255,0.1);
+        }
+        .dark-toggle:hover { transform: scale(1.1) rotate(15deg); box-shadow: 0 6px 20px rgba(37,99,235,0.5); }
+        .dark .dark-toggle { background: #f59e0b; box-shadow: 0 4px 15px rgba(245,158,11,0.4); }
+
+        /* ── Override Tailwind for Dark Mode (Class based) ── */
+        .dark body { background: #0f172a; }
+        .dark .bg-white { background-color: #1e293b !important; }
+        .dark .bg-slate-50 { background-color: #0f172a !important; }
+        .dark .bg-slate-100 { background-color: #334155 !important; }
+        .dark .text-slate-800 { color: #f1f5f9 !important; }
+        .dark .text-slate-700 { color: #e2e8f0 !important; }
+        .dark .text-slate-600 { color: #cbd5e1 !important; }
+        .dark .text-slate-500 { color: #94a3b8 !important; }
+        .dark .border-slate-100, .dark .border-slate-200 { border-color: #334155 !important; }
+        .dark .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important; }
+        .dark input, .dark select, .dark textarea { 
+            background-color: #0f172a !important; 
+            border-color: #334155 !important; 
+            color: #f1f5f9 !important; 
+        }
+        .dark .modal-overlay { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .dark .pagination-container a, .dark .pagination-container span {
+            background-color: #1e293b; border-color: #334155; color: #94a3b8;
+        }
     </style>
 </head>
-<body style="background:#f5f7fb; min-height:100vh;">
+<body class="transition-colors duration-300">
+    <script>
+        // Apply dark mode immediately to prevent flash
+        if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
     <!-- Shimmer Loader Overlay -->
     <div id="page-shimmer" class="shimmer-overlay">
         <div class="shimmer-bar"></div>
@@ -354,7 +429,7 @@
         <!-- User + Logout -->
         <div class="px-2 py-4 border-t border-slate-100 flex-shrink-0 overflow-hidden">
             @php $authUser = session('auth_user'); @endphp
-            <div class="flex items-center gap-3 p-2 rounded-xl" style="background:#f1f5f9; border: 1px solid #e2e8f0;">
+            <div class="flex items-center gap-3 p-2 rounded-xl bg-primary-card">
                 <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
                      style="background: #334155;">
                     {{ strtoupper(substr($authUser['name'] ?? 'A', 0, 1)) }}
@@ -486,7 +561,57 @@
                 }
             });
         });
+
+        // Chart.js Global Defaults for Dark Mode
+        function updateChartDefaults() {
+            const isDark = document.documentElement.classList.contains('dark');
+            const textColor = isDark ? '#94a3b8' : '#64748b';
+            const gridColor = isDark ? '#334155' : '#e2e8f0';
+
+            if (window.Chart) {
+                Chart.defaults.color = textColor;
+                
+                Object.values(Chart.instances).forEach(chart => {
+                    if (chart.options.scales) {
+                        if (chart.options.scales.x && chart.options.scales.x.ticks) chart.options.scales.x.ticks.color = textColor;
+                        if (chart.options.scales.y && chart.options.scales.y.ticks) chart.options.scales.y.ticks.color = textColor;
+                    }
+                    chart.update();
+                });
+            }
+        }
+
+        // Dark Mode Toggle Logic
+        function toggleDarkMode() {
+            const isDark = document.documentElement.classList.toggle('dark');
+            localStorage.setItem('darkMode', isDark ? 'enabled' : 'disabled');
+            
+            // Update icon
+            const icon = document.querySelector('.dark-toggle i');
+            if (isDark) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                icon.classList.replace('fa-sun', 'fa-moon');
+            }
+
+            // Update charts
+            updateChartDefaults();
+        }
+
+        // Initialize toggle icon and charts
+        document.addEventListener('DOMContentLoaded', () => {
+            const icon = document.querySelector('.dark-toggle i');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.classList.replace('fa-moon', 'fa-sun');
+            }
+            updateChartDefaults();
+        });
     </script>
     @stack('scripts')
+    
+    <!-- Dark Mode Toggle Button -->
+    <div class="dark-toggle shadow-lg" onclick="toggleDarkMode()" title="Toggle Dark Mode">
+        <i class="fa-solid fa-moon text-xl"></i>
+    </div>
 </body>
 </html>

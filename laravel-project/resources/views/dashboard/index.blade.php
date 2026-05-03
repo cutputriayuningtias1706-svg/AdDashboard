@@ -60,7 +60,7 @@
 <!-- Overview Cards (Balance & Disbursement) -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 fade-up">
     <!-- Card Total Saldo -->
-    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-blue-300 transition-all">
+    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-blue-300 transition-all bg-primary-card">
         <div class="relative z-10">
             <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Saldo Saat Ini</p>
             <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
@@ -74,7 +74,7 @@
     </div>
 
     <!-- Card Total Spending -->
-    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-emerald-300 transition-all">
+    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-emerald-300 transition-all bg-primary-card">
         <div class="relative z-10">
             <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Spending</p>
             <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalDisbursement, 0, ',', '.') }}</h2>
@@ -107,7 +107,7 @@
 </div>
 
 <!-- Spending Iklan Jul–Sep 2025 (always shown, non-zero) -->
-<div class="fade-up rounded-2xl p-6 mb-5" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 16px rgba(0,0,0,0.07);">
+<div class="fade-up rounded-2xl p-6 mb-5 bg-primary-card" style="box-shadow:0 2px 16px rgba(0,0,0,0.07);">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-5">
         <div>
             <h3 class="text-base font-bold text-slate-800">Spending Iklan (Juli–September 2025)</h3>
@@ -138,7 +138,7 @@
 </div>
 
 @if(!$selectedMonth)
-<div class="fade-up rounded-3xl p-10 text-center mb-5 bg-white border border-slate-200 shadow-sm">
+<div class="fade-up rounded-3xl p-10 text-center mb-5 bg-primary-card" style="box-shadow:0 2px 8px rgba(0,0,0,0.04);">
     <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-50 text-slate-400 border border-slate-100">
         <i class="fa-solid fa-calendar text-2xl"></i>
     </div>
@@ -149,7 +149,7 @@
 <!-- Stats Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
     <!-- Total Spend -->
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -162,7 +162,7 @@
         </div>
     </div>
     <!-- Total Impressions -->
-    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -172,7 +172,7 @@
         </div>
     </div>
     <!-- Total Clicks -->
-    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-400"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -183,7 +183,7 @@
         </div>
     </div>
     <!-- Total Conversions -->
-    <div class="card-hover fade-up-4 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -198,7 +198,7 @@
 <!-- Optimization Score & Top Campaign Performance -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
 <!-- Optimization Score with Tips Slider -->
-    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover relative overflow-hidden rounded-3xl p-6 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-600"></div>
         <div class="flex items-center justify-between mb-5">
             <div>
@@ -577,22 +577,8 @@ document.addEventListener('DOMContentLoaded', function() {
         showTip(currentTip);
     });
 
-    // Greeting Animation
-    const gText = document.getElementById('greeting-text');
-    if (gText) {
-        setTimeout(() => {
-            gText.style.opacity = '0';
-            gText.style.transform = 'translateY(-10px)';
-            setTimeout(() => {
-                gText.innerText = 'Selamat Datang,';
-                gText.style.opacity = '1';
-                gText.style.transform = 'translateY(0)';
-            }, 600);
-        }, 3000);
-    }
-});
-</script>
 @endpush
+
 @endif
 
 <!-- Topup Modal -->
@@ -647,3 +633,23 @@ document.addEventListener('DOMContentLoaded', function() {
 </div>
 
 @endsection
+
+@push('scripts')
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Greeting Animation
+    const gText = document.getElementById('greeting-text');
+    if (gText) {
+        setTimeout(() => {
+            gText.style.opacity = '0';
+            gText.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                gText.innerText = 'Selamat Datang,';
+                gText.style.opacity = '1';
+                gText.style.transform = 'translateY(0)';
+            }, 600);
+        }, 2000);
+    }
+});
+</script>
+@endpush
