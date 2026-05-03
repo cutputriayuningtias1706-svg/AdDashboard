@@ -24,7 +24,7 @@
         @php $active = (request('platform') == $pill['key']) || (!request('platform') && $pill['key']=='all'); @endphp
         <a href="{{ route('reports.index', array_merge(request()->except('platform'), ['platform' => $pill['key']])) }}"
            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition"
-           style="{{ $active ? 'background:linear-gradient(135deg,#6366f1,#8b5cf6);color:#fff;box-shadow:0 4px 12px rgba(99,102,241,0.3);' : 'background:#f1f5f9;color:#64748b;' }}">
+           style="{{ $active ? 'background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,0.3);' : 'background:#f1f5f9;color:#64748b;' }}">
             <i class="fa-solid {{ $pill['icon'] }} text-xs"></i> {{ $pill['label'] }}
         </a>
         @endforeach
@@ -39,7 +39,7 @@
         @endif
         <div class="w-44">
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Periode Bulan</label>
-            <select name="month" onchange="this.form.submit()" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <select name="month" onchange="this.form.submit()" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <option value="">-- Semua Bulan --</option>
                 <option value="2025-07" {{ request('month')=='2025-07'?'selected':'' }}>Juli 2025</option>
                 <option value="2025-08" {{ request('month')=='2025-08'?'selected':'' }}>Agustus 2025</option>
@@ -48,15 +48,21 @@
         </div>
         <div class="flex-1 min-w-48">
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Campaign</label>
-            <select name="campaign" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <select name="campaign" class="w-full border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <option value="all">All Campaigns</option>
                 @foreach($campaigns as $campaign)
                 <option value="{{ $campaign->id }}" {{ request('campaign')==$campaign->id?'selected':'' }}>{{ $campaign->campaign_name }}</option>
                 @endforeach
             </select>
         </div>
+        <div class="flex-1 min-w-[280px]">
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Pencarian</label>
+            <div class="deep-search-container">
+                <input type="text" name="search" value="{{ request('search') }}" class="deep-search-input" placeholder="Cari kampanye, aset, atau metrik...">
+            </div>
+        </div>
         <div class="flex gap-2">
-            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition hover:opacity-90" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white transition hover:opacity-90" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                 <i class="fa-solid fa-filter text-xs"></i> Filter
             </button>
             <a href="{{ route('reports.index') }}" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-slate-600 transition hover:bg-slate-200" style="background:#f1f5f9;">
@@ -70,8 +76,8 @@
 <div class="grid grid-cols-1 md:grid-cols-4 gap-5 mb-5">
     @php
     $cards = [
-        ['label'=>'Total Spend','value'=>'Rp '.number_format($totalSpend,0,',','.'),'icon'=>'fa-dollar-sign','grad'=>'linear-gradient(135deg,#3b82f6,#6366f1)','glow'=>'rgba(59,130,246,0.3)'],
-        ['label'=>'Total Impressions','value'=>number_format($totalImpressions),'icon'=>'fa-eye','grad'=>'linear-gradient(135deg,#8b5cf6,#a855f7)','glow'=>'rgba(139,92,246,0.3)'],
+        ['label'=>'Total Spend','value'=>'Rp '.number_format($totalSpend,0,',','.'),'icon'=>'fa-dollar-sign','grad'=>'linear-gradient(135deg,#3b82f6,#2563eb)','glow'=>'rgba(59,130,246,0.3)'],
+        ['label'=>'Total Impressions','value'=>number_format($totalImpressions),'icon'=>'fa-eye','grad'=>'linear-gradient(135deg,#1e293b,#334155)','glow'=>'rgba(30,41,59,0.3)'],
         ['label'=>'Total Clicks','value'=>number_format($totalClicks),'icon'=>'fa-pointer','grad'=>'linear-gradient(135deg,#10b981,#34d399)','glow'=>'rgba(16,185,129,0.3)'],
         ['label'=>'Total Conversions','value'=>number_format($totalConversions),'icon'=>'fa-bullseye','grad'=>'linear-gradient(135deg,#f59e0b,#f97316)','glow'=>'rgba(245,158,11,0.3)'],
     ];
@@ -137,8 +143,8 @@
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
                             @if($report['platform']=='google') <i class="fa-brands fa-google text-blue-500"></i>
-                            @elseif($report['platform']=='meta') <i class="fa-brands fa-facebook text-indigo-500"></i>
-                            @else <i class="fa-brands fa-tiktok text-pink-500"></i>
+                            @elseif($report['platform']=='meta') <i class="fa-brands fa-facebook text-blue-600"></i>
+                            @else <i class="fa-brands fa-tiktok text-slate-800"></i>
                             @endif
                             {{ ucfirst($report['platform']) }}
                         </span>
@@ -165,7 +171,22 @@
             </tbody>
         </table>
     </div>
-    <div class="px-6 py-4 border-t border-slate-100">{{ $reports->links() }}</div>
+    <div class="px-6 py-4 border-t border-slate-100 pagination-container">
+        {{ $reports->links() }}
+    </div>
 </div>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find the active pagination item and add the custom class
+        const activeItem = document.querySelector('.pagination-container [aria-current="page"] span');
+        if (activeItem) {
+            activeItem.parentElement.classList.add('active-page');
+            activeItem.style.color = '#fff';
+            activeItem.style.background = 'transparent';
+        }
+    });
+</script>
+@endpush
 @endsection
 

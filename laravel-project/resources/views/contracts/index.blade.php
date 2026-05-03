@@ -50,12 +50,12 @@
             </div>
 
             <div class="p-4 border-t border-slate-100 bg-slate-50 flex items-center justify-between gap-3">
-                <a href="{{ route('contracts.download_pks', $vendor['id']) }}" class="text-xs font-semibold text-slate-600 hover:text-indigo-600 transition flex items-center gap-2 px-2 py-1">
+                <a href="{{ route('contracts.download_pks', $vendor['id']) }}" class="text-xs font-semibold text-slate-600 hover:text-blue-600 transition flex items-center gap-2 px-2 py-1">
                     <i class="fa-solid fa-file-pdf text-red-500"></i> Download PKS
                 </a>
                 
                 @if($vendor['status'] == 'inactive')
-                    <a href="{{ route('contracts.apply', $vendor['id']) }}" class="px-5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold rounded-lg transition">
+                    <a href="{{ route('contracts.apply', $vendor['id']) }}" class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-lg transition">
                         Ajukan Kerjasama
                     </a>
                 @elseif($vendor['status'] == 'pending')

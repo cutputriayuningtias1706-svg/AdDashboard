@@ -46,7 +46,7 @@
         <form action="{{ route('invoices.index') }}" method="GET" class="flex flex-wrap gap-3 items-end">
             <div>
                 <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Account</label>
-                <select name="ad_account" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <select name="ad_account" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="">All Accounts</option>
                     @foreach($adAccounts as $account)
                     <option value="{{ $account->id }}" {{ request('ad_account')==$account->id?'selected':'' }}>{{ $account->account_name }}</option>
@@ -55,7 +55,7 @@
             </div>
             <div>
                 <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Status</label>
-                <select name="status" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+                <select name="status" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
                     <option value="all">All Status</option>
                     <option value="draft" {{ request('status')=='draft'?'selected':'' }}>Draft</option>
                     <option value="pending" {{ request('status')=='pending'?'selected':'' }}>Pending</option>
@@ -63,7 +63,13 @@
                     <option value="overdue" {{ request('status')=='overdue'?'selected':'' }}>Overdue</option>
                 </select>
             </div>
-            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+            <div class="w-64">
+                <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Pencarian</label>
+                <div class="deep-search-container">
+                    <input type="text" name="search" value="{{ request('search') }}" class="deep-search-input" placeholder="Cari invoice #, akun...">
+                </div>
+            </div>
+            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                 <i class="fa-solid fa-filter text-xs"></i> Filter
             </button>
         </form>
@@ -94,13 +100,13 @@
                 @forelse($invoices as $invoice)
                 <tr class="table-row-hover border-b border-slate-50">
                     <td class="px-6 py-4">
-                        <a href="{{ route('invoices.show', $invoice->id) }}" class="text-sm font-bold hover:underline" style="color:#6366f1;">{{ $invoice->invoice_number }}</a>
+                        <a href="{{ route('invoices.show', $invoice->id) }}" class="text-sm font-bold hover:underline" style="color:#2563eb;">{{ $invoice->invoice_number }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
                             @if($invoice->adAccount->platform=='google') <i class="fa-brands fa-google text-blue-500"></i>
-                            @elseif($invoice->adAccount->platform=='meta') <i class="fa-brands fa-facebook text-indigo-500"></i>
-                            @else <i class="fa-brands fa-tiktok text-pink-500"></i>
+                            @elseif($invoice->adAccount->platform=='meta') <i class="fa-brands fa-facebook text-blue-600"></i>
+                            @else <i class="fa-brands fa-tiktok text-slate-800"></i>
                             @endif
                             {{ $invoice->adAccount->platform }}
                         </span>
@@ -152,7 +158,20 @@
         </table>
     </div>
     @if(method_exists($invoices, 'links'))
-    <div class="px-6 py-4 border-t border-slate-100">{{ $invoices->links() }}</div>
+    <div class="px-6 py-4 border-t border-slate-100 pagination-container">{{ $invoices->links() }}</div>
     @endif
 </div>
+@push('scripts')
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Find the active pagination item and add the custom class
+        const activeItem = document.querySelector('.pagination-container [aria-current="page"] span');
+        if (activeItem) {
+            activeItem.parentElement.classList.add('active-page');
+            activeItem.style.color = '#fff';
+            activeItem.style.background = 'transparent';
+        }
+    });
+</script>
+@endpush
 @endsection

@@ -63,6 +63,16 @@ class ReportController extends Controller
             $mockRows = array_filter($mockRows, fn($r) => $r['campaign_id'] == $request->campaign);
         }
 
+        // Filter by search query (Deep Search)
+        if ($request->search) {
+            $s = strtolower($request->search);
+            $mockRows = array_filter($mockRows, function($r) use ($s) {
+                return str_contains(strtolower($r['campaign']), $s) || 
+                       str_contains(strtolower($r['platform']), $s) || 
+                       str_contains(strtolower($r['record_date']), $s);
+            });
+        }
+
         // Summary from mock
         $totalSpend       = array_sum(array_column($mockRows, 'spend'));
         $totalImpressions = array_sum(array_column($mockRows, 'impressions'));
@@ -126,9 +136,9 @@ class ReportController extends Controller
         foreach ($months as $m) {
             if (!isset($this->mockData[$m])) continue;
             $data = $this->mockData[$m];
-            $year = substr($m,0,4);
-            $mon  = (int)substr($m,5,2);
-            $days = Carbon::create($year,$mon)->daysInMonth;
+            $year = substr($m, 0, 4);
+            $mon  = (int)substr($m, 5, 2);
+            $days = Carbon::create($year, $mon)->daysInMonth;
             $dayRatios = $this->getDayRatios($days);
 
             foreach ($platforms as $plt) {
@@ -145,12 +155,31 @@ class ReportController extends Controller
                     '1U2dvLRwG4unrWD3H__SJQPg3mucogVh8', '1aZ0L33sWPOlB4hciIKIFpO4IPSKWGzj2',
                 ];
 
+                $remainingSpend = $pd['spend'];
+                $remainingImpr  = $pd['impressions'];
+                $remainingClick = $pd['clicks'];
+                $remainingConv  = $pd['conversions'];
+
                 foreach ($names as $idx => $name) {
-                    $ratio = $ratios[$idx] ?? 0.2;
-                    $cSpend = (int)($pd['spend'] * $ratio);
-                    $cImpr  = (int)($pd['impressions'] * $ratio);
-                    $cClick = (int)($pd['clicks'] * $ratio);
-                    $cConv  = (int)($pd['conversions'] * $ratio);
+                    $ratio = $ratios[$idx] ?? 0;
+                    
+                    if ($idx === count($names) - 1) {
+                        $cSpend = $remainingSpend;
+                        $cImpr  = $remainingImpr;
+                        $cClick = $remainingClick;
+                        $cConv  = $remainingConv;
+                    } else {
+                        $cSpend = (int)($pd['spend'] * $ratio);
+                        $cImpr  = (int)($pd['impressions'] * $ratio);
+                        $cClick = (int)($pd['clicks'] * $ratio);
+                        $cConv  = (int)($pd['conversions'] * $ratio);
+                    }
+                    
+                    $remainingSpend -= $cSpend;
+                    $remainingImpr  -= $cImpr;
+                    $remainingClick -= $cClick;
+                    $remainingConv  -= $cConv;
+
                     $thumbIdx = $idx % count($thumbnailIds);
                     $cThumbId = $thumbnailIds[$thumbIdx];
 
@@ -158,9 +187,31 @@ class ReportController extends Controller
                     $daysToShow = min(10, $days);
                     $sumRatios = array_sum(array_slice($dayRatios, 0, $daysToShow)) ?: 1;
                     
+                    $remDaySpend = $cSpend;
+                    $remDayImpr  = $cImpr;
+                    $remDayClick = $cClick;
+                    $remDayConv  = $cConv;
+
                     for ($d = 1; $d <= $daysToShow; $d++) {
                         $dr = $dayRatios[$d - 1] ?? (1 / $daysToShow);
                         $weight = $dr / $sumRatios;
+                        
+                        if ($d === $daysToShow) {
+                            $daySpend = $remDaySpend;
+                            $dayImpr  = $remDayImpr;
+                            $dayClick = $remDayClick;
+                            $dayConv  = $remDayConv;
+                        } else {
+                            $daySpend = (int)($cSpend * $weight);
+                            $dayImpr  = (int)($cImpr * $weight);
+                            $dayClick = (int)($cClick * $weight);
+                            $dayConv  = (int)($cConv * $weight);
+                        }
+
+                        $remDaySpend -= $daySpend;
+                        $remDayImpr  -= $dayImpr;
+                        $remDayClick -= $dayClick;
+                        $remDayConv  -= $dayConv;
                         
                         $rows[] = [
                             'id'           => $id++,
@@ -168,10 +219,10 @@ class ReportController extends Controller
                             'platform'     => $plt,
                             'campaign_id'  => $idx + 1,
                             'campaign'     => 'YG-度衛星-Indosaku – ' . $name,
-                            'impressions'  => (int)($cImpr  * $weight),
-                            'clicks'       => (int)($cClick * $weight),
-                            'conversions'  => (int)($cConv  * $weight),
-                            'spend'        => (int)($cSpend * $weight),
+                            'impressions'  => $dayImpr,
+                            'clicks'       => $dayClick,
+                            'conversions'  => $dayConv,
+                            'spend'        => $daySpend,
                             'video_id'     => $cThumbId,
                             'thumbnail_url' => 'https://drive.google.com/thumbnail?id=' . $cThumbId . '&sz=w256',
                         ];

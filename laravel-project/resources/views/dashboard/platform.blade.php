@@ -11,25 +11,31 @@
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Dari Tanggal</label>
             <input type="date" name="date_from" value="{{ $dateFrom ?? '2025-07-01' }}"
                    min="2025-07-01" max="2025-09-30"
-                   class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+                   class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
         </div>
         <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Sampai Tanggal</label>
             <input type="date" name="date_to" value="{{ $dateTo ?? '2025-09-30' }}"
                    min="2025-07-01" max="2025-09-30"
-                   class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400 focus:border-transparent">
+                   class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:border-transparent">
         </div>
         <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Bulan</label>
-            <select name="month" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-indigo-400">
+            <select name="month" class="border border-slate-200 rounded-xl px-4 py-2.5 text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-blue-400">
                 <option value="">-- Semua --</option>
                 <option value="2025-07" {{ ($selectedMonth??'')==='2025-07'?'selected':'' }}>Juli 2025</option>
                 <option value="2025-08" {{ ($selectedMonth??'')==='2025-08'?'selected':'' }}>Agustus 2025</option>
                 <option value="2025-09" {{ ($selectedMonth??'')==='2025-09'?'selected':'' }}>September 2025</option>
             </select>
         </div>
+        <div class="flex-1 min-w-[200px]">
+            <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Pencarian</label>
+            <div class="deep-search-container">
+                <input type="text" name="search" value="{{ request('search') }}" class="deep-search-input" placeholder="Cari kampanye...">
+            </div>
+        </div>
         <div class="flex gap-2">
-            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+            <button type="submit" class="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl text-sm font-semibold text-white hover:opacity-90 transition" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                 <i class="fa-solid fa-magnifying-glass text-xs"></i> Tampilkan
             </button>
             <a href="{{ request()->url() }}" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-sm font-semibold text-slate-500 hover:bg-slate-100 transition" style="background:#f1f5f9;">
@@ -39,18 +45,19 @@
     </form>
 </div>
 
-<!-- Platform Header (Light) -->
-<div class="mb-5 fade-up">
-    <div class="rounded-2xl p-5 flex flex-wrap items-center justify-between gap-4" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+<!-- Platform Header & Tips Side-by-Side -->
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 fade-up">
+    <!-- Account Info Card -->
+    <div class="lg:col-span-2 rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4 h-full" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="flex items-center gap-4">
             @switch($platform)
                 @case('google')
-                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                         <i class="fa-brands fa-google text-white text-xl"></i>
                     </div>
                     @break
                 @case('meta')
-                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-purple" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+                    <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                         <i class="fa-brands fa-facebook text-white text-xl"></i>
                     </div>
                     @break
@@ -75,12 +82,36 @@
             </span>
         </div>
     </div>
+
+    <!-- Platform Tips Card -->
+    <div class="rounded-2xl p-6 relative overflow-hidden h-full flex flex-col justify-center" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
+        <div class="flex items-start gap-4">
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#f59e0b,#f97316); box-shadow:0 4px 12px rgba(245,158,11,0.3);">
+                <i class="fa-solid fa-lightbulb text-white"></i>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-800 mb-1">{{ ucfirst($platform) }} Ads Tips</h4>
+                @switch($platform)
+                    @case('google')
+                        <p class="text-[11px] leading-relaxed text-slate-500">Optimalkan Quality Score dengan meningkatkan relevansi iklan dan pengalaman landing page. Gunakan responsive search ads untuk jangkauan yang lebih luas.</p>
+                        @break
+                    @case('meta')
+                        <p class="text-[11px] leading-relaxed text-slate-500">Gunakan Carousel ads untuk menampilkan berbagai produk sekaligus. Uji berbagai format kreatif dan targetkan lookalike audiences untuk hasil terbaik.</p>
+                        @break
+                    @case('tiktok')
+                        <p class="text-[11px] leading-relaxed text-slate-500">Buat konten autentik yang relevan dengan audiens muda. Manfaatkan trending sounds dan hashtag populer untuk meningkatkan visibilitas iklan Anda.</p>
+                        @break
+                @endswitch
+            </div>
+        </div>
+    </div>
 </div>
 
 @if($lastMonthSpend)
 <!-- Last Month Spend Comparison -->
-<div class="fade-up mb-5 p-4 rounded-2xl flex items-center gap-4" style="background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #e0e7ff;">
-    <i class="fa-solid fa-circle-info text-indigo-400 text-lg flex-shrink-0"></i>
+<div class="fade-up mb-5 p-4 rounded-2xl flex items-center gap-4" style="background:linear-gradient(135deg,#eff6ff,#f0f7ff);border:1px solid #dbeafe;">
+    <i class="fa-solid fa-circle-info text-blue-400 text-lg flex-shrink-0"></i>
     <p class="text-sm text-slate-600">
         <span class="font-semibold text-slate-800">Total Spend Bulan Lalu:</span>
         Rp {{ number_format($lastMonthSpend, 0, ',', '.') }} —
@@ -96,72 +127,39 @@
 
 
 <!-- Primary Stats Cards -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
-    <!-- Total Spend -->
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background: linear-gradient(90deg,#3b82f6,#6366f1);"></div>
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Spend</p>
-                <p class="text-2xl font-bold text-slate-800">Rp {{ number_format($totalSpend, 0, ',', '.') }}</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Impressions -->
-    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background: linear-gradient(90deg,#8b5cf6,#a855f7);"></div>
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Impressions</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalImpressions) }}</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Clicks -->
-    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background: linear-gradient(90deg,#10b981,#34d399);"></div>
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Clicks</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalClicks) }}</p>
-            </div>
-
-        </div>
-    </div>
-
-    <!-- Conversions -->
-    <div class="card-hover fade-up-4 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background: linear-gradient(90deg,#f59e0b,#f97316);"></div>
-        <div class="flex items-center justify-between">
-            <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Conversions</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalConversions) }}</p>
-            </div>
-
-        </div>
-    </div>
-</div>
-
-<!-- Secondary Performance Metrics -->
-<div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-5 fade-up">
-    @php
-    $metrics = [
-        ['label'=>'CTR',         'value'=> number_format($ctr,2).'%',                         'color'=>'#3b82f6'],
-        ['label'=>'CPC',         'value'=>'Rp '.number_format($cpc,0,',','.'),                'color'=>'#8b5cf6'],
-        ['label'=>'CPM',         'value'=>'Rp '.number_format($cpm,0,',','.'),                'color'=>'#10b981'],
-        ['label'=>'Conv. Rate',  'value'=> number_format($conversionRate,2).'%',              'color'=>'#f59e0b'],
-        ['label'=>'Frequency',   'value'=> number_format($frequency,1),                       'color'=>'#ec4899'],
-        ['label'=>'ROAS',        'value'=> number_format($roas,1).'x',                       'color'=>'#6366f1'],
+@php
+    $allMetrics = [
+        ['key'=>'spend',          'label'=>'Total Spend',     'value'=>'Rp '.number_format($totalSpend, 0, ',', '.'), 'color'=>'#3b82f6', 'icon'=>'fa-wallet',       'bg'=>'rgba(59,130,246,0.1)', 'class'=>'metric-card-blue'],
+        ['key'=>'impressions',    'label'=>'Impressions',     'value'=>number_format($totalImpressions),              'color'=>'#64748b', 'icon'=>'fa-eye',          'bg'=>'rgba(100,116,139,0.1)', 'class'=>'metric-card-slate'],
+        ['key'=>'clicks',         'label'=>'Clicks',          'value'=>number_format($totalClicks),                   'color'=>'#10b981', 'icon'=>'fa-mouse-pointer', 'bg'=>'rgba(16,185,129,0.1)', 'class'=>'metric-card-emerald'],
+        ['key'=>'conversions',    'label'=>'Conversions',     'value'=>number_format($totalConversions),              'color'=>'#f59e0b', 'icon'=>'fa-check-circle', 'bg'=>'rgba(245,158,11,0.1)', 'class'=>'metric-card-amber'],
+        ['key'=>'ctr',            'label'=>'CTR',             'value'=>number_format($ctr,2).'%',                     'color'=>'#3b82f6', 'icon'=>'fa-bullseye',     'bg'=>'rgba(59,130,246,0.1)', 'class'=>'metric-card-blue'],
+        ['key'=>'cpc',            'label'=>'CPC',             'value'=>'Rp '.number_format($cpc,0,',','.'),           'color'=>'#2563eb', 'icon'=>'fa-coins',        'bg'=>'rgba(37,99,235,0.1)', 'class'=>'metric-card-blue'],
+        ['key'=>'cpm',            'label'=>'CPM',             'value'=>'Rp '.number_format($cpm,0,',','.'),           'color'=>'#10b981', 'icon'=>'fa-layer-group',  'bg'=>'rgba(16,185,129,0.1)', 'class'=>'metric-card-emerald'],
+        ['key'=>'conversionRate', 'label'=>'Conv. Rate',      'value'=>number_format($conversionRate,2).'%',          'color'=>'#f59e0b', 'icon'=>'fa-filter',       'bg'=>'rgba(245,158,11,0.1)', 'class'=>'metric-card-amber'],
+        ['key'=>'frequency',      'label'=>'Frequency',       'value'=>number_format($frequency,1),                   'color'=>'#ec4899', 'icon'=>'fa-repeat',       'bg'=>'rgba(236,72,153,0.1)', 'class'=>'metric-card-pink'],
+        ['key'=>'roas',           'label'=>'ROAS',            'value'=>number_format($roas,1).'x',                    'color'=>'#8b5cf6', 'icon'=>'fa-trophy',       'bg'=>'rgba(139,92,246,0.1)', 'class'=>'metric-card-purple'],
     ];
-    @endphp
-    @foreach($metrics as $m)
-    <div class="card-hover rounded-2xl p-4 text-center" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 8px rgba(0,0,0,0.05);">
-        <p class="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2">{{ $m['label'] }}</p>
-        <p class="text-xl font-bold" style="color:{{ $m['color'] }};">{{ $m['value'] }}</p>
+@endphp
+
+<div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-6 fade-up">
+    @foreach($allMetrics as $m)
+    <div class="group metric-card {{ $m['class'] }} rounded-2xl p-4 metric-tab transition-all duration-300 {{ $m['key'] === 'spend' ? 'active-metric-tab' : '' }}" 
+         onclick="switchChartMetric('{{ $m['key'] }}', '{{ $m['label'] }}', '{{ $m['color'] }}')"
+         data-metric="{{ $m['key'] }}"
+         style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 8px rgba(0,0,0,0.04); cursor:pointer;">
+        <div class="flex items-center gap-3">
+            @if($m['key'] !== 'spend')
+            <div class="w-10 h-10 rounded-xl flex items-center justify-center transition-transform group-hover:scale-110 duration-300 metric-icon-container" 
+                 style="background:{{ $m['bg'] }}; color:{{ $m['color'] }};">
+                <i class="fa-solid {{ $m['icon'] }} text-sm"></i>
+            </div>
+            @endif
+            <div class="text-left">
+                <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400 mb-0.5">{{ $m['label'] }}</p>
+                <p class="text-sm font-extrabold truncate" style="color:{{ $m['color'] }}; max-width:{{ $m['key'] === 'spend' ? '100%' : '110px' }};" title="{{ $m['value'] }}">{{ $m['value'] }}</p>
+            </div>
+        </div>
     </div>
     @endforeach
 </div>
@@ -169,10 +167,12 @@
 <!-- 7-Day Performance Line Chart -->
 @if(!empty($dailyTrend))
 <div class="fade-up rounded-2xl p-6 mb-5" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-    <div class="flex items-center justify-between mb-5">
+    <div class="flex items-center justify-between mb-8">
         <div>
-            <h3 class="text-base font-bold text-slate-800">7-Day Performance Trend</h3>
-            <p class="text-sm text-slate-400 mt-0.5">Spend, Impressions, Clicks & Conversions</p>
+            <h3 class="text-base font-bold text-slate-800" id="currentChartTitle">7-Day Performance: Spend</h3>
+        </div>
+        <div id="chartLegendContainer" class="flex items-center gap-4">
+            <!-- Legend will be updated by JS -->
         </div>
     </div>
     <div class="h-72">
@@ -182,31 +182,104 @@
 
 @push('scripts')
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    const ctx = document.getElementById('performanceChart').getContext('2d');
-    const dailyTrend = @json($dailyTrend);
-    new Chart(ctx, {
-        type: 'line',
-        data: {
-            labels: dailyTrend.map(d => d.date),
-            datasets: [
-                { label: 'Spend (Rp)', data: dailyTrend.map(d => d.spend), borderColor: '#3b82f6', backgroundColor: 'rgba(59,130,246,0.08)', fill: true, tension: 0.4, yAxisID: 'y' },
-                { label: 'Impressions', data: dailyTrend.map(d => d.impressions), borderColor: '#8b5cf6', backgroundColor: 'rgba(139,92,246,0.05)', fill: false, tension: 0.4, yAxisID: 'y1' },
-                { label: 'Clicks', data: dailyTrend.map(d => d.clicks), borderColor: '#10b981', fill: false, tension: 0.4, yAxisID: 'y1' },
-                { label: 'Conversions', data: dailyTrend.map(d => d.conversions), borderColor: '#f59e0b', fill: false, tension: 0.4, yAxisID: 'y1' }
-            ]
-        },
-        options: {
-            responsive: true, maintainAspectRatio: false,
-            interaction: { mode: 'index', intersect: false },
-            plugins: { legend: { position: 'top' } },
-            scales: {
-                x: { grid: { display: false } },
-                y: { type: 'linear', display: true, position: 'left', title: { display: true, text: 'Spend (Rp)' }, grid: { color: 'rgba(226,232,240,0.6)' } },
-                y1: { type: 'linear', display: true, position: 'right', title: { display: true, text: 'Count' }, grid: { drawOnChartArea: false } }
-            }
-        }
+let performanceChart;
+const dailyTrendData = @json($dailyTrend);
+
+function switchChartMetric(key, label, color) {
+    // Update Active Tab UI
+    document.querySelectorAll('.metric-tab').forEach(tab => {
+        tab.classList.remove('active-metric-tab');
+        if(tab.dataset.metric === key) tab.classList.add('active-metric-tab');
     });
+
+    document.getElementById('currentChartTitle').innerText = `7-Day Performance: ${label}`;
+    
+    const ctx = document.getElementById('performanceChart').getContext('2d');
+    
+    // Create gradient
+    const gradient = ctx.createLinearGradient(0, 0, 0, 300);
+    const rgb = hexToRgb(color);
+    gradient.addColorStop(0, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0.15)`);
+    gradient.addColorStop(1, `rgba(${rgb.r}, ${rgb.g}, ${rgb.b}, 0)`);
+
+    const dataset = {
+        label: label,
+        data: dailyTrendData.map(d => d[key]),
+        borderColor: color,
+        backgroundColor: gradient,
+        fill: true,
+        tension: 0.5,
+        pointRadius: 0,
+        pointHoverRadius: 6,
+        pointHoverBackgroundColor: color,
+        pointHoverBorderColor: '#fff',
+        pointHoverBorderWidth: 3,
+    };
+
+    if (performanceChart) {
+        performanceChart.data.datasets = [dataset];
+        performanceChart.update();
+    } else {
+        performanceChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: dailyTrendData.map(d => d.date),
+                datasets: [dataset]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: { mode: 'index', intersect: false },
+                plugins: {
+                    legend: { display: false },
+                    tooltip: {
+                        backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                        titleColor: '#1e293b',
+                        bodyColor: '#64748b',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 12,
+                        displayColors: true,
+                        callbacks: {
+                            label: function(context) {
+                                let val = context.parsed.y;
+                                if (key === 'spend' || key === 'cpc' || key === 'cpm') {
+                                    return label + ': Rp ' + new Intl.NumberFormat('id-ID').format(val);
+                                } else if (key === 'ctr' || key === 'conversionRate') {
+                                    return label + ': ' + val.toFixed(2) + '%';
+                                } else if (key === 'roas') {
+                                    return label + ': ' + val.toFixed(1) + 'x';
+                                }
+                                return label + ': ' + new Intl.NumberFormat('id-ID').format(val);
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        grid: { display: false },
+                        ticks: { color: '#94a3b8', font: { size: 10, weight: '600' } }
+                    },
+                    y: {
+                        display: false
+                    }
+                }
+            }
+        });
+    }
+}
+
+function hexToRgb(hex) {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+    return result ? {
+        r: parseInt(result[1], 16),
+        g: parseInt(result[2], 16),
+        b: parseInt(result[3], 16)
+    } : {r: 0, g: 0, b: 0};
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    switchChartMetric('spend', 'Total Spend', '#3b82f6');
 });
 </script>
 @endpush
@@ -219,7 +292,7 @@ document.addEventListener('DOMContentLoaded', function() {
             <h3 class="text-base font-bold text-slate-800">Campaign Performance</h3>
             <p class="text-xs text-slate-400 mt-0.5">All campaigns for {{ ucfirst($platform) }}</p>
         </div>
-        <a href="{{ route('reports.index', ['platform' => $platform]) }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90" style="background: linear-gradient(135deg,#6366f1,#8b5cf6);">
+        <a href="{{ route('reports.index', ['platform' => $platform]) }}" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white transition hover:opacity-90" style="background: linear-gradient(135deg,#3b82f6,#2563eb);">
             <i class="fa-solid fa-chart-bar text-xs"></i> View Full Report
         </a>
     </div>
@@ -274,7 +347,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['impressions']) }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['frequency'], 2) }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['clicks']) }}</td>
-                    <td class="px-6 py-4 text-right text-sm font-semibold" style="color:#3b82f6;">{{ number_format($campaign['ctr'], 2) }}%</td>
+                    <td class="px-6 py-4 text-right text-sm font-semibold" style="color:#2563eb;">{{ number_format($campaign['ctr'], 2) }}%</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">Rp {{ number_format($campaign['cpm'] ?? 0, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">Rp {{ number_format($campaign['cpc'], 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</td>
@@ -294,29 +367,5 @@ document.addEventListener('DOMContentLoaded', function() {
         <p class="text-slate-400 font-medium">No campaigns found for this platform</p>
     </div>
     @endif
-</div>
-
-<!-- Platform Tips -->
-<div class="mt-5 fade-up rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-    <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
-    <div class="flex items-start gap-4">
-        <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#f59e0b,#f97316); box-shadow:0 4px 12px rgba(245,158,11,0.3);">
-            <i class="fa-solid fa-lightbulb text-white"></i>
-        </div>
-        <div>
-            <h4 class="font-bold text-slate-800 mb-1">{{ ucfirst($platform) }} Ads Tips</h4>
-            @switch($platform)
-                @case('google')
-                    <p class="text-sm text-slate-500">Optimalkan Quality Score dengan meningkatkan relevansi iklan dan pengalaman landing page. Gunakan responsive search ads untuk jangkauan yang lebih luas.</p>
-                    @break
-                @case('meta')
-                    <p class="text-sm text-slate-500">Gunakan Carousel ads untuk menampilkan berbagai produk sekaligus. Uji berbagai format kreatif dan targetkan lookalike audiences untuk hasil terbaik.</p>
-                    @break
-                @case('tiktok')
-                    <p class="text-sm text-slate-500">Buat konten autentik yang relevan dengan audiens muda. Manfaatkan trending sounds dan hashtag populer untuk meningkatkan visibilitas iklan Anda.</p>
-                    @break
-            @endswitch
-        </div>
-    </div>
 </div>
 @endsection

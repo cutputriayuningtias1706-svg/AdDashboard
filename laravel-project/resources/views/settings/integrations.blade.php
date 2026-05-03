@@ -27,7 +27,7 @@
         <a href="{{ route('settings.password') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap">
             Ubah Password
         </a>
-        <a href="{{ route('settings.integrations') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 whitespace-nowrap">
+        <a href="{{ route('settings.integrations') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600 whitespace-nowrap">
             API & Integrasi
         </a>
     </div>
@@ -49,8 +49,8 @@
                     <div class="flex items-center">
                         <div class="w-12 h-12 rounded-xl flex items-center justify-center mr-4 
                             @if($key == 'google') bg-blue-50 text-blue-600 
-                            @elseif($key == 'meta') bg-indigo-50 text-indigo-600 
-                            @else bg-pink-50 text-pink-600 @endif">
+                            @elseif($key == 'meta') bg-blue-50 text-blue-600 
+                            @else bg-slate-50 text-slate-600 @endif">
                             @if($key == 'google')
                                 <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.92 3.36-2.12 4.52-1.2 1.2-2.88 2.2-5.72 2.2-4.6 0-8.32-3.72-8.32-8.32s3.72-8.32 8.32-8.32c2.48 0 4.28.96 5.64 2.28l2.32-2.32C18.52 2.28 15.8 1 12.48 1 6.08 1 1 6.08 1 12.48S6.08 23.96 12.48 23.96c3.48 0 6.12-1.12 8.16-3.24 2.08-2.08 2.72-5.04 2.72-7.36 0-.72-.04-1.4-.12-2.04h-10.76z"/></svg>
                             @elseif($key == 'meta')
@@ -84,7 +84,7 @@
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">API Access Token / Key</label>
                             <div class="relative">
-                                <input type="password" name="api_key" value="{{ $platform['api_key'] }}" class="w-full pl-4 pr-10 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="Masukkan API Key">
+                                <input type="password" name="api_key" value="{{ $platform['api_key'] }}" class="w-full pl-4 pr-10 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="Masukkan API Key">
                                 <button type="button" class="absolute right-3 top-3 text-gray-400 hover:text-gray-600">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/></svg>
                                 </button>
@@ -92,7 +92,7 @@
                         </div>
                         <div class="space-y-2">
                             <label class="text-sm font-semibold text-gray-700">Client ID / App ID</label>
-                            <input type="text" name="app_id" value="{{ $platform['client_id'] ?? $platform['app_id'] ?? '' }}" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="Masukkan ID Aplikasi">
+                            <input type="text" name="app_id" value="{{ $platform['client_id'] ?? $platform['app_id'] ?? '' }}" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="Masukkan ID Aplikasi">
                         </div>
                     </div>
 

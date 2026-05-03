@@ -15,35 +15,72 @@
         <div class="shimmer-item h-64"></div>
     </div>
 @endsection
-@section('page-title', 'Dashboard Overview')
+@section('page-title', '')
 
 @section('content')
+@php
+    $hour = now()->timezone('Asia/Jakarta')->hour;
+    if ($hour >= 5 && $hour < 12) {
+        $greeting = 'Selamat Pagi';
+        $greetingIcon = 'fa-sun';
+    } elseif ($hour >= 12 && $hour < 15) {
+        $greeting = 'Selamat Siang';
+        $greetingIcon = 'fa-cloud-sun';
+    } elseif ($hour >= 15 && $hour < 19) {
+        $greeting = 'Selamat Sore';
+        $greetingIcon = 'fa-cloud-moon';
+    } else {
+        $greeting = 'Selamat Malam';
+        $greetingIcon = 'fa-moon';
+    }
+@endphp
+
+<!-- Welcome Greeting Card -->
+<div class="fade-up mb-6">
+    <div class="bg-gradient-to-r from-blue-600 to-blue-500 rounded-3xl p-7 shadow-lg shadow-blue-100 flex items-center gap-6 relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+        <div class="w-16 h-16 rounded-2xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white text-3xl flex-shrink-0 border border-white/20">
+            <i class="fa-solid {{ $greetingIcon }}"></i>
+        </div>
+        <div class="flex-1">
+            <h2 id="greeting-text" class="text-2xl font-bold text-white transition-all duration-700 ease-in-out" 
+                data-name="{{ session('auth_user')['name'] ?? 'Admin' }}"
+                data-greeting="{{ $greeting }}">
+                {{ $greeting }},
+            </h2>
+            <p class="text-blue-50 text-sm font-medium mt-1 opacity-90">PT Indosaku Digital Teknologi</p>
+        </div>
+        <div class="hidden md:block text-right">
+            <p class="text-[10px] font-bold text-blue-100 uppercase tracking-widest opacity-80">Waktu Indonesia Barat</p>
+            <p class="text-lg font-bold text-white mt-1">{{ now()->timezone('Asia/Jakarta')->format('H:i') }} WIB</p>
+        </div>
+    </div>
+</div>
+
 <!-- Overview Cards (Balance & Disbursement) -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 fade-up">
     <!-- Card Total Saldo -->
-    <div class="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl p-6 shadow-lg shadow-indigo-200 text-white flex items-center justify-between relative overflow-hidden">
-        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-blue-300 transition-all">
         <div class="relative z-10">
-            <p class="text-indigo-100 text-sm font-semibold mb-1 uppercase tracking-wider">Total Saldo Saat Ini</p>
-            <h2 class="text-3xl font-bold tracking-tight mb-2">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
-            <button onclick="document.getElementById('topupModal').classList.remove('hidden')" class="inline-flex items-center gap-2 px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-50 rounded-lg font-bold text-xs transition shadow-sm">
+            <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Saldo Saat Ini</p>
+            <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
+            <button onclick="document.getElementById('topupModal').classList.remove('hidden')" class="inline-flex items-center gap-2 px-4 py-2 bg-slate-900 text-white hover:bg-slate-800 rounded-xl font-bold text-xs transition shadow-sm">
                 <i class="fa-solid fa-plus"></i> Top-up Saldo
             </button>
         </div>
-        <div class="relative z-10 opacity-80">
+        <div class="relative z-10 text-slate-100 group-hover:text-blue-50 transition-colors">
             <i class="fa-solid fa-wallet text-6xl"></i>
         </div>
     </div>
 
-    <!-- Card Total Disbursement -->
-    <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 shadow-lg shadow-teal-200 text-white flex items-center justify-between relative overflow-hidden">
-        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+    <!-- Card Total Spending -->
+    <div class="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-emerald-300 transition-all">
         <div class="relative z-10">
-            <p class="text-emerald-100 text-sm font-semibold mb-1 uppercase tracking-wider">Total Disbursement</p>
-            <h2 class="text-3xl font-bold tracking-tight mb-2">Rp {{ number_format($totalDisbursement, 0, ',', '.') }}</h2>
-            <p class="text-emerald-50 text-xs bg-white/20 inline-block px-3 py-1 rounded-full backdrop-blur-sm border border-white/20">Data real Juli, Agustus, September 2025</p>
+            <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Spending</p>
+            <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalDisbursement, 0, ',', '.') }}</h2>
+            <p class="text-slate-500 text-[10px] bg-slate-100 inline-block px-3 py-1.5 rounded-lg font-semibold">Real data: Jul - Sep 2025</p>
         </div>
-        <div class="relative z-10 opacity-80">
+        <div class="relative z-10 text-slate-100 group-hover:text-emerald-50 transition-colors">
             <i class="fa-solid fa-bullhorn text-6xl"></i>
         </div>
     </div>
@@ -76,86 +113,84 @@
             <h3 class="text-base font-bold text-slate-800">Spending Iklan (Juli–September 2025)</h3>
             <p class="text-sm text-slate-400 mt-1">Ringkasan 3 bulan untuk membantu pemantauan performa.</p>
         </div>
-        <div class="px-5 py-4 rounded-2xl text-white" style="background:linear-gradient(135deg,#6366f1,#8b5cf6); box-shadow:0 6px 20px rgba(99,102,241,0.35);">
-            <p class="text-xs uppercase tracking-widest" style="color:rgba(199,210,254,0.85);">Total 3 Bulan</p>
+        <div class="px-5 py-4 rounded-2xl text-slate-800 border border-slate-200 bg-slate-50">
+            <p class="text-xs uppercase tracking-widest text-slate-400 font-bold">Total 3 Bulan</p>
             <p class="text-xl xl:text-2xl font-bold mt-1 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[3]['value'], 0, ',', '.') }}</p>
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#eff6ff,#fff); border:1px solid #dbeafe;">
-            <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#3b82f6,#6366f1);"></div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[0]['month'] }}</p>
+        <div class="card-hover p-5 rounded-2xl relative overflow-hidden bg-white border border-slate-100 shadow-sm">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[0]['month'] }}</p>
             <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[0]['value'], 0, ',', '.') }}</p>
         </div>
-        <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#f5f3ff,#fff); border:1px solid #ede9fe;">
-            <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#a855f7);"></div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[1]['month'] }}</p>
+        <div class="card-hover p-5 rounded-2xl relative overflow-hidden bg-white border border-slate-100 shadow-sm">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[1]['month'] }}</p>
             <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[1]['value'], 0, ',', '.') }}</p>
         </div>
-        <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#ecfdf5,#fff); border:1px solid #d1fae5;">
-            <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#10b981,#34d399);"></div>
-            <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[2]['month'] }}</p>
+        <div class="card-hover p-5 rounded-2xl relative overflow-hidden bg-white border border-slate-100 shadow-sm">
+            <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
+            <p class="text-[10px] font-bold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[2]['month'] }}</p>
             <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[2]['value'], 0, ',', '.') }}</p>
         </div>
     </div>
 </div>
 
 @if(!$selectedMonth)
-<div class="fade-up rounded-2xl p-10 text-center mb-5" style="background:linear-gradient(135deg,#f8faff,#f3f4f6); border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.05);">
-    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:linear-gradient(135deg,#6366f1,#8b5cf6); box-shadow:0 6px 20px rgba(99,102,241,0.3);">
-        <i class="fa-solid fa-calendar text-white text-2xl"></i>
+<div class="fade-up rounded-3xl p-10 text-center mb-5 bg-white border border-slate-200 shadow-sm">
+    <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-50 text-slate-400 border border-slate-100">
+        <i class="fa-solid fa-calendar text-2xl"></i>
     </div>
     <h3 class="text-lg font-bold text-slate-800 mb-2">Pilih Periode Waktu</h3>
-    <p class="text-slate-400 max-w-xl mx-auto text-sm">Silakan pilih bulan untuk melihat data iklan yang lebih lengkap dan performa kampanye secara real-time.</p>
+    <p class="text-slate-400 max-w-xl mx-auto text-sm font-medium">Silakan pilih bulan untuk melihat data iklan yang lebih lengkap dan performa kampanye secara real-time.</p>
 </div>
 @else
 <!-- Stats Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
     <!-- Total Spend -->
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#3b82f6,#6366f1);"></div>
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Spend</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Total Spend</p>
                 <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">Rp {{ number_format($totalSpend, 0, ',', '.') }}</p>
-                <p class="text-xs mt-2 font-semibold" style="color:#10b981;"><i class="fa-solid fa-arrow-trend-up mr-1"></i>{{ number_format($spendChange, 0) }}% vs yesterday</p>
+                <p class="text-[10px] mt-2 font-bold px-2 py-0.5 bg-emerald-50 text-emerald-600 rounded-md inline-block">
+                    <i class="fa-solid fa-arrow-trend-up mr-1"></i>{{ number_format($spendChange, 0) }}%
+                </p>
             </div>
-
         </div>
     </div>
     <!-- Total Impressions -->
-    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#a855f7);"></div>
+    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Impressions</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Total Impressions</p>
                 <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalImpressions, 0) }}</p>
             </div>
-
         </div>
     </div>
     <!-- Total Clicks -->
-    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#10b981,#34d399);"></div>
+    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-400"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Clicks</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Total Clicks</p>
                 <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalClicks, 0) }}</p>
-                <p class="text-xs mt-2 font-semibold text-blue-500">CTR: {{ number_format($ctr, 1) }}%</p>
+                <p class="text-[10px] mt-2 font-bold px-2 py-0.5 bg-blue-50 text-blue-600 rounded-md inline-block">CTR: {{ number_format($ctr, 1) }}%</p>
             </div>
-
         </div>
     </div>
     <!-- Total Conversions -->
-    <div class="card-hover fade-up-4 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
+    <div class="card-hover fade-up-4 rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
-                <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Conversions</p>
+                <p class="text-xs font-bold uppercase tracking-widest text-slate-400 mb-2">Total Conversions</p>
                 <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalConversions, 0) }}</p>
-                <p class="text-xs mt-2 text-slate-400 font-medium">CPC: Rp {{ number_format($cpc, 0, ',', '.') }}</p>
+                <p class="text-[10px] mt-2 font-bold px-2 py-0.5 bg-slate-100 text-slate-600 rounded-md inline-block">CPC: Rp {{ number_format($cpc, 0, ',', '.') }}</p>
             </div>
-
         </div>
     </div>
 </div>
@@ -163,14 +198,14 @@
 <!-- Optimization Score & Top Campaign Performance -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
 <!-- Optimization Score with Tips Slider -->
-    <div class="card-hover fade-up relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#6366f1,#8b5cf6);"></div>
+    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-600"></div>
         <div class="flex items-center justify-between mb-5">
             <div>
                 <h3 class="text-base font-semibold text-slate-800">Optimization Score</h3>
                 <p class="text-sm text-slate-500 mt-1">Nilai efisiensi kampanye berdasarkan metrik utama.</p>
             </div>
-            <button id="tipsPrevBtn" class="w-10 h-10 rounded-full bg-slate-100 hover:bg-slate-200 flex items-center justify-center transition shadow-sm">
+            <button id="tipsPrevBtn" class="w-10 h-10 rounded-full bg-slate-50 hover:bg-slate-100 flex items-center justify-center transition shadow-sm border border-slate-100">
                 <i class="fa-solid fa-chevron-left text-slate-600 text-sm"></i>
             </button>
         </div>
@@ -238,8 +273,8 @@
     </div>
 
     <!-- Top Campaign Performance -->
-    <div class="card-hover fade-up-2 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#ec4899,#8b5cf6);"></div>
+    <div class="card-hover fade-up-2 relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-base font-bold text-slate-800">Top Campaign Performance</h3>
         </div>
@@ -268,7 +303,7 @@
                             <span class="capitalize text-sm inline-flex items-center gap-2 text-slate-600">
                                 @switch($campaign['platform'])
                                     @case('google') <i class="fa-brands fa-google text-blue-500"></i> @break
-                                    @case('meta') <i class="fa-brands fa-facebook text-indigo-500"></i> @break
+                                    @case('meta') <i class="fa-brands fa-facebook text-blue-600"></i> @break
                                     @case('tiktok') <i class="fa-brands fa-tiktok text-pink-500"></i> @break
                                 @endswitch
                                 {{ $campaign['platform'] }}
@@ -278,7 +313,7 @@
                         <td class="py-3 px-4 text-right text-sm text-slate-600">{{ number_format($campaign['impressions'] ?? 0) }}</td>
                         <td class="py-3 px-4 text-right text-sm text-slate-600">1.20</td>
                         <td class="py-3 px-4 text-right text-sm text-slate-600">{{ number_format($campaign['clicks'] ?? 0) }}</td>
-                        <td class="py-3 px-4 text-right text-sm font-semibold" style="color:#6366f1;">{{ number_format($campaign['ctr'] ?? 0, 1) }}%</td>
+                        <td class="py-3 px-4 text-right text-sm font-semibold text-blue-600">{{ number_format($campaign['ctr'] ?? 0, 1) }}%</td>
                         <td class="py-3 px-4 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'] ?? 0, 0, ',', '.') }}</td>
                     </tr>
                     @endforeach
@@ -291,8 +326,8 @@
 <!-- Device Summary & Performance Charts -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
     <!-- Devices Pie Chart -->
-    <div class="card-hover fade-up relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#3b82f6,#6366f1);"></div>
+    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <h3 class="text-base font-bold text-slate-800 mb-3">Top Devices</h3>
         <div class="flex justify-center mb-3" style="height:140px;">
             <canvas id="devicePieChart" data-devices='{{ json_encode($deviceStats) }}'></canvas>
@@ -310,8 +345,8 @@
         </div>
     </div>
     <!-- Gender & Age Audience -->
-    <div class="card-hover fade-up-2 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#ec4899);"></div>
+    <div class="card-hover fade-up-2 relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between mb-5">
             <div>
                 <h3 class="text-base font-bold text-slate-800">Audiens</h3>
@@ -319,7 +354,7 @@
             </div>
             <div class="flex items-center gap-3 text-xs font-semibold">
                 <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#3b82f6;"></span>Pria 58%</span>
-                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#ec4899;"></span>Wanita 42%</span>
+                <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#64748b;"></span>Wanita 42%</span>
             </div>
         </div>
         
@@ -335,8 +370,8 @@
             @php
                 $total = $ag['male'] + $ag['female'];
                 $pct = $maxAgeVal > 0 ? round(($total / $maxAgeVal) * 100) : 0;
-                $colors = ['#6366f1','#3b82f6','#8b5cf6','#ec4899','#f43f5e'];
-                $bgColors = ['#eef2ff','#eff6ff','#f5f3ff','#fdf2f8','#fff1f2'];
+                $colors = ['#3b82f6','#1e293b','#2563eb','#475569','#64748b'];
+                $bgColors = ['#eff6ff','#f8fafc','#f1f5f9','#f1f5f9','#f8fafc'];
                 $col = $colors[$i % count($colors)];
                 $bg = $bgColors[$i % count($bgColors)];
             @endphp
@@ -356,8 +391,8 @@
         </div>
     </div>
     <!-- Top 5 Location Indonesia -->
-    <div class="card-hover fade-up-3 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#10b981,#34d399);"></div>
+    <div class="card-hover fade-up-3 relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
         <div class="flex items-center justify-between mb-5">
             <div>
                 <h3 class="text-base font-bold text-slate-800">Top Lokasi Iklan</h3>
@@ -370,10 +405,10 @@
             @foreach($locationStats as $i => $loc)
             @php
                 $pct = $maxLocationClicks > 0 ? round(($loc['clicks']/$maxLocationClicks)*100) : 0;
-                $colors = ['#6366f1','#3b82f6','#10b981','#f59e0b','#ec4899'];
-                $bgColors = ['#eef2ff','#eff6ff','#ecfdf5','#fffbeb','#fdf4ff'];
-                $col = $colors[$i] ?? '#6366f1';
-                $bg  = $bgColors[$i] ?? '#eef2ff';
+                $colors = ['#2563eb','#1e293b','#10b981','#f59e0b','#334155'];
+                $bgColors = ['#eff6ff','#f8fafc','#ecfdf5','#fffbeb','#f1f5f9'];
+                $col = $colors[$i] ?? '#2563eb';
+                $bg  = $bgColors[$i] ?? '#eff6ff';
             @endphp
             <div>
                 <div class="flex items-center justify-between mb-1.5">
@@ -401,24 +436,24 @@
 <!-- Active Campaigns & Recent Invoices -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
     <!-- Recent Campaigns -->
-    <div class="card-hover fade-up relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#6366f1,#3b82f6);"></div>
+    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-base font-bold text-slate-800">Recent Campaigns</h3>
-            <a href="{{ route('reports.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#eff6ff; color:#3b82f6;">View All</a>
+            <a href="{{ route('reports.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#f1f5f9; color:#334155;">View All</a>
         </div>
         <div class="space-y-2.5">
             @foreach($topCampaigns->take(5) as $i => $campaign)
             <div class="flex items-center justify-between p-3 rounded-xl transition" style="background:#f8fafc; border:1px solid #f1f5f9;" onmouseover="this.style.background='#fff';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'" onmouseout="this.style.background='#f8fafc';this.style.boxShadow='none'">
                 <div class="flex items-center min-w-0 gap-3">
-                    <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0" style="background:#eef2ff;color:#6366f1;">{{ $i+1 }}</span>
+                    <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0" style="background:#f1f5f9;color:#334155;">{{ $i+1 }}</span>
                     <div class="min-w-0">
                         <p class="text-sm font-semibold text-slate-700 truncate" title="{{ $campaign['name'] }}">{{ $campaign['name'] }}</p>
                         <div class="flex items-center gap-2 mt-0.5">
                             @switch($campaign['platform'])
                                 @case('google') <i class="fa-brands fa-google text-blue-500 text-[10px]"></i> @break
-                                @case('meta') <i class="fa-brands fa-facebook text-indigo-500 text-[10px]"></i> @break
-                                @case('tiktok') <i class="fa-brands fa-tiktok text-pink-500 text-[10px]"></i> @break
+                                @case('meta') <i class="fa-brands fa-facebook text-blue-600 text-[10px]"></i> @break
+                                @case('tiktok') <i class="fa-brands fa-tiktok text-slate-800 text-[10px]"></i> @break
                             @endswitch
                             <span class="text-[10px] text-slate-400 capitalize">{{ $campaign['platform'] }}</span>
                         </div>
@@ -426,26 +461,26 @@
                 </div>
                 <div class="text-right flex-shrink-0 ml-2">
                     <p class="text-xs font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</p>
-                    <p class="text-[10px] font-semibold" style="color:#6366f1;">CTR {{ number_format($campaign['ctr'],1) }}%</p>
+                    <p class="text-[10px] font-bold text-blue-600">CTR {{ number_format($campaign['ctr'],1) }}%</p>
                 </div>
             </div>
             @endforeach
         </div>
     </div>
     <!-- Recent Invoices (Mock) -->
-    <div class="card-hover fade-up-2 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-        <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#ec4899);"></div>
+    <div class="card-hover fade-up-2 relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+        <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-base font-bold text-slate-800">Recent Invoices</h3>
-            <a href="{{ route('invoices.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#f5f3ff; color:#8b5cf6;">View All</a>
+            <a href="{{ route('invoices.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#f1f5f9; color:#334155;">View All</a>
         </div>
         <div class="space-y-2.5">
             @forelse($mockRecentInvoices as $inv)
             <div class="flex items-center justify-between p-3 rounded-xl transition" style="background:#f8fafc; border:1px solid #f1f5f9;" onmouseover="this.style.background='#fff';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'" onmouseout="this.style.background='#f8fafc';this.style.boxShadow='none'">
                 <div class="flex items-center gap-3">
                     @if($inv['platform']=='google') <i class="fa-brands fa-google text-blue-500 text-sm"></i>
-                    @elseif($inv['platform']=='meta') <i class="fa-brands fa-facebook text-indigo-500 text-sm"></i>
-                    @else <i class="fa-brands fa-tiktok text-pink-500 text-sm"></i>
+                    @elseif($inv['platform']=='meta') <i class="fa-brands fa-facebook text-blue-600 text-sm"></i>
+                    @else <i class="fa-brands fa-tiktok text-slate-800 text-sm"></i>
                     @endif
                     <div>
                         <p class="text-xs font-bold text-slate-700">{{ $inv['invoice_number'] }}</p>
@@ -455,11 +490,11 @@
                 <div class="text-right">
                     <p class="text-xs font-bold text-slate-800">Rp {{ number_format($inv['amount'], 0, ',', '.') }}</p>
                     @if($inv['status']=='paid')
-                        <span class="text-[10px] font-semibold" style="color:#10b981;">Paid</span>
+                        <span class="text-[10px] font-bold text-emerald-600">Paid</span>
                     @elseif($inv['status']=='pending')
-                        <span class="text-[10px] font-semibold" style="color:#d97706;">Pending</span>
+                        <span class="text-[10px] font-bold text-amber-600">Pending</span>
                     @else
-                        <span class="text-[10px] font-semibold text-slate-400">Draft</span>
+                        <span class="text-[10px] font-bold text-slate-400">Draft</span>
                     @endif
                 </div>
             </div>
@@ -541,6 +576,20 @@ document.addEventListener('DOMContentLoaded', function() {
         currentTip = (currentTip - 1 + totalTips) % totalTips;
         showTip(currentTip);
     });
+
+    // Greeting Animation
+    const gText = document.getElementById('greeting-text');
+    if (gText) {
+        setTimeout(() => {
+            gText.style.opacity = '0';
+            gText.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                gText.innerText = 'Selamat Datang,';
+                gText.style.opacity = '1';
+                gText.style.transform = 'translateY(0)';
+            }, 600);
+        }, 3000);
+    }
 });
 </script>
 @endpush
@@ -555,7 +604,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
-                    <i class="fa-solid fa-wallet text-indigo-500"></i> Top-up Saldo Cepat
+                    <i class="fa-solid fa-wallet text-blue-500"></i> Top-up Saldo Cepat
                 </h3>
                 <button type="button" class="text-slate-400 hover:text-red-500 transition" onclick="document.getElementById('topupModal').classList.add('hidden')">
                     <i class="fa-solid fa-xmark text-xl"></i>
@@ -569,7 +618,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 <div class="space-y-4">
                     <div>
                         <label class="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Pilih Akun Iklan <span class="text-red-500">*</span></label>
-                        <select name="ad_account_id" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors" required>
+                        <select name="ad_account_id" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors" required>
                             <option value="">-- Pilih Akun --</option>
                             @foreach($adAccounts as $account)
                                 <option value="{{ $account->id }}">{{ ucfirst($account->platform) }} - {{ $account->account_name }} (Saldo: Rp {{ number_format($account->balance, 0, ',', '.') }})</option>
@@ -581,13 +630,13 @@ document.addEventListener('DOMContentLoaded', function() {
                         <label class="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Nominal Top-up (Rp) <span class="text-red-500">*</span></label>
                         <div class="relative">
                             <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">Rp</span>
-                            <input type="number" name="amount" min="10000" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors" placeholder="Contoh: 1000000" required>
+                            <input type="number" name="amount" min="10000" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-semibold text-slate-800 focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-colors" placeholder="Contoh: 1000000" required>
                         </div>
                         <p class="text-[10px] text-slate-500 mt-1.5">Minimal top-up Rp 10.000</p>
                     </div>
 
                     <div class="pt-4 border-t border-slate-100">
-                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded-xl font-bold shadow-md shadow-indigo-200 transition-transform transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
+                        <button type="submit" class="w-full py-3.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl font-bold shadow-md shadow-slate-200 transition-transform transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
                             <i class="fa-solid fa-bolt"></i> Proses Top-up Sekarang
                         </button>
                     </div>

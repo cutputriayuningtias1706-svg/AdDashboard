@@ -550,6 +550,14 @@ class DashboardController extends Controller
                     'thumbnail_url' => $m['thumbnail_url'],
                 ];
             });
+            
+            if (request()->has('search') && request()->get('search')) {
+                $s = strtolower(request()->get('search'));
+                $campaigns = $campaigns->filter(function($c) use ($s) {
+                    return str_contains(strtolower($c['name']), $s) || 
+                           str_contains(strtolower($c['status']), $s);
+                });
+            }
 
             $totalSpend = (int) $campaigns->sum('spend');
             $totalImpressions = (int) $campaigns->sum('impressions');
@@ -580,6 +588,12 @@ class DashboardController extends Controller
                     'impressions' => $m['impressions'],
                     'clicks' => $m['clicks'],
                     'conversions' => $m['conversions'],
+                    'ctr' => $m['ctr'],
+                    'cpc' => $m['cpc'],
+                    'cpm' => $m['cpm'],
+                    'conversionRate' => $m['conversionRate'],
+                    'frequency' => $m['frequency'],
+                    'roas' => $totalSpend > 0 ? ($m['conversions'] * 50000) / max($m['spend'], 1) : 0,
                 ];
             }
 

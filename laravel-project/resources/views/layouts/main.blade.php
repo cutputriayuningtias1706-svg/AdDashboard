@@ -12,22 +12,73 @@
         * { font-family:'Inter',sans-serif; }
 
         /* ── Sidebar ── */
-        .sidebar { background:#fff; border-right:1px solid #e8ecf0; }
+        .sidebar { 
+            background:#fff; border-right:1px solid #e8ecf0; 
+            width: 80px; 
+            transition: width 0.3s cubic-bezier(0.4, 0, 0.2, 1); 
+            overflow: hidden;
+            white-space: nowrap;
+            z-index: 1000;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+        .sidebar:hover { width: 260px; }
+
         .nav-item {
-            display:flex; align-items:center; gap:10px;
-            padding:9px 12px; border-radius:10px;
+            display:flex; align-items:center; 
+            height: 46px;
+            padding: 0;
+            margin: 2px 10px;
+            border-radius: 12px;
             font-size:.875rem; font-weight:500; color:#64748b;
-            transition:all .18s; cursor:pointer; position:relative;
+            transition:all .2s; cursor:pointer; position:relative;
+            overflow: hidden;
         }
-        .nav-item:hover { background:#f1f5f9; color:#334155; }
+        .nav-item i { 
+            width: 60px; 
+            min-width: 60px;
+            height: 46px;
+            display: flex; 
+            align-items: center;
+            justify-content: center; 
+            font-size: 1.15rem; 
+            transition: color 0.2s;
+        }
+        .nav-item span { 
+            opacity: 0; 
+            transform: translateX(-10px);
+            transition: opacity 0.2s, transform 0.2s; 
+            pointer-events: none;
+        }
+        .sidebar:hover .nav-item span { 
+            opacity: 1; 
+            transform: translateX(0);
+            pointer-events: auto;
+        }
+
+        .nav-item:hover { background:#f8fafc; color:#2563eb; }
         .nav-item.active {
-            background:linear-gradient(135deg,#eef2ff,#f5f3ff);
-            color:#4f46e5; font-weight:600;
+            background: #f1f5f9;
+            color:#2563eb; font-weight: 600;
         }
-        .nav-item.active::before {
-            content:''; position:absolute; left:0; top:50%;
-            transform:translateY(-50%);
-            width:3px; height:60%; background:#6366f1; border-radius:0 3px 3px 0;
+        .nav-item.active i { color: #2563eb; }
+        .nav-item.active::before { 
+            content:''; position:absolute; left:0; top:25%;
+            width:4px; height:50%; background:#2563eb; border-radius:0 4px 4px 0;
+        }
+
+        .logo-text, .section-label, .user-info-text { 
+            opacity: 0; 
+            transform: translateX(-10px);
+            transition: opacity 0.2s, transform 0.2s; 
+            pointer-events: none;
+        }
+        .sidebar:hover .logo-text, .sidebar:hover .section-label, .sidebar:hover .user-info-text { 
+            opacity: 1; 
+            transform: translateX(0);
+            pointer-events: auto;
         }
 
         /* ── Cards ── */
@@ -36,7 +87,7 @@
 
         /* ── Glow ── */
         .icon-glow-blue   { box-shadow:0 4px 16px rgba(59,130,246,.3); }
-        .icon-glow-purple { box-shadow:0 4px 16px rgba(99,102,241,.3); }
+        .icon-glow-blue { box-shadow:0 4px 16px rgba(37,99,235,.3); }
         .icon-glow-green  { box-shadow:0 4px 16px rgba(16,185,129,.3); }
         .icon-glow-amber  { box-shadow:0 4px 16px rgba(245,158,11,.3); }
 
@@ -122,6 +173,71 @@
         ::-webkit-scrollbar { width:4px; height:4px; }
         ::-webkit-scrollbar-track { background:transparent; }
         ::-webkit-scrollbar-thumb { background:#cbd5e1; border-radius:4px; }
+
+        /* ── Custom Pagination ── */
+        .pagination-container nav div:first-child { display: none; } /* Hide mobile pagination summary if default */
+        .pagination-container nav div:last-child { width: 100%; display: flex; justify-content: center; }
+        
+        .pagination-container a, .pagination-container span {
+            display: inline-flex; align-items: center; justify-content: center;
+            min-width: 36px; height: 36px; padding: 0 12px;
+            margin: 0 4px; border-radius: 10px; font-size: 0.875rem; font-weight: 600;
+            transition: all 0.2s; border: 1px solid #e2e8f0; background: #fff; color: #64748b;
+        }
+        .pagination-container a:hover {
+            border-color: #3b82f6; color: #2563eb; background: #eff6ff;
+            transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.1);
+        }
+        .pagination-container .active-page {
+            background: linear-gradient(135deg, #3b82f6, #2563eb);
+            color: #fff; border-color: transparent;
+            box-shadow: 0 4px 12px rgba(37,99,235,0.3);
+        }
+
+        /* ── Pencarian Input ── */
+        .deep-search-container {
+            position: relative; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px;
+            display: flex; items-center: center; overflow: hidden;
+        }
+        .deep-search-container:focus-within {
+            background: #fff; border-color: #3b82f6; 
+            box-shadow: 0 0 0 4px rgba(59,130,246,0.1), 0 8px 20px rgba(0,0,0,0.05);
+            transform: translateY(-1px);
+        }
+        .deep-search-input {
+            background: transparent; border: none; outline: none;
+            padding: 10px 16px; width: 100%; font-size: 0.875rem;
+            color: #1e293b;
+        }
+        .deep-search-input::placeholder { color: #94a3b8; font-weight: 500; }
+        .deep-search-icon {
+            position: absolute; left: 14px; color: #94a3b8; font-size: 0.875rem;
+            transition: color 0.2s;
+        }
+        .deep-search-container:focus-within .deep-search-icon { color: #2563eb; }
+        /* ── Metric Card Interactions ── */
+        .metric-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .metric-card:hover {
+            transform: translateY(-4px);
+            background: #fff !important;
+        }
+        .metric-card-blue:hover { box-shadow: 0 10px 25px -5px rgba(59,130,246,0.15), 0 8px 10px -6px rgba(59,130,246,0.1); border-color: rgba(59,130,246,0.3) !important; }
+        .metric-card-emerald:hover { box-shadow: 0 10px 25px -5px rgba(16,185,129,0.15), 0 8px 10px -6px rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.3) !important; }
+        .metric-card-amber:hover { box-shadow: 0 10px 25px -5px rgba(245,158,11,0.15), 0 8px 10px -6px rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3) !important; }
+        .metric-card-pink:hover { box-shadow: 0 10px 25px -5px rgba(236,72,153,0.15), 0 8px 10px -6px rgba(236,72,153,0.1); border-color: rgba(236,72,153,0.3) !important; }
+        .metric-card-purple:hover { box-shadow: 0 10px 25px -5px rgba(139,92,246,0.15), 0 8px 10px -6px rgba(139,92,246,0.1); border-color: rgba(139,92,246,0.3) !important; }
+        .active-metric-tab {
+            border-color: #3b82f6 !important;
+            background: #eff6ff !important;
+            box-shadow: 0 8px 20px -6px rgba(59,130,246,0.15) !important;
+            transform: translateY(-2px);
+        }
+        .active-metric-tab .metric-icon-container {
+            transform: scale(1.1);
+        }
     </style>
 </head>
 <body style="background:#f5f7fb; min-height:100vh;">
@@ -147,105 +263,107 @@
 <div class="flex h-screen overflow-hidden">
 
     <!-- ══════════ Sidebar ══════════ -->
-    <aside class="sidebar w-60 flex-shrink-0 flex flex-col h-screen overflow-y-auto">
+    <aside class="sidebar flex-shrink-0 flex flex-col">
 
         <!-- Logo -->
-        <div class="h-16 flex items-center px-5 border-b border-slate-100 flex-shrink-0">
-            <img src="{{ asset('images/addashboard-pro-icon.png') }}" alt="AdDashboard Pro Icon" class="h-8 w-auto mr-2.5">
-            <div>
-                <span class="font-bold text-slate-800 text-sm tracking-tight">AdDashboard <span class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-[10px] align-middle border border-indigo-100/50">Pro</span></span>
+        <div class="h-16 flex items-center px-4 border-b border-slate-100 flex-shrink-0 overflow-hidden">
+            <div class="w-11 flex justify-center flex-shrink-0">
+                <img src="{{ asset('images/addashboard-pro-icon.png') }}" alt="AdDashboard Pro Icon" class="h-8 w-auto">
+            </div>
+            <div class="logo-text ml-3">
+                <span class="font-bold text-slate-800 text-sm tracking-tight whitespace-nowrap">AdDashboard <span class="bg-blue-50 text-blue-600 px-1.5 py-0.5 rounded text-[10px] align-middle border border-blue-100/50">Pro</span></span>
             </div>
         </div>
 
         <!-- Nav -->
-        <nav class="flex-1 px-3 py-4 space-y-0.5">
+        <nav class="flex-1 px-0 py-4 space-y-0.5 overflow-hidden">
 
             <a href="{{ route('dashboard.index') }}"
                class="nav-item {{ request()->routeIs('dashboard.index') || request()->routeIs('dashboard') ? 'active' : '' }}">
-                <i class="fa-solid fa-house w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-house"></i>
                 <span>Dashboard</span>
             </a>
 
-            <div class="px-3 pt-5 pb-2">
-                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Platforms</p>
+            <div class="px-7 pt-5 pb-2 overflow-hidden">
+                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400 section-label">Platforms</p>
             </div>
 
             <a href="{{ route('dashboard.google', ['month' => request()->get('month')]) }}"
                class="nav-item {{ request()->routeIs('dashboard.google') ? 'active' : '' }}">
-                <i class="fa-brands fa-google w-4 text-center text-sm"></i>
+                <i class="fa-brands fa-google"></i>
                 <span>Google Ads</span>
             </a>
 
             <a href="{{ route('dashboard.meta', ['month' => request()->get('month')]) }}"
                class="nav-item {{ request()->routeIs('dashboard.meta') ? 'active' : '' }}">
-                <i class="fa-brands fa-facebook w-4 text-center text-sm"></i>
+                <i class="fa-brands fa-facebook"></i>
                 <span>Meta Ads</span>
             </a>
 
             <a href="{{ route('dashboard.tiktok', ['month' => request()->get('month')]) }}"
                class="nav-item {{ request()->routeIs('dashboard.tiktok') ? 'active' : '' }}">
-                <i class="fa-brands fa-tiktok w-4 text-center text-sm"></i>
+                <i class="fa-brands fa-tiktok"></i>
                 <span>TikTok Ads</span>
             </a>
 
-            <div class="px-3 pt-5 pb-2">
-                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Management</p>
+            <div class="px-5 pt-5 pb-2 overflow-hidden">
+                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400 section-label">Management</p>
             </div>
+
+            <a href="{{ route('reports.index') }}"
+               class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-chart-bar"></i>
+                <span>Reports</span>
+            </a>
 
             <a href="{{ route('campaigns.create') }}"
                class="nav-item {{ request()->routeIs('campaigns.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-bullhorn w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-bullhorn"></i>
                 <span>Pasang Iklan</span>
             </a>
 
             <a href="{{ route('contracts.index') }}"
                class="nav-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-handshake w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-handshake"></i>
                 <span>Kontrak Kerjasama</span>
-            </a>
-
-            <a href="{{ route('reports.index') }}"
-               class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-chart-bar w-4 text-center text-sm"></i>
-                <span>Reports</span>
             </a>
 
             <a href="{{ route('invoices.index') }}"
                class="nav-item {{ request()->routeIs('invoices.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-file-invoice w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-file-invoice"></i>
                 <span>Invoices</span>
             </a>
 
             <a href="{{ route('topup.index') }}"
                class="nav-item {{ request()->routeIs('topup.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-wallet w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-wallet"></i>
                 <span>Top-up</span>
             </a>
 
-            <div class="px-3 pt-5 pb-2">
-                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Personalization</p>
+            <div class="px-7 pt-5 pb-2 overflow-hidden">
+                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400 section-label">Personalization</p>
             </div>
 
             <a href="{{ route('settings.profile') }}"
                class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
-                <i class="fa-solid fa-gear w-4 text-center text-sm"></i>
+                <i class="fa-solid fa-gear"></i>
                 <span>Settings</span>
             </a>
         </nav>
 
         <!-- User + Logout -->
-        <div class="px-3 py-4 border-t border-slate-100 flex-shrink-0">
+        <div class="px-2 py-4 border-t border-slate-100 flex-shrink-0 overflow-hidden">
             @php $authUser = session('auth_user'); @endphp
-            <div class="flex items-center gap-3 p-3 rounded-xl" style="background:#f8fafc;">
-                <div class="w-8 h-8 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
-                     style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+            <div class="flex items-center gap-3 p-2 rounded-xl" style="background:#f1f5f9; border: 1px solid #e2e8f0;">
+                <div class="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold flex-shrink-0"
+                     style="background: #334155;">
                     {{ strtoupper(substr($authUser['name'] ?? 'A', 0, 1)) }}
                 </div>
-                <div class="flex-1 min-w-0">
+                <div class="flex-1 min-w-0 user-info-text">
                     <p class="text-xs font-semibold text-slate-700 truncate">{{ $authUser['name'] ?? 'Admin' }}</p>
                     <p class="text-[10px] text-slate-400">{{ $authUser['role'] ?? 'Admin' }}</p>
                 </div>
-                <form action="{{ route('logout') }}" method="POST">
+                <form action="{{ route('logout') }}" method="POST" class="user-info-text">
                     @csrf
                     <button type="submit" title="Logout"
                             class="w-7 h-7 rounded-lg flex items-center justify-center text-slate-400 hover:text-red-500 hover:bg-red-50 transition">
@@ -260,15 +378,13 @@
     <div class="flex-1 flex flex-col h-screen overflow-hidden">
 
         <!-- Header -->
-        <header class="h-14 flex items-center justify-between px-6 flex-shrink-0"
-                style="background:#fff; border-bottom:1px solid #e8ecf0; box-shadow:0 1px 4px rgba(0,0,0,.04);">
+        <header class="h-16 flex items-center justify-between px-8 flex-shrink-0 bg-transparent">
             <div>
-                <h1 class="text-base font-bold text-slate-800">@yield('page-title','Dashboard')</h1>
+                <h1 class="text-xl font-bold text-slate-800 tracking-tight">@yield('page-title','Dashboard')</h1>
             </div>
             <div class="flex items-center gap-3">
-                <div class="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs text-slate-500 font-medium"
-                     style="background:#f1f5f9; border:1px solid #e2e8f0;">
-                    <i class="fa-regular fa-calendar text-slate-400"></i>
+                <div class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs text-slate-500 font-bold bg-white border border-slate-200 shadow-sm">
+                    <i class="fa-regular fa-calendar text-blue-500"></i>
                     {{ \Carbon\Carbon::now()->format('D, d M Y') }}
                 </div>
             </div>
@@ -295,7 +411,7 @@
             </div>
             <div class="mt-6 bg-white rounded-2xl p-6 w-full max-w-[320px] shadow-2xl" onclick="event.stopPropagation()">
                 <h3 id="modal-campaign-name" class="font-bold text-gray-900 truncate">Campaign Name</h3>
-                <p id="modal-campaign-platform" class="text-xs text-indigo-600 font-semibold uppercase mt-1">Platform</p>
+                <p id="modal-campaign-platform" class="text-xs text-blue-600 font-semibold uppercase mt-1">Platform</p>
                 <div class="grid grid-cols-2 gap-4 mt-4">
                     <div>
                         <p class="text-[10px] text-gray-400 uppercase">Spend</p>

@@ -20,7 +20,7 @@
         <a href="{{ route('settings.profile') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap">
             Profil Perusahaan
         </a>
-        <a href="{{ route('settings.password') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-indigo-600 text-indigo-600 whitespace-nowrap">
+        <a href="{{ route('settings.password') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-blue-600 text-blue-600 whitespace-nowrap">
             Ubah Password
         </a>
         <a href="{{ route('settings.integrations') }}" class="px-6 py-3 text-sm font-medium border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 whitespace-nowrap">
@@ -54,22 +54,22 @@
                 <div class="space-y-6">
                     <div class="space-y-2">
                         <label class="text-sm font-semibold text-gray-700">Password Saat Ini</label>
-                        <input type="password" name="current_password" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="••••••••">
+                        <input type="password" name="current_password" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="••••••••">
                     </div>
                     
                     <div class="space-y-2">
                         <label class="text-sm font-semibold text-gray-700">Password Baru</label>
-                        <input type="password" name="password" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="Minimal 8 karakter">
+                        <input type="password" name="password" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="Minimal 8 karakter">
                     </div>
 
                     <div class="space-y-2">
                         <label class="text-sm font-semibold text-gray-700">Konfirmasi Password Baru</label>
-                        <input type="password" name="password_confirmation" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition-all outline-none" placeholder="Ulangi password baru">
+                        <input type="password" name="password_confirmation" class="w-full px-4 py-2.5 rounded-xl border border-gray-200 focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all outline-none" placeholder="Ulangi password baru">
                     </div>
                 </div>
 
                 <div class="mt-8 pt-6 border-t border-gray-100 flex justify-end">
-                    <button type="submit" class="px-6 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-indigo-200">
+                    <button type="submit" class="px-6 py-2.5 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-xl transition-all shadow-lg shadow-blue-200">
                         Update Password
                     </button>
                 </div>

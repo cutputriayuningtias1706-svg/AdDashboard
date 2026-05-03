@@ -17,22 +17,22 @@
             font-size:14px; color:#1e293b; background:#fff;
             transition:all .25s; outline:none;
         }
-        .input-field:focus { border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.1); background:#fafafe; }
+        .input-field:focus { border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.1); background:#f8fafc; }
         .btn-primary {
             width:100%; padding:14px;
-            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            background:linear-gradient(135deg,#3b82f6,#2563eb);
             color:#fff; font-size:15px; font-weight:600; border-radius:14px;
             border:none; cursor:pointer; transition:all .25s;
-            box-shadow:0 4px 20px rgba(99,102,241,.35);
+            box-shadow:0 4px 20px rgba(37,99,235,.35);
         }
-        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(99,102,241,.45); }
+        .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(37,99,235,.45); }
     </style>
 </head>
 <body class="bg-[#fafbff] min-h-screen flex items-center justify-center p-6 bg-[radial-gradient(#e0e7ff_0.8px,transparent_0.8px)] [background-size:24px_24px]">
     <div class="w-full max-w-md bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 p-8 md:p-10 border border-slate-100 fade-up">
         <!-- Logo -->
         <div class="flex flex-col items-center mb-8">
-            <div class="w-14 h-14 bg-indigo-600 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-200 mb-4">
+            <div class="w-14 h-14 bg-blue-600 rounded-2xl flex items-center justify-center shadow-lg shadow-blue-200 mb-4">
                 <i class="fa-solid fa-key text-white text-2xl"></i>
             </div>
             <h1 class="text-2xl font-black text-slate-800 tracking-tight">Lupa Password?</h1>
@@ -66,7 +66,7 @@
         </form>
 
         <div class="mt-8 text-center">
-            <a href="{{ route('login') }}" class="text-sm font-bold text-indigo-600 hover:text-indigo-700 transition flex items-center justify-center gap-2">
+            <a href="{{ route('login') }}" class="text-sm font-bold text-blue-600 hover:text-blue-700 transition flex items-center justify-center gap-2">
                 <i class="fa-solid fa-arrow-left"></i> Kembali ke Login
             </a>
         </div>

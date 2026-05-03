@@ -15,7 +15,7 @@
         @keyframes fadeUp { from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)} }
         @keyframes fadeIn { from{opacity:0}to{opacity:1} }
         @keyframes float { 0%,100%{transform:translateY(0)}50%{transform:translateY(-12px)} }
-        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(99,102,241,.15)}50%{box-shadow:0 0 40px rgba(99,102,241,.3)} }
+        @keyframes pulse-glow { 0%,100%{box-shadow:0 0 20px rgba(37,99,235,.15)}50%{box-shadow:0 0 40px rgba(37,99,235,.3)} }
         @keyframes slide-in-left { from{opacity:0;transform:translateX(-30px)}to{opacity:1;transform:translateX(0)} }
         @keyframes gradient-shift { 0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%} }
 
@@ -29,7 +29,7 @@
 
         /* Left panel animated gradient */
         .left-panel {
-            background: linear-gradient(135deg, #312e81 0%, #4f46e5 30%, #7c3aed 65%, #6d28d9 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 30%, #3b82f6 65%, #60a5fa 100%);
             background-size: 200% 200%;
             animation: gradient-shift 12s ease infinite;
         }
@@ -41,15 +41,15 @@
             font-size:14px; color:#1e293b; background:#fff;
             transition:all .25s; outline:none;
         }
-        .input-field:focus { border-color:#6366f1; box-shadow:0 0 0 4px rgba(99,102,241,.1); background:#fafafe; }
+        .input-field:focus { border-color:#3b82f6; box-shadow:0 0 0 4px rgba(59,130,246,.1); background:#f8fafc; }
         .input-field::placeholder { color:#94a3b8; }
 
         .btn-login {
             width:100%; padding:14px;
-            background:linear-gradient(135deg,#4f46e5,#7c3aed);
+            background:linear-gradient(135deg,#3b82f6,#2563eb);
             color:#fff; font-size:15px; font-weight:600; border-radius:14px;
             border:none; cursor:pointer; transition:all .25s;
-            box-shadow:0 4px 20px rgba(99,102,241,.35);
+            box-shadow:0 4px 20px rgba(37,99,235,.35);
             position:relative; overflow:hidden;
         }
         .btn-login::before {
@@ -58,16 +58,16 @@
             transition:left .5s;
         }
         .btn-login:hover::before { left:100%; }
-        .btn-login:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(99,102,241,.45); }
+        .btn-login:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(37,99,235,.45); }
         .btn-login:active { transform:translateY(0); }
 
         .credential-chip {
             display:inline-flex; align-items:center; gap:6px;
             padding:8px 14px; border-radius:10px; font-size:12px;
-            background:#f8faff; border:1px solid #e0e7ff; color:#4f46e5;
+            background:#f0f7ff; border:1px solid #dbeafe; color:#2563eb;
             cursor:pointer; transition:all .2s;
         }
-        .credential-chip:hover { background:#eef2ff; border-color:#c7d2fe; transform:translateY(-1px); }
+        .credential-chip:hover { background:#e0f2fe; border-color:#bae6fd; transform:translateY(-1px); }
 
         /* Glass card */
         .glass-card {
@@ -115,15 +115,9 @@
         <div class="flex flex-col items-center gap-3 mb-10">
             <div class="flex items-center gap-3">
                 <img src="{{ asset('images/addashboard-pro-icon.png') }}" alt="AdDashboard Pro Icon" class="h-10 w-auto">
-                <span class="text-2xl font-bold text-slate-800 tracking-tight">AdDashboard <span class="bg-indigo-50 text-indigo-600 px-2 py-0.5 rounded-md text-sm align-middle ml-1 border border-indigo-100/50 shadow-sm">Pro</span></span>
+                <span class="text-2xl font-bold text-slate-800 tracking-tight">AdDashboard <span class="bg-blue-50 text-blue-600 px-2 py-0.5 rounded-md text-sm align-middle ml-1 border border-blue-100/50 shadow-sm">Pro</span></span>
             </div>
             <p class="text-slate-400 text-xs font-medium uppercase tracking-widest mt-1">Advertising Management Platform</p>
-        </div>
-
-        <!-- Welcome text -->
-        <div class="mb-8 text-center">
-            <h2 class="text-2xl font-bold text-slate-800">Selamat Datang 👋</h2>
-            <p class="text-slate-500 mt-2 text-sm leading-relaxed">Masuk ke akun Anda untuk mengakses dashboard.</p>
         </div>
 
         <!-- Error message -->
@@ -165,10 +159,10 @@
             <!-- Remember & forgot -->
             <div class="flex items-center justify-between">
                 <label class="flex items-center gap-2 cursor-pointer">
-                    <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
+                    <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-blue-600 focus:ring-blue-500">
                     <span class="text-xs text-slate-500">Ingat saya</span>
                 </label>
-                <a href="{{ route('password.request') }}" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium transition">Lupa password?</a>
+                <a href="{{ route('password.request') }}" class="text-xs text-blue-600 hover:text-blue-700 font-medium transition">Lupa password?</a>
             </div>
 
             <button type="submit" class="btn-login mt-2">
@@ -186,7 +180,7 @@
         <div class="space-y-2">
             <button onclick="fillCredential('admin@addashboard.id','admin123')" class="credential-chip w-full justify-between">
                 <span class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
+                    <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
                         <i class="fa-solid fa-user-shield text-white text-[10px]"></i>
                     </span>
                     <span class="font-semibold">Admin</span>
@@ -195,7 +189,7 @@
             </button>
             <button onclick="fillCredential('demo@addashboard.id','demo123')" class="credential-chip w-full justify-between">
                 <span class="flex items-center gap-2">
-                    <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#8b5cf6,#a78bfa);">
+                    <span class="w-6 h-6 rounded-md flex items-center justify-center" style="background:linear-gradient(135deg,#60a5fa,#3b82f6);">
                         <i class="fa-solid fa-user text-white text-[10px]"></i>
                     </span>
                     <span class="font-semibold">Demo User</span>
@@ -208,9 +202,9 @@
         <div class="text-center mt-10">
             <p class="text-[11px] text-slate-400">© 2025 AdDashboard Pro · PT Indosaku Digital Teknologi</p>
             <div class="flex items-center justify-center gap-4 mt-3">
-                <a href="#" class="text-[11px] text-slate-400 hover:text-indigo-600 transition">Privacy Policy</a>
+                <a href="#" class="text-[11px] text-slate-400 hover:text-blue-600 transition">Privacy Policy</a>
                 <span class="text-slate-300">·</span>
-                <a href="#" class="text-[11px] text-slate-400 hover:text-indigo-600 transition">Terms</a>
+                <a href="#" class="text-[11px] text-slate-400 hover:text-blue-600 transition">Terms</a>
             </div>
         </div>
     </div>

@@ -71,13 +71,34 @@ class InvoiceController extends Controller
             ],
         ];
 
-        // Convert to collection for view compatibility
-        $invoices = collect($mockInvoices)->map(fn($i) => (object)$i);
+        // Convert to collection for filtering
+        $invoiceCol = collect($mockInvoices);
+
+        // Filter by ad account
+        if ($request->ad_account) {
+            $invoiceCol = $invoiceCol->filter(fn($i) => isset($i['adAccount']->id) && $i['adAccount']->id == $request->ad_account);
+        }
+
+        // Filter by status
+        if ($request->status && $request->status != 'all') {
+            $invoiceCol = $invoiceCol->filter(fn($i) => $i['status'] == $request->status);
+        }
+
+        // Filter by search (Deep Search)
+        if ($request->search) {
+            $s = strtolower($request->search);
+            $invoiceCol = $invoiceCol->filter(function($i) use ($s) {
+                return str_contains(strtolower($i['invoice_number']), $s) || 
+                       str_contains(strtolower($i['adAccount']->account_name), $s);
+            });
+        }
+
+        $invoices = $invoiceCol->map(fn($i) => (object)$i);
         
-        // Summary totals
-        $totalPending = 0;
-        $totalPaid = 14270000035;
-        $totalOverdue = 0;
+        // Summary totals (dynamic based on filtered data for demo)
+        $totalPaid = $invoices->where('status', 'paid')->sum('total_amount');
+        $totalPending = $invoices->where('status', 'pending')->sum('total_amount');
+        $totalOverdue = $invoices->where('status', 'overdue')->sum('total_amount');
         
         $adAccounts = AdAccount::all();
         
@@ -220,6 +241,15 @@ public function markAsPaid(Invoice $invoice)
         
         if ($request->status && $request->status != 'all') {
             $query->where('status', $request->status);
+        }
+
+        if ($request->search) {
+            $s = $request->search;
+            $query->where(function($q) use ($s) {
+                $q->whereHas('adAccount', function($aq) use ($s) {
+                    $aq->where('account_name', 'like', "%$s%");
+                })->orWhere('payment_method', 'like', "%$s%");
+            });
         }
         
         $topups = $query->latest()->paginate(10);
