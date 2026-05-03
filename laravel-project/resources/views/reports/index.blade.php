@@ -17,14 +17,14 @@
 
 @section('content')
 <!-- Platform Nav Pills -->
-<div class="fade-up rounded-2xl p-4 mb-5" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl p-4 mb-5 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <nav class="flex flex-wrap gap-2">
         @php $pills = [['key'=>'all','label'=>'All Platforms','icon'=>'fa-layer-group'],['key'=>'google','label'=>'Google Ads','icon'=>'fa-brands fa-google'],['key'=>'meta','label'=>'Meta Ads','icon'=>'fa-brands fa-facebook'],['key'=>'tiktok','label'=>'TikTok Ads','icon'=>'fa-brands fa-tiktok']]; @endphp
         @foreach($pills as $pill)
         @php $active = (request('platform') == $pill['key']) || (!request('platform') && $pill['key']=='all'); @endphp
         <a href="{{ route('reports.index', array_merge(request()->except('platform'), ['platform' => $pill['key']])) }}"
            class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold transition"
-           style="{{ $active ? 'background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,0.3);' : 'background:#f1f5f9;color:#64748b;' }}">
+           style="{{ $active ? 'background:linear-gradient(135deg,#3b82f6,#2563eb);color:#fff;box-shadow:0 4px 12px rgba(37,99,235,0.3);' : 'background:var(--bg-hover);color:var(--text-muted);' }}">
             <i class="fa-solid {{ $pill['icon'] }} text-xs"></i> {{ $pill['label'] }}
         </a>
         @endforeach
@@ -32,7 +32,7 @@
 </div>
 
 <!-- Filter Bar -->
-<div class="fade-up rounded-2xl p-6 mb-5" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl p-6 mb-5 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <form action="{{ route('reports.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
         @if(request('platform') && request('platform') != 'all')
         <input type="hidden" name="platform" value="{{ request('platform') }}">
@@ -83,7 +83,7 @@
     ];
     @endphp
     @foreach($cards as $i => $card)
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06); animation-delay:{{ $i*0.08 }}s;">
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06); animation-delay:{{ $i*0.08 }}s;">
         <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background:{{ $card['grad'] }};"></div>
         <div class="flex items-center justify-between">
             <div>
@@ -107,11 +107,11 @@
 </div>
 
 <!-- Reports Table -->
-<div class="fade-up rounded-2xl overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <div class="table-container">
         <table class="w-full min-w-[1200px]">
             <thead>
-                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100" style="background:#f8fafc;">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100 bg-slate-50/50">
                     <th class="px-6 py-4 font-semibold sticky-col">Ad Asset</th>
                     <th class="px-6 py-4 font-semibold sticky-col-2">Campaign</th>
                     <th class="px-6 py-4">Date</th>
@@ -161,7 +161,7 @@
                 @empty
                 <tr>
                     <td colspan="12" class="px-6 py-16 text-center">
-                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#f1f5f9;">
+                        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-50 border border-slate-100">
                             <i class="fa-solid fa-inbox text-slate-300 text-2xl"></i>
                         </div>
                         <p class="text-slate-400 font-medium">No reports found</p>

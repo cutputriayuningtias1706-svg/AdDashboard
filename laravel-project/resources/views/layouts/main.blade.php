@@ -292,20 +292,46 @@
         .dark .bg-white { background-color: #1e293b !important; }
         .dark .bg-slate-50 { background-color: #0f172a !important; }
         .dark .bg-slate-100 { background-color: #334155 !important; }
+        .dark .bg-slate-200 { background-color: #1e293b !important; }
+        .dark .bg-slate-900 { background-color: #f1f5f9 !important; color: #0f172a !important; }
+        
+        .dark .text-slate-900 { color: #f8fafc !important; }
         .dark .text-slate-800 { color: #f1f5f9 !important; }
         .dark .text-slate-700 { color: #e2e8f0 !important; }
         .dark .text-slate-600 { color: #cbd5e1 !important; }
         .dark .text-slate-500 { color: #94a3b8 !important; }
-        .dark .border-slate-100, .dark .border-slate-200 { border-color: #334155 !important; }
-        .dark .shadow-sm { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.3) !important; }
+        .dark .text-slate-400 { color: #64748b !important; }
+        
+        .dark .border-slate-50 { border-color: #1e293b !important; }
+        .dark .border-slate-100 { border-color: #334155 !important; }
+        .dark .border-slate-200 { border-color: #334155 !important; }
+        
+        .dark .shadow-sm { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.4), 0 2px 4px -1px rgba(0, 0, 0, 0.2) !important; }
+        .dark .shadow-md, .dark .shadow-lg, .dark .shadow-xl { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.5), 0 4px 6px -2px rgba(0, 0, 0, 0.3) !important; }
+        
         .dark input, .dark select, .dark textarea { 
             background-color: #0f172a !important; 
             border-color: #334155 !important; 
             color: #f1f5f9 !important; 
         }
+        .dark input::placeholder { color: #475569 !important; }
+        
         .dark .modal-overlay { background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); }
+        .dark .modal-video-mobile { border-color: #475569; }
+        
         .dark .pagination-container a, .dark .pagination-container span {
             background-color: #1e293b; border-color: #334155; color: #94a3b8;
+        }
+        .dark .pagination-container a:hover { background-color: #334155; color: #fff; }
+
+        .dark .bg-gradient-to-r.from-slate-50 { 
+            background-image: linear-gradient(to right, #1e293b, #0f172a, #1e293b) !important;
+            border-color: #334155 !important;
+        }
+
+        .dark .bg-primary-card:hover {
+            background: #232f4a !important;
+            border-color: #3b82f6 !important;
         }
     </style>
 </head>

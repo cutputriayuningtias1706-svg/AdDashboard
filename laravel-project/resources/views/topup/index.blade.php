@@ -7,7 +7,7 @@
 <!-- Summary Cards -->
 <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mb-5">
     <!-- Completed -->
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background:linear-gradient(135deg,#10b981,#34d399);"></div>
         <div class="flex items-center justify-between">
             <div>
@@ -21,7 +21,7 @@
     </div>
 
     <!-- Pending -->
-    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover fade-up-2 rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background:linear-gradient(135deg,#f59e0b,#f97316);"></div>
         <div class="flex items-center justify-between">
             <div>
@@ -35,7 +35,7 @@
     </div>
 
     <!-- New Top-up -->
-    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover fade-up-3 rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background:linear-gradient(135deg,#3b82f6,#2563eb);"></div>
         <div class="flex items-center justify-between h-full">
             <div>
@@ -52,7 +52,7 @@
 </div>
 
 <!-- Filter -->
-<div class="fade-up rounded-2xl p-5 mb-5" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl p-5 mb-5 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <form action="{{ route('topup.index') }}" method="GET" class="flex flex-wrap gap-4 items-end">
         <div class="w-64">
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Platform</label>
@@ -78,11 +78,11 @@
 </div>
 
 <!-- Topup Table -->
-<div class="fade-up rounded-2xl overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>
-                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100" style="background:#f8fafc;">
+                <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100 bg-slate-50/50">
                     <th class="px-6 py-4">Tanggal</th>
                     <th class="px-6 py-4">Platform</th>
                     <th class="px-6 py-4">Akun</th>

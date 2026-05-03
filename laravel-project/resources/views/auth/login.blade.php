@@ -104,7 +104,27 @@
             transform:rotate(30deg);
             animation:pulse-glow 4s ease-in-out infinite;
         }
+
+        /* Dark Mode Overrides */
+        .dark body { background-color: #0f172a !important; color: #f1f5f9; }
+        .dark .dot-bg { background-image: radial-gradient(#1e293b 0.8px, transparent 0.8px) !important; }
+        .dark .bg-white { background-color: #1e293b !important; border-color: #334155 !important; }
+        .dark .text-slate-800 { color: #f1f5f9 !important; }
+        .dark .text-slate-600 { color: #e2e8f0 !important; }
+        .dark .text-slate-400 { color: #94a3b8 !important; }
+        .dark .text-slate-500 { color: #cbd5e1 !important; }
+        .dark .border-slate-100, .dark .border-slate-200 { border-color: #334155 !important; }
+        .dark .input-field { background-color: #0f172a; border-color: #334155; color: #f1f5f9; }
+        .dark .input-field:focus { background-color: #0f172a; border-color: #3b82f6; }
+        .dark .credential-chip { background-color: #334155; border-color: #475569; color: #f1f5f9; }
+        .dark .credential-chip:hover { background-color: #475569; }
+        .dark .bg-blue-50 { background-color: rgba(59,130,246,0.1) !important; color: #60a5fa !important; }
     </style>
+    <script>
+        if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </head>
 <body class="min-h-screen flex items-center justify-center dot-bg p-6">
 

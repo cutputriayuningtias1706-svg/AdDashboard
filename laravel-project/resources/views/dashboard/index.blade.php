@@ -87,7 +87,7 @@
 </div>
 
 <!-- Month Picker -->
-<div class="bg-gradient-to-r from-slate-50 via-white to-slate-100 rounded-3xl shadow-xl border border-slate-200 p-5 mb-6 fade-up">
+<div class="bg-primary-card rounded-3xl shadow-xl p-5 mb-6 fade-up">
     <form method="GET" action="{{ route('dashboard.index') }}" class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex items-center gap-3">
             <span class="text-sm font-semibold text-slate-700">Pilih Periode:</span>
@@ -371,7 +371,7 @@
                 $total = $ag['male'] + $ag['female'];
                 $pct = $maxAgeVal > 0 ? round(($total / $maxAgeVal) * 100) : 0;
                 $colors = ['#3b82f6','#1e293b','#2563eb','#475569','#64748b'];
-                $bgColors = ['#eff6ff','#f8fafc','#f1f5f9','#f1f5f9','#f8fafc'];
+                $bgColors = ['rgba(59,130,246,0.1)', 'rgba(30,41,59,0.1)', 'rgba(59,130,246,0.1)', 'rgba(71,85,105,0.1)', 'rgba(100,116,139,0.1)'];
                 $col = $colors[$i % count($colors)];
                 $bg = $bgColors[$i % count($bgColors)];
             @endphp
@@ -383,7 +383,7 @@
                     </div>
                     <span class="text-xs font-bold text-slate-500">{{ $total }}%</span>
                 </div>
-                <div class="h-2 rounded-full overflow-hidden" style="background:#f1f5f9;">
+                <div class="h-2 rounded-full overflow-hidden bg-slate-100">
                     <div class="h-full rounded-full transition-all duration-700" style="width:{{ $pct }}%;background:{{ $col }};"></div>
                 </div>
             </div>
@@ -398,7 +398,7 @@
                 <h3 class="text-base font-bold text-slate-800">Top Lokasi Iklan</h3>
                 <p class="text-xs text-slate-400 mt-0.5">Top 5 kota di Indonesia</p>
             </div>
-            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg" style="background:#ecfdf5;color:#059669;">By Clicks</span>
+            <span class="px-2.5 py-1 text-xs font-semibold rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100/50">By Clicks</span>
         </div>
         @if($locationStats[0]['clicks'] > 0)
         <div class="space-y-3" id="locationChart">
@@ -406,9 +406,9 @@
             @php
                 $pct = $maxLocationClicks > 0 ? round(($loc['clicks']/$maxLocationClicks)*100) : 0;
                 $colors = ['#2563eb','#1e293b','#10b981','#f59e0b','#334155'];
-                $bgColors = ['#eff6ff','#f8fafc','#ecfdf5','#fffbeb','#f1f5f9'];
+                $bgColors = ['rgba(37,99,235,0.1)', 'rgba(30,41,59,0.1)', 'rgba(16,185,129,0.1)', 'rgba(245,158,11,0.1)', 'rgba(51,65,85,0.1)'];
                 $col = $colors[$i] ?? '#2563eb';
-                $bg  = $bgColors[$i] ?? '#eff6ff';
+                $bg  = $bgColors[$i] ?? 'rgba(37,99,235,0.1)';
             @endphp
             <div>
                 <div class="flex items-center justify-between mb-1.5">
@@ -418,7 +418,7 @@
                     </div>
                     <span class="text-xs font-bold text-slate-500">{{ number_format($loc['clicks']) }} clicks</span>
                 </div>
-                <div class="h-2 rounded-full overflow-hidden" style="background:#f1f5f9;">
+                <div class="h-2 rounded-full overflow-hidden bg-slate-100">
                     <div class="h-full rounded-full transition-all duration-700" style="width:{{ $pct }}%;background:{{ $col }};"></div>
                 </div>
             </div>
@@ -440,13 +440,13 @@
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-base font-bold text-slate-800">Recent Campaigns</h3>
-            <a href="{{ route('reports.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#f1f5f9; color:#334155;">View All</a>
+            <a href="{{ route('reports.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition bg-slate-100 text-slate-700">View All</a>
         </div>
         <div class="space-y-2.5">
             @foreach($topCampaigns->take(5) as $i => $campaign)
-            <div class="flex items-center justify-between p-3 rounded-xl transition" style="background:#f8fafc; border:1px solid #f1f5f9;" onmouseover="this.style.background='#fff';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'" onmouseout="this.style.background='#f8fafc';this.style.boxShadow='none'">
+            <div class="flex items-center justify-between p-3 rounded-xl transition bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-md dark:hover:bg-slate-700/50">
                 <div class="flex items-center min-w-0 gap-3">
-                    <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0" style="background:#f1f5f9;color:#334155;">{{ $i+1 }}</span>
+                    <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0 bg-slate-100 text-slate-700">{{ $i+1 }}</span>
                     <div class="min-w-0">
                         <p class="text-sm font-semibold text-slate-700 truncate" title="{{ $campaign['name'] }}">{{ $campaign['name'] }}</p>
                         <div class="flex items-center gap-2 mt-0.5">
@@ -472,11 +472,11 @@
         <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between mb-5">
             <h3 class="text-base font-bold text-slate-800">Recent Invoices</h3>
-            <a href="{{ route('invoices.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition" style="background:#f1f5f9; color:#334155;">View All</a>
+            <a href="{{ route('invoices.index') }}" class="text-xs font-semibold px-3 py-1.5 rounded-lg transition bg-slate-100 text-slate-700">View All</a>
         </div>
         <div class="space-y-2.5">
             @forelse($mockRecentInvoices as $inv)
-            <div class="flex items-center justify-between p-3 rounded-xl transition" style="background:#f8fafc; border:1px solid #f1f5f9;" onmouseover="this.style.background='#fff';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'" onmouseout="this.style.background='#f8fafc';this.style.boxShadow='none'">
+            <div class="flex items-center justify-between p-3 rounded-xl transition bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-md dark:hover:bg-slate-700/50">
                 <div class="flex items-center gap-3">
                     @if($inv['platform']=='google') <i class="fa-brands fa-google text-blue-500 text-sm"></i>
                     @elseif($inv['platform']=='meta') <i class="fa-brands fa-facebook text-blue-600 text-sm"></i>
@@ -587,7 +587,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Background overlay -->
         <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="document.getElementById('topupModal').classList.add('hidden')"></div>
 
-        <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full">
+        <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full dark:bg-slate-800 dark:border dark:border-slate-700">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-blue-500"></i> Top-up Saldo Cepat

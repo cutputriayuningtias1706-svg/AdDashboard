@@ -361,7 +361,7 @@ document.addEventListener('DOMContentLoaded', function() {
     </div>
     @if($campaigns->isEmpty())
     <div class="text-center py-16">
-        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#f1f5f9;">
+        <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-50 border border-slate-100">
             <i class="fa-solid fa-chart-simple text-slate-300 text-2xl"></i>
         </div>
         <p class="text-slate-400 font-medium">No campaigns found for this platform</p>

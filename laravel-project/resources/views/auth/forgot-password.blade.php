@@ -26,7 +26,25 @@
             box-shadow:0 4px 20px rgba(37,99,235,.35);
         }
         .btn-primary:hover { transform:translateY(-2px); box-shadow:0 8px 30px rgba(37,99,235,.45); }
+
+        /* Dark Mode Overrides */
+        .dark body { background-color: #0f172a !important; color: #f1f5f9; }
+        .dark .bg-white { background-color: #1e293b !important; border-color: #334155 !important; }
+        .dark .text-slate-800 { color: #f1f5f9 !important; }
+        .dark .text-slate-600 { color: #e2e8f0 !important; }
+        .dark .text-slate-500 { color: #cbd5e1 !important; }
+        .dark .text-slate-400 { color: #94a3b8 !important; }
+        .dark .border-slate-100 { border-color: #334155 !important; }
+        .dark .input-field { background-color: #0f172a; border-color: #334155; color: #f1f5f9; }
+        .dark .input-field:focus { background-color: #0f172a; border-color: #3b82f6; }
+        .dark .shadow-2xl { box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5) !important; }
+        .dark .bg-green-50 { background-color: rgba(16,185,129,0.1) !important; color: #34d399 !important; border-color: rgba(16,185,129,0.2) !important; }
     </style>
+    <script>
+        if (localStorage.getItem('darkMode') === 'enabled' || (!localStorage.getItem('darkMode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        }
+    </script>
 </head>
 <body class="bg-[#fafbff] min-h-screen flex items-center justify-center p-6 bg-[radial-gradient(#e0e7ff_0.8px,transparent_0.8px)] [background-size:24px_24px]">
     <div class="w-full max-w-md bg-white rounded-[32px] shadow-2xl shadow-slate-200/50 p-8 md:p-10 border border-slate-100 fade-up">
