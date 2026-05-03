@@ -260,6 +260,9 @@ public function markAsPaid(Invoice $invoice)
         // Update ad account balance
         $account = AdAccount::find($request->ad_account_id);
         $account->increment('balance', $request->amount);
+        if ($request->redirect_to == 'dashboard') {
+            return redirect()->route('dashboard.index')->with('success', 'Top-up berhasil dilakukan. Saldo sekarang: Rp ' . number_format($account->balance, 0, ',', '.'));
+        }
         
         return redirect()->route('topup.index')->with('success', 'Top-up berhasil dilakukan. Saldo sekarang: Rp ' . number_format($account->balance, 0, ',', '.'));
     }

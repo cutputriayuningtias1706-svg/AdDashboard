@@ -83,7 +83,7 @@
         </table>
         
         <div class="footer">
-            <p>Ad Dashboard - Multi-Platform Advertising Report</p>
+            <p>AdDashboard Pro - Multi-Platform Advertising Report</p>
         </div>
     </div>
 </body>

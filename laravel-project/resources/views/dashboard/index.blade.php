@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Dashboard - Ad Dashboard')
+@section('title', 'Dashboard - AdDashboard Pro')
 
 @section('shimmer-content')
     <div class="shimmer-item w-1/4 mb-4"></div>
@@ -36,6 +36,37 @@
             </a>
         @endif
     </form>
+</div>
+
+<!-- Overview Cards (Balance & Disbursement) -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 fade-up">
+    <!-- Card Total Saldo -->
+    <div class="bg-gradient-to-br from-indigo-600 to-blue-700 rounded-3xl p-6 shadow-lg shadow-indigo-200 text-white flex items-center justify-between relative overflow-hidden">
+        <div class="absolute -right-10 -top-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+        <div class="relative z-10">
+            <p class="text-indigo-100 text-sm font-semibold mb-1 uppercase tracking-wider">Total Saldo Saat Ini</p>
+            <h2 class="text-3xl font-bold tracking-tight mb-2">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
+            <button onclick="document.getElementById('topupModal').classList.remove('hidden')" class="inline-flex items-center gap-2 px-4 py-2 bg-white text-indigo-700 hover:bg-indigo-50 rounded-lg font-bold text-xs transition shadow-sm">
+                <i class="fa-solid fa-plus"></i> Top-up Saldo
+            </button>
+        </div>
+        <div class="relative z-10 opacity-80">
+            <i class="fa-solid fa-wallet text-6xl"></i>
+        </div>
+    </div>
+
+    <!-- Card Total Disbursement -->
+    <div class="bg-gradient-to-br from-emerald-500 to-teal-600 rounded-3xl p-6 shadow-lg shadow-teal-200 text-white flex items-center justify-between relative overflow-hidden">
+        <div class="absolute -right-10 -bottom-10 w-40 h-40 bg-white opacity-10 rounded-full blur-2xl"></div>
+        <div class="relative z-10">
+            <p class="text-emerald-100 text-sm font-semibold mb-1 uppercase tracking-wider">Total Disbursement</p>
+            <h2 class="text-3xl font-bold tracking-tight mb-2">Rp {{ number_format($totalDisbursement, 0, ',', '.') }}</h2>
+            <p class="text-emerald-50 text-xs bg-white/20 inline-block px-3 py-1 rounded-full backdrop-blur-sm border border-white/20">Data real Juli, Agustus, September 2025</p>
+        </div>
+        <div class="relative z-10 opacity-80">
+            <i class="fa-solid fa-bullhorn text-6xl"></i>
+        </div>
+    </div>
 </div>
 
 <!-- Spending Iklan Jul–Sep 2025 (always shown, non-zero) -->
@@ -514,4 +545,56 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 @endpush
 @endif
+
+<!-- Topup Modal -->
+<div id="topupModal" class="fixed inset-0 z-50 hidden overflow-y-auto">
+    <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:p-0">
+        <!-- Background overlay -->
+        <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="document.getElementById('topupModal').classList.add('hidden')"></div>
+
+        <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full">
+            <div class="flex items-center justify-between mb-5">
+                <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
+                    <i class="fa-solid fa-wallet text-indigo-500"></i> Top-up Saldo Cepat
+                </h3>
+                <button type="button" class="text-slate-400 hover:text-red-500 transition" onclick="document.getElementById('topupModal').classList.add('hidden')">
+                    <i class="fa-solid fa-xmark text-xl"></i>
+                </button>
+            </div>
+
+            <form action="{{ route('topup.store') }}" method="POST">
+                @csrf
+                <!-- We add a hidden input to redirect back to dashboard -->
+                <input type="hidden" name="redirect_to" value="dashboard">
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Pilih Akun Iklan <span class="text-red-500">*</span></label>
+                        <select name="ad_account_id" class="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-sm focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors" required>
+                            <option value="">-- Pilih Akun --</option>
+                            @foreach($adAccounts as $account)
+                                <option value="{{ $account->id }}">{{ ucfirst($account->platform) }} - {{ $account->account_name }} (Saldo: Rp {{ number_format($account->balance, 0, ',', '.') }})</option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-600 mb-2 uppercase tracking-wider">Nominal Top-up (Rp) <span class="text-red-500">*</span></label>
+                        <div class="relative">
+                            <span class="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 font-semibold">Rp</span>
+                            <input type="number" name="amount" min="10000" class="w-full pl-10 pr-4 py-3 bg-slate-50 border border-slate-200 rounded-xl text-base font-semibold text-slate-800 focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-colors" placeholder="Contoh: 1000000" required>
+                        </div>
+                        <p class="text-[10px] text-slate-500 mt-1.5">Minimal top-up Rp 10.000</p>
+                    </div>
+
+                    <div class="pt-4 border-t border-slate-100">
+                        <button type="submit" class="w-full py-3.5 bg-gradient-to-r from-indigo-600 to-blue-600 hover:from-indigo-700 hover:to-blue-700 text-white rounded-xl font-bold shadow-md shadow-indigo-200 transition-transform transform hover:-translate-y-0.5 flex items-center justify-center gap-2 text-sm">
+                            <i class="fa-solid fa-bolt"></i> Proses Top-up Sekarang
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
 @endsection

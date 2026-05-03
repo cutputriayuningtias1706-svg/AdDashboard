@@ -64,7 +64,7 @@
     <div class="header">
         <table style="width:100%;"><tr>
             <td style="width:50%;">
-                <div class="brand">Ad Dashboard</div>
+                <div class="brand">AdDashboard Pro</div>
                 <div class="brand-sub">Multi-Platform Ad Management</div>
             </td>
             <td style="width:50%;text-align:right;">
@@ -100,7 +100,7 @@
         </div>
         <div class="party-box right">
             <div class="party-label">Dari</div>
-            <div class="party-name">Ad Dashboard</div>
+            <div class="party-name">AdDashboard Pro</div>
             <div class="party-detail">
                 Billing Department<br>
                 billing@addashboard.id<br>
@@ -169,7 +169,7 @@
 
     <!-- Footer -->
     <div class="footer">
-        <p>Terima kasih atas kepercayaan Anda! &nbsp;·&nbsp; Ad Dashboard – Multi-Platform Advertising Management</p>
+        <p>Terima kasih atas kepercayaan Anda! &nbsp;·&nbsp; AdDashboard Pro – Multi-Platform Advertising Management</p>
         <p style="margin-top:4px;">Dokumen ini dibuat secara otomatis oleh sistem pada {{ now()->format('d M Y, H:i') }} WIB</p>
     </div>
 

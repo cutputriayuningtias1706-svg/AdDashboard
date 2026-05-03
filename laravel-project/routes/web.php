@@ -5,6 +5,8 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\InvoiceController;
+use App\Http\Controllers\CampaignController;
+use App\Http\Controllers\VendorController;
 
 // Auth routes (public)
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
@@ -38,6 +40,16 @@ Route::middleware(['mock.auth'])->group(function () {
     Route::get('/topup', [InvoiceController::class, 'topupIndex'])->name('topup.index');
     Route::get('/topup/create', [InvoiceController::class, 'topupCreate'])->name('topup.create');
     Route::post('/topup', [InvoiceController::class, 'topupStore'])->name('topup.store');
+
+    // Campaigns routes
+    Route::get('/campaigns/create', [CampaignController::class, 'create'])->name('campaigns.create');
+    Route::post('/campaigns', [CampaignController::class, 'store'])->name('campaigns.store');
+
+    // Vendor / Contract routes
+    Route::get('/contracts', [VendorController::class, 'index'])->name('contracts.index');
+    Route::get('/contracts/{id}/apply', [VendorController::class, 'apply'])->name('contracts.apply');
+    Route::post('/contracts/{id}/store', [VendorController::class, 'store'])->name('contracts.store');
+    Route::get('/contracts/{id}/download-pks', [VendorController::class, 'downloadPks'])->name('contracts.download_pks');
 
     // Settings routes
     Route::prefix('settings')->name('settings.')->group(function () {

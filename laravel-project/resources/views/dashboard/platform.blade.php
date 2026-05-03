@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', ucfirst($platform) . ' Ads - Ad Dashboard')
+@section('title', ucfirst($platform) . ' Ads - AdDashboard Pro')
 @section('page-title', ucfirst($platform) . ' Ads Dashboard')
 
 @section('content')

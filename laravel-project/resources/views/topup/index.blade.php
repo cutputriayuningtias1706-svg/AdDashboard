@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Top-up Saldo - Ad Dashboard')
+@section('title', 'Top-up Saldo - AdDashboard Pro')
 @section('page-title', 'Top-up Saldo Iklan')
 
 @section('content')

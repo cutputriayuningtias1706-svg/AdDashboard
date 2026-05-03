@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Invoice ' . $invoice->invoice_number . ' - Ad Dashboard')
+@section('title', 'Invoice ' . $invoice->invoice_number . ' - AdDashboard Pro')
 @section('page-title', 'Invoice Details')
 
 @section('content')

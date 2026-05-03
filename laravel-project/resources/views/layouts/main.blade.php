@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@yield('title', 'Ad Dashboard')</title>
+    <title>@yield('title', 'AdDashboard Pro')</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -151,13 +151,9 @@
 
         <!-- Logo -->
         <div class="h-16 flex items-center px-5 border-b border-slate-100 flex-shrink-0">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center mr-3 flex-shrink-0"
-                 style="background:linear-gradient(135deg,#6366f1,#8b5cf6);">
-                <i class="fa-solid fa-chart-line text-white text-xs"></i>
-            </div>
+            <img src="{{ asset('images/addashboard-pro-icon.png') }}" alt="AdDashboard Pro Icon" class="h-8 w-auto mr-2.5">
             <div>
-                <span class="font-bold text-slate-800 text-sm">Ad Dashboard</span>
-                <p class="text-[10px] text-slate-400 leading-none mt-0.5">Advertising Platform</p>
+                <span class="font-bold text-slate-800 text-sm tracking-tight">AdDashboard <span class="bg-indigo-50 text-indigo-600 px-1.5 py-0.5 rounded text-[10px] align-middle border border-indigo-100/50">Pro</span></span>
             </div>
         </div>
 
@@ -195,6 +191,18 @@
             <div class="px-3 pt-5 pb-2">
                 <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Management</p>
             </div>
+
+            <a href="{{ route('campaigns.create') }}"
+               class="nav-item {{ request()->routeIs('campaigns.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-bullhorn w-4 text-center text-sm"></i>
+                <span>Pasang Iklan</span>
+            </a>
+
+            <a href="{{ route('contracts.index') }}"
+               class="nav-item {{ request()->routeIs('contracts.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-handshake w-4 text-center text-sm"></i>
+                <span>Kontrak Kerjasama</span>
+            </a>
 
             <a href="{{ route('reports.index') }}"
                class="nav-item {{ request()->routeIs('reports.*') ? 'active' : '' }}">

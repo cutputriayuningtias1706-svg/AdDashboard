@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Create Invoice - Ad Dashboard')
+@section('title', 'Create Invoice - AdDashboard Pro')
 @section('page-title', 'Create New Invoice')
 
 @section('content')

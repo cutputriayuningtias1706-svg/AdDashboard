@@ -289,11 +289,18 @@ class DashboardController extends Controller
                 foreach ($inv as $i) { $mockRecentInvoices[] = $i; if (count($mockRecentInvoices)>=5) break 2; }
             }
         }
-        // Also load DB invoices as fallback
         $recentInvoices = Invoice::with('adAccount')->latest()->take(5)->get();
 
+        $totalBalance = AdAccount::sum('balance');
+        $totalDisbursement = 2754134170 + 6008000000 + 5507865865;
+        
+        $adAccounts = AdAccount::all();
+
         return view('dashboard.index', compact(
+            'adAccounts',
             'selectedMonth',
+            'totalBalance',
+            'totalDisbursement',
             'totalSpend',
             'totalImpressions',
             'totalClicks',

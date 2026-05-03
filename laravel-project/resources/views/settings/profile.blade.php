@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('title', 'Profil Perusahaan – Ad Dashboard')
+@section('title', 'Profil Perusahaan – AdDashboard Pro')
 
 @section('shimmer-content')
     <div class="shimmer-item w-1/4 mb-4"></div>
