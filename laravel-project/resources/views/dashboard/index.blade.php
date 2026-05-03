@@ -18,26 +18,6 @@
 @section('page-title', 'Dashboard Overview')
 
 @section('content')
-<!-- Month Picker -->
-<div class="bg-gradient-to-r from-slate-50 via-white to-slate-100 rounded-3xl shadow-xl border border-slate-200 p-5 mb-6">
-    <form method="GET" action="{{ route('dashboard.index') }}" class="flex flex-col md:flex-row md:items-center gap-4">
-        <div class="flex items-center gap-3">
-            <span class="text-sm font-semibold text-slate-700">Pilih Periode:</span>
-            <select name="month" onchange="this.form.submit()" class="px-4 py-3 border border-slate-200 rounded-2xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-200 bg-white shadow-sm">
-                <option value="">-- Pilih Bulan --</option>
-                <option value="2025-07" {{ $selectedMonth == '2025-07' ? 'selected' : '' }}>Juli 2025</option>
-                <option value="2025-08" {{ $selectedMonth == '2025-08' ? 'selected' : '' }}>Agustus 2025</option>
-                <option value="2025-09" {{ $selectedMonth == '2025-09' ? 'selected' : '' }}>September 2025</option>
-            </select>
-        </div>
-        @if($selectedMonth)
-            <a href="{{ route('dashboard.index') }}" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-cyan-300 hover:text-cyan-700 shadow-sm">
-                <i class="fa-solid fa-times mr-2"></i> Reset
-            </a>
-        @endif
-    </form>
-</div>
-
 <!-- Overview Cards (Balance & Disbursement) -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 fade-up">
     <!-- Card Total Saldo -->
@@ -67,6 +47,26 @@
             <i class="fa-solid fa-bullhorn text-6xl"></i>
         </div>
     </div>
+</div>
+
+<!-- Month Picker -->
+<div class="bg-gradient-to-r from-slate-50 via-white to-slate-100 rounded-3xl shadow-xl border border-slate-200 p-5 mb-6 fade-up">
+    <form method="GET" action="{{ route('dashboard.index') }}" class="flex flex-col md:flex-row md:items-center gap-4">
+        <div class="flex items-center gap-3">
+            <span class="text-sm font-semibold text-slate-700">Pilih Periode:</span>
+            <select name="month" onchange="this.form.submit()" class="px-4 py-3 border border-slate-200 rounded-2xl text-sm text-slate-700 focus:outline-none focus:ring-2 focus:ring-cyan-500 focus:border-cyan-200 bg-white shadow-sm">
+                <option value="">-- Pilih Bulan --</option>
+                <option value="2025-07" {{ $selectedMonth == '2025-07' ? 'selected' : '' }}>Juli 2025</option>
+                <option value="2025-08" {{ $selectedMonth == '2025-08' ? 'selected' : '' }}>Agustus 2025</option>
+                <option value="2025-09" {{ $selectedMonth == '2025-09' ? 'selected' : '' }}>September 2025</option>
+            </select>
+        </div>
+        @if($selectedMonth)
+            <a href="{{ route('dashboard.index') }}" class="inline-flex items-center justify-center rounded-full border border-slate-200 bg-white px-4 py-2 text-sm font-medium text-slate-600 transition hover:border-cyan-300 hover:text-cyan-700 shadow-sm">
+                <i class="fa-solid fa-times mr-2"></i> Reset
+            </a>
+        @endif
+    </form>
 </div>
 
 <!-- Spending Iklan Jul–Sep 2025 (always shown, non-zero) -->

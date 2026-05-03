@@ -43,4 +43,19 @@ class AuthController extends Controller
         Session::forget('auth_user');
         return redirect()->route('login');
     }
+
+    public function showForgotPassword()
+    {
+        return view('auth.forgot-password');
+    }
+
+    public function sendResetLink(Request $request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+
+        // Simulasikan pengiriman email reset
+        return back()->with('status', 'Kami telah mengirimkan tautan reset password ke email Anda!');
+    }
 }

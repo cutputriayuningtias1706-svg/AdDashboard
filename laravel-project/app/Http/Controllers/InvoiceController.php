@@ -225,8 +225,13 @@ public function markAsPaid(Invoice $invoice)
         $topups = $query->latest()->paginate(10);
         
         // Summary
-        $totalCompleted = \App\Models\TopupBalance::where('status', 'completed')->sum('total_amount');
-        $totalPending = \App\Models\TopupBalance::where('status', 'pending')->sum('total_amount');
+        $summaryQuery = \App\Models\TopupBalance::query();
+        if ($request->ad_account) {
+            $summaryQuery->where('ad_account_id', $request->ad_account);
+        }
+        
+        $totalCompleted = (clone $summaryQuery)->where('status', 'completed')->sum('total_amount');
+        $totalPending = (clone $summaryQuery)->where('status', 'pending')->sum('total_amount');
         
         $adAccounts = AdAccount::all();
         

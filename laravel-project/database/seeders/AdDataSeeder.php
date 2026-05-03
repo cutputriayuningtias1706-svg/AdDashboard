@@ -234,7 +234,7 @@ class AdDataSeeder extends Seeder
             '2025-07-15' => 2500000000.00,  // Rp 2.5B - mid July
             '2025-08-01' => 3500000000.00,  // Rp 3.5B - August topup
             '2025-08-20' => 1500000000.00,  // Rp 1.5B - mid August
-            '2025-09-01' => 1700000035.00,  // Rp 1.700.000.035 - September (to match total)
+            '2025-09-01' => 1770000035.00,  // Rp 1.770.000.035 - September (to match total 14,270,000,035)
         ];
         
         foreach ($topupDates as $date => $amount) {

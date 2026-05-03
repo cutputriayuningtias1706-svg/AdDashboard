@@ -25,6 +25,7 @@ class VendorController extends Controller
                 'description' => 'Jaringan periklanan global dengan inventaris premium dan targeting audiens yang mendalam.',
                 'status' => 'inactive',
                 'pks_available' => true,
+                'pks_url' => 'https://drive.google.com/uc?export=download&id=1B-A2Yq5V2ptGux0Y5x0iNRXxYZfvQVbu',
             ],
             'sabupp' => [
                 'id' => 'sabupp',
@@ -36,6 +37,7 @@ class VendorController extends Controller
                 'description' => 'Platform DSP terkemuka untuk optimasi performa iklan real-time di Asia Tenggara.',
                 'status' => 'inactive',
                 'pks_available' => true,
+                'pks_url' => 'https://drive.google.com/uc?export=download&id=1az8-bD3tvByrxacRBfx8-XxuVPXXHfI3',
             ],
             'yingliang' => [
                 'id' => 'yingliang',
@@ -47,6 +49,7 @@ class VendorController extends Controller
                 'description' => 'Publisher eksklusif dengan akses langsung ke lalu lintas pengguna high-intent di pasar Asia.',
                 'status' => 'inactive',
                 'pks_available' => true,
+                'pks_url' => 'https://drive.google.com/uc?export=download&id=1VRxH5UyRZZMOAylWHMfzOvbJe47K6EL5',
             ],
             'fingerads' => [
                 'id' => 'fingerads',
@@ -58,6 +61,7 @@ class VendorController extends Controller
                 'description' => 'Spesialis mobile advertising network untuk kampanye instalasi aplikasi dan akuisisi user.',
                 'status' => 'inactive',
                 'pks_available' => true,
+                'pks_url' => 'https://drive.google.com/uc?export=download&id=1IUjNtu3QvMyZKxITBuWwfHtTrZJ6QRMe',
             ],
         ];
 
@@ -115,45 +119,10 @@ class VendorController extends Controller
     public function downloadPks($id)
     {
         $vendors = $this->getVendors();
-        if (!isset($vendors[$id])) {
+        if (!isset($vendors[$id]) || !isset($vendors[$id]['pks_url'])) {
             abort(404);
         }
 
-        $vendorName = $vendors[$id]['name'];
-
-        // Simulating a PKS download
-        $html = "
-            <div style='font-family: sans-serif; padding: 40px;'>
-                <h1 style='text-align:center;'>PERJANJIAN KERJA SAMA (PKS)</h1>
-                <h2 style='text-align:center; color: #4f46e5;'>Platform Integrasi Iklan</h2>
-                <hr style='margin: 30px 0;'>
-                <p><strong>PIHAK PERTAMA:</strong> PT Indosaku Digital Teknologi (AdDashboard Pro)</p>
-                <p><strong>PIHAK KEDUA:</strong> {$vendorName}</p>
-                <br>
-                <h3>1. RUANG LINGKUP</h3>
-                <p>Pihak Kedua memberikan akses API penuh kepada Pihak Pertama untuk mendistribusikan, melacak, dan mengelola kampanye iklan digital.</p>
-                <h3>2. INTEGRASI SISTEM</h3>
-                <p>Integrasi dilakukan melalui Access Token yang sah dengan standar keamanan yang telah disepakati.</p>
-                <h3>3. PEMBAGIAN PENDAPATAN (REVENUE SHARE)</h3>
-                <p>Skema revenue share akan dihitung berdasarkan total disbursement bulanan sesuai lampiran B.</p>
-                <br><br><br>
-                <table width='100%'>
-                    <tr>
-                        <td width='50%' align='center'>PIHAK PERTAMA<br><br><br><br>____________________</td>
-                        <td width='50%' align='center'>PIHAK KEDUA<br><br><br><br>____________________</td>
-                    </tr>
-                </table>
-            </div>
-        ";
-
-        try {
-            $pdf = \PDF::loadHTML($html);
-            return $pdf->download("PKS_Kerjasama_AdDashboard_x_{$vendorName}.pdf");
-        } catch (\Exception $e) {
-            // Fallback if PDF package is not installed/working correctly
-            return response($html)
-                ->header('Content-Type', 'text/html')
-                ->header('Content-Disposition', "attachment; filename=PKS_Kerjasama_AdDashboard_x_{$vendorName}.html");
-        }
+        return redirect()->away($vendors[$id]['pks_url']);
     }
 }

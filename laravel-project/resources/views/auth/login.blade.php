@@ -168,7 +168,7 @@
                     <input type="checkbox" name="remember" class="w-4 h-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500">
                     <span class="text-xs text-slate-500">Ingat saya</span>
                 </label>
-                <a href="#" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium transition">Lupa password?</a>
+                <a href="{{ route('password.request') }}" class="text-xs text-indigo-600 hover:text-indigo-700 font-medium transition">Lupa password?</a>
             </div>
 
             <button type="submit" class="btn-login mt-2">
