@@ -94,9 +94,30 @@ class ReportController extends Controller
         $platforms = $platform ? [$platform] : ['google','meta','tiktok'];
 
         $platformNames = [
-            'google' => ['Search Growth','Brand Protection','Remarketing'],
-            'meta'   => ['Engagement Boost','Sales Campaign','Retargeting'],
-            'tiktok' => ['Awareness Spark','Video Leads','Conversion Wave'],
+            'google' => [
+                'Search Growth – Performance', 'Brand Protection – Core', 'Remarketing – Dynamic', 'Competitor Conquest – Search', 'Video Leads – YouTube',
+                'Discovery Ads – Shopping', 'Local Campaigns – Maps', 'App Install – Android', 'Display Network – Awareness', 'Smart Campaign – Automation',
+                'Bidding Test – Target ROAS', 'Holiday Special – Search', 'Product Launch – Video', 'Lead Generation – Web', 'Niche Target – Keywords',
+                'Generic Terms – Low CPC', 'High Value Retargeting', 'B2B Professional – Search', 'Weekend Sale – YouTube', 'New Market – Expansion'
+            ],
+            'meta'   => [
+                'Engagement Boost – Feed', 'Sales Campaign – Catalog', 'Retargeting – Website', 'Awareness – Stories', 'Lead Gen – Instant Forms',
+                'Video Views – Reels', 'Traffic – Messenger', 'App Install – iOS', 'Conversions – Landing Page', 'Event Promotion – Local',
+                'Lookalike Audience – 1%', 'Interest Target – Fashion', 'Dynamic Creative – Multi', 'Post Engagement – Page', 'Messenger Ads – Sales',
+                'Brand Awareness – Reach', 'Shop Orders – Direct', 'Interactive Stories – Poll', 'Influencer Collab – Meta', 'Old Customer – Retention'
+            ],
+            'tiktok' => [
+                'Awareness Spark – TopView', 'Video Leads – In-Feed', 'Conversion Wave – Catalog', 'Engagement – Spark Ads', 'App Install – Pulse',
+                'Hashtag Challenge – Viral', 'Branded Effect – Filter', 'Collection Ads – Shopping', 'TopFeed – Reach', 'Creator Marketplace – Collab',
+                'Bidding – Lowest Cost', 'Retention – Existing', 'New User – acquisition', 'Micro Influencer – Spark', 'Music Focus – Audio',
+                'Gen Z Target – Lifestyle', 'Beauty Niche – Tutorial', 'Gaming Promo – Playable', 'Global Reach – Explore', 'Flash Sale – TikTok Shop'
+            ],
+        ];
+
+        $platformRatios = [
+            'google' => [0.15, 0.12, 0.10, 0.08, 0.07, 0.06, 0.05, 0.05, 0.04, 0.04, 0.03, 0.03, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.01, 0.01],
+            'meta'   => [0.14, 0.12, 0.10, 0.09, 0.07, 0.06, 0.06, 0.05, 0.04, 0.04, 0.03, 0.03, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.02, 0.01],
+            'tiktok' => [0.13, 0.12, 0.11, 0.09, 0.08, 0.07, 0.06, 0.05, 0.04, 0.04, 0.03, 0.03, 0.03, 0.02, 0.02, 0.02, 0.02, 0.01, 0.01, 0.01],
         ];
 
         $rows = [];
@@ -114,28 +135,45 @@ class ReportController extends Controller
                 if (!isset($data['platforms'][$plt])) continue;
                 $pd = $data['platforms'][$plt];
                 $names = $platformNames[$plt];
+                $ratios = $platformRatios[$plt];
+
+                $thumbnailIds = [
+                    '1izdCJO6VxzUl4rjkqpe4ceSFF9Qr3CGM', '1K8CjaWAmHvRfj_TcWAz7TsWeiruaEBQe',
+                    '1xpGmKgPNUEVSrnDVgFQaw2IEE_eT4OAL', '1UvCZSV0Z9QIyWfKYz4UFJWmwfPUXWtBb',
+                    '1gNiaKqSUqLVgazjvAKLA3IthrOHewFT_', '15dzn9NGmejp_E7v2mSnwrqK3mIjjhIzQ',
+                    '1o53KW2qzslMVUq4SywbPrWjKiKhheXuA', '1DUJ_1QG2cB25zwq9I30ZQ7X07YTEZ6H1',
+                    '1U2dvLRwG4unrWD3H__SJQPg3mucogVh8', '1aZ0L33sWPOlB4hciIKIFpO4IPSKWGzj2',
+                ];
 
                 foreach ($names as $idx => $name) {
-                    $ratio = [0.55, 0.30, 0.15][$idx] ?? 0.33;
+                    $ratio = $ratios[$idx] ?? 0.2;
                     $cSpend = (int)($pd['spend'] * $ratio);
                     $cImpr  = (int)($pd['impressions'] * $ratio);
                     $cClick = (int)($pd['clicks'] * $ratio);
                     $cConv  = (int)($pd['conversions'] * $ratio);
+                    $thumbIdx = $idx % count($thumbnailIds);
+                    $cThumbId = $thumbnailIds[$thumbIdx];
 
                     // Spread across month days (show first 10 days per campaign)
                     $daysToShow = min(10, $days);
+                    $sumRatios = array_sum(array_slice($dayRatios, 0, $daysToShow)) ?: 1;
+                    
                     for ($d = 1; $d <= $daysToShow; $d++) {
-                        $dr = $dayRatios[$d - 1] ?? 0.1;
+                        $dr = $dayRatios[$d - 1] ?? (1 / $daysToShow);
+                        $weight = $dr / $sumRatios;
+                        
                         $rows[] = [
                             'id'           => $id++,
                             'record_date'  => Carbon::create($year, $mon, $d)->format('M d, Y'),
                             'platform'     => $plt,
                             'campaign_id'  => $idx + 1,
-                            'campaign'     => $name,
-                            'impressions'  => (int)($cImpr  * $dr * 10),
-                            'clicks'       => (int)($cClick * $dr * 10),
-                            'conversions'  => (int)($cConv  * $dr * 10),
-                            'spend'        => (int)($cSpend * $dr * 10),
+                            'campaign'     => 'YG-度衛星-Indosaku – ' . $name,
+                            'impressions'  => (int)($cImpr  * $weight),
+                            'clicks'       => (int)($cClick * $weight),
+                            'conversions'  => (int)($cConv  * $weight),
+                            'spend'        => (int)($cSpend * $weight),
+                            'video_id'     => $cThumbId,
+                            'thumbnail_url' => 'https://drive.google.com/thumbnail?id=' . $cThumbId . '&sz=w256',
                         ];
                     }
                 }
@@ -170,12 +208,16 @@ class ReportController extends Controller
 
     public function exportPdf(Request $request)
     {
+        ini_set('memory_limit', '1024M');
+        ini_set('max_execution_time', '300');
         $rows = $this->buildMockRows($request->month, ($request->platform && $request->platform !== 'all') ? $request->platform : null);
+        $rows = array_slice($rows, 0, 200);
         $reports  = collect($rows);
         $totalSpend       = $reports->sum('spend');
         $totalImpressions = $reports->sum('impressions');
         $totalClicks      = $reports->sum('clicks');
-        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('reports.pdf', compact('reports','totalSpend','totalImpressions','totalClicks'))
+        $totalConversions = $reports->sum('conversions');
+        $pdf = \Barryvdh\DomPDF\Facade\Pdf::loadView('reports.pdf', compact('reports','totalSpend','totalImpressions','totalClicks','totalConversions'))
                   ->setPaper('a4', 'portrait')
                   ->setOption(['defaultFont' => 'dejavu sans', 'isRemoteEnabled' => false, 'isHtml5ParserEnabled' => true]);
         return $pdf->download('ad-report-'.now()->format('Y-m-d').'.pdf');

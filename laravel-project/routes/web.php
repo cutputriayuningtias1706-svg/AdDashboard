@@ -38,4 +38,16 @@ Route::middleware(['mock.auth'])->group(function () {
     Route::get('/topup', [InvoiceController::class, 'topupIndex'])->name('topup.index');
     Route::get('/topup/create', [InvoiceController::class, 'topupCreate'])->name('topup.create');
     Route::post('/topup', [InvoiceController::class, 'topupStore'])->name('topup.store');
+
+    // Settings routes
+    Route::prefix('settings')->name('settings.')->group(function () {
+        Route::get('/profile', [\App\Http\Controllers\SettingController::class, 'profile'])->name('profile');
+        Route::post('/profile', [\App\Http\Controllers\SettingController::class, 'updateProfile'])->name('profile.update');
+        
+        Route::get('/password', [\App\Http\Controllers\SettingController::class, 'password'])->name('password');
+        Route::post('/password', [\App\Http\Controllers\SettingController::class, 'updatePassword'])->name('password.update');
+        
+        Route::get('/integrations', [\App\Http\Controllers\SettingController::class, 'integrations'])->name('integrations');
+        Route::post('/integrations/{platform}', [\App\Http\Controllers\SettingController::class, 'updateIntegration'])->name('integrations.update');
+    });
 });

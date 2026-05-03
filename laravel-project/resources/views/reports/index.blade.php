@@ -1,6 +1,18 @@
 @extends('layouts.main')
 
 @section('title', 'Reports - Ad Dashboard')
+
+@section('shimmer-content')
+    <div class="shimmer-item w-1/4 mb-4"></div>
+    <div class="shimmer-item w-full h-16 mb-6"></div> <!-- Filter Bar -->
+    <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="shimmer-item h-24"></div>
+        <div class="shimmer-item h-24"></div>
+        <div class="shimmer-item h-24"></div>
+        <div class="shimmer-item h-24"></div>
+    </div>
+    <div class="shimmer-item w-full h-96"></div> <!-- Table -->
+@endsection
 @section('page-title', 'Ad Performance Reports')
 
 @section('content')
@@ -70,11 +82,9 @@
         <div class="flex items-center justify-between">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">{{ $card['label'] }}</p>
-                <p class="text-2xl font-bold text-slate-800">{{ $card['value'] }}</p>
+                <p class="text-xl lg:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ $card['value'] }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center" style="background:{{ $card['grad'] }}; box-shadow:0 4px 14px {{ $card['glow'] }};">
-                <i class="fa-solid {{ $card['icon'] }} text-white text-lg"></i>
-            </div>
+
         </div>
     </div>
     @endforeach
@@ -92,24 +102,38 @@
 
 <!-- Reports Table -->
 <div class="fade-up rounded-2xl overflow-hidden" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
-    <div class="overflow-x-auto">
-        <table class="w-full">
+    <div class="table-container">
+        <table class="w-full min-w-[1200px]">
             <thead>
                 <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100" style="background:#f8fafc;">
+                    <th class="px-6 py-4 font-semibold sticky-col">Ad Asset</th>
+                    <th class="px-6 py-4 font-semibold sticky-col-2">Campaign</th>
                     <th class="px-6 py-4">Date</th>
                     <th class="px-6 py-4">Platform</th>
-                    <th class="px-6 py-4">Campaign</th>
-                    <th class="px-6 py-4 text-right">Impressions</th>
+                    <th class="px-6 py-4 text-right">Reach</th>
+                    <th class="px-6 py-4 text-right">Impr.</th>
+                    <th class="px-6 py-4 text-right">Freq.</th>
                     <th class="px-6 py-4 text-right">Clicks</th>
                     <th class="px-6 py-4 text-right">Conversions</th>
                     <th class="px-6 py-4 text-right">Spend</th>
                     <th class="px-6 py-4 text-right">CTR</th>
+                    <th class="px-6 py-4 text-right">CPC</th>
                 </tr>
             </thead>
             <tbody>
                 @forelse($reports as $report)
-                <tr class="table-row-hover border-b border-slate-50">
-                    <td class="px-6 py-4 text-sm text-slate-500">{{ $report['record_date'] }}</td>
+                <tr class="table-row-hover border-b border-slate-50 group">
+                    <td class="px-6 py-4 sticky-col">
+                        <img src="{{ $report['thumbnail_url'] }}" 
+                             class="ad-asset-thumb" 
+                             alt="Ad Asset"
+                             onerror="this.src='https://via.placeholder.com/128x170?text=Ad+Asset'"
+                             onclick="openAdModal('{{ $report['video_id'] }}', '{{ $report['campaign'] }}', '{{ ucfirst($report['platform']) }}', 'Rp {{ number_format($report['spend'], 0, ',', '.') }}', '{{ number_format($report['conversions']) }}')">
+                    </td>
+                    <td class="px-6 py-4 sticky-col-2">
+                        <p class="text-sm font-semibold text-slate-700 truncate max-w-[180px]" title="{{ $report['campaign'] }}">{{ $report['campaign'] }}</p>
+                    </td>
+                    <td class="px-6 py-4 text-sm text-slate-500 whitespace-nowrap">{{ $report['record_date'] }}</td>
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
                             @if($report['platform']=='google') <i class="fa-brands fa-google text-blue-500"></i>
@@ -119,16 +143,18 @@
                             {{ ucfirst($report['platform']) }}
                         </span>
                     </td>
-                    <td class="px-6 py-4 text-sm text-slate-700 font-medium">{{ $report['campaign'] }}</td>
+                    <td class="px-6 py-4 text-sm text-slate-600 text-right">{{ number_format($report['impressions'] / 1.15) }}</td>
                     <td class="px-6 py-4 text-sm text-slate-600 text-right">{{ number_format($report['impressions']) }}</td>
+                    <td class="px-6 py-4 text-sm text-slate-600 text-right">1.15</td>
                     <td class="px-6 py-4 text-sm text-slate-600 text-right">{{ number_format($report['clicks']) }}</td>
                     <td class="px-6 py-4 text-sm text-slate-600 text-right">{{ number_format($report['conversions']) }}</td>
                     <td class="px-6 py-4 text-sm font-bold text-slate-800 text-right">Rp {{ number_format($report['spend'], 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-sm font-semibold text-right" style="color:#3b82f6;">{{ $report['impressions'] > 0 ? number_format(($report['clicks']/$report['impressions'])*100,2) : 0 }}%</td>
+                    <td class="px-6 py-4 text-sm text-slate-600 text-right">Rp {{ $report['clicks'] > 0 ? number_format($report['spend']/$report['clicks'], 0, ',', '.') : 0 }}</td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="8" class="px-6 py-16 text-center">
+                    <td colspan="12" class="px-6 py-16 text-center">
                         <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4" style="background:#f1f5f9;">
                             <i class="fa-solid fa-inbox text-slate-300 text-2xl"></i>
                         </div>

@@ -53,6 +53,71 @@
         .table-row-hover { transition:background .12s; }
         .table-row-hover:hover { background:#f8fafc; }
 
+        /* ── Shimmer Effect ── */
+        .shimmer-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #fff; z-index: 9999; display: flex; flex-direction: column;
+            transition: opacity 0.4s ease, visibility 0.4s;
+        }
+        .shimmer-overlay.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+        
+        .shimmer-bar {
+            height: 4px; width: 100%;
+            background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer-loading 1.5s infinite;
+        }
+        
+        @keyframes shimmer-loading {
+            0% { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .shimmer-content {
+            flex: 1; padding: 2rem; display: flex; flex-direction: column; gap: 1.5rem;
+        }
+        .shimmer-item {
+            height: 20px; background: #f0f0f0; border-radius: 4px;
+            background: linear-gradient(90deg, #f0f0f0 25%, #f8f8f8 50%, #f0f0f0 75%);
+            background-size: 200% 100%;
+            animation: shimmer-loading 1.5s infinite;
+        }
+
+        /* ── Table Freeze & Scroll ── */
+        .table-container { width: 100%; overflow-x: auto; position: relative; border-radius: 12px; }
+        .sticky-col { 
+            position: sticky; left: 0; background: #fff; z-index: 20;
+            min-width: 80px;
+        }
+        .sticky-col-2 {
+            position: sticky; left: 80px; background: #fff; z-index: 20;
+            min-width: 200px;
+            box-shadow: 4px 0 8px rgba(0,0,0,0.05);
+        }
+        thead th.sticky-col, thead th.sticky-col-2 { background: #f8fafc; z-index: 30; }
+        tr:hover .sticky-col, tr:hover .sticky-col-2 { background: #f1f5f9; }
+        
+        /* ── Ad Asset Styles ── */
+        .ad-asset-thumb {
+            width: 48px; height: 64px; border-radius: 6px; 
+            object-fit: cover; cursor: pointer; transition: transform 0.2s;
+            background: #f1f5f9; border: 1px solid #e2e8f0;
+        }
+        .ad-asset-thumb:hover { transform: scale(1.05); }
+
+        /* ── Video Modal ── */
+        .modal-video-mobile {
+            width: 320px; height: 568px; background: #000; border-radius: 32px;
+            border: 8px solid #333; position: relative; overflow: hidden;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); 
+            z-index: 100; display: none; align-items: center; justify-content: center;
+            backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { display: flex; }
+
         /* ── Scrollbar ── */
         ::-webkit-scrollbar { width:4px; height:4px; }
         ::-webkit-scrollbar-track { background:transparent; }
@@ -60,6 +125,25 @@
     </style>
 </head>
 <body style="background:#f5f7fb; min-height:100vh;">
+    <!-- Shimmer Loader Overlay -->
+    <div id="page-shimmer" class="shimmer-overlay">
+        <div class="shimmer-bar"></div>
+        <div class="shimmer-content">
+            @if(View::hasSection('shimmer-content'))
+                @yield('shimmer-content')
+            @else
+                <!-- Default Shimmer (Dashboard Style) -->
+                <div class="shimmer-item w-1/4 mb-4"></div>
+                <div class="grid grid-cols-4 gap-4 mb-8">
+                    <div class="shimmer-item h-32"></div>
+                    <div class="shimmer-item h-32"></div>
+                    <div class="shimmer-item h-32"></div>
+                    <div class="shimmer-item h-32"></div>
+                </div>
+                <div class="shimmer-item w-full h-64"></div>
+            @endif
+        </div>
+    </div>
 <div class="flex h-screen overflow-hidden">
 
     <!-- ══════════ Sidebar ══════════ -->
@@ -129,6 +213,16 @@
                 <i class="fa-solid fa-wallet w-4 text-center text-sm"></i>
                 <span>Top-up</span>
             </a>
+
+            <div class="px-3 pt-5 pb-2">
+                <p class="text-[10px] font-semibold uppercase tracking-widest text-slate-400">Personalization</p>
+            </div>
+
+            <a href="{{ route('settings.profile') }}"
+               class="nav-item {{ request()->routeIs('settings.*') ? 'active' : '' }}">
+                <i class="fa-solid fa-gear w-4 text-center text-sm"></i>
+                <span>Settings</span>
+            </a>
         </nav>
 
         <!-- User + Logout -->
@@ -179,6 +273,96 @@
     </div>
 </div>
 
-@stack('scripts')
+    <!-- Ad Preview Modal -->
+    <div id="ad-preview-modal" class="modal-overlay" onclick="closeAdModal(event)">
+        <div class="relative flex flex-col items-center">
+            <button onclick="closeAdModal(null)" class="absolute -top-12 right-0 text-white hover:text-gray-300 transition">
+                <i class="fa-solid fa-xmark text-2xl"></i>
+            </button>
+            <div class="modal-video-mobile" onclick="event.stopPropagation()" style="display:flex; align-items:center; justify-content:center; background:#000;">
+                <img id="ad-video-frame" 
+                     style="width: 100%; height: 100%; object-fit: contain;" 
+                     src="" 
+                     alt="Ad Creative">
+            </div>
+            <div class="mt-6 bg-white rounded-2xl p-6 w-full max-w-[320px] shadow-2xl" onclick="event.stopPropagation()">
+                <h3 id="modal-campaign-name" class="font-bold text-gray-900 truncate">Campaign Name</h3>
+                <p id="modal-campaign-platform" class="text-xs text-indigo-600 font-semibold uppercase mt-1">Platform</p>
+                <div class="grid grid-cols-2 gap-4 mt-4">
+                    <div>
+                        <p class="text-[10px] text-gray-400 uppercase">Spend</p>
+                        <p id="modal-spend" class="text-sm font-bold text-gray-800">Rp 0</p>
+                    </div>
+                    <div>
+                        <p class="text-[10px] text-gray-400 uppercase">Conv.</p>
+                        <p id="modal-conv" class="text-sm font-bold text-gray-800">0</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function openAdModal(videoId, name, platform, spend, conv) {
+            const modal = document.getElementById('ad-preview-modal');
+            const frame = document.getElementById('ad-video-frame');
+            
+            // Set data
+            document.getElementById('modal-campaign-name').innerText = name;
+            document.getElementById('modal-campaign-platform').innerText = platform;
+            document.getElementById('modal-spend').innerText = spend;
+            document.getElementById('modal-conv').innerText = conv;
+            
+            // Set Google Drive thumbnail image (larger size for modal)
+            frame.src = `https://drive.google.com/thumbnail?id=${videoId}&sz=w800`;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeAdModal(e) {
+            if (e && e.target !== document.getElementById('ad-preview-modal') && e !== null) return;
+            
+            const modal = document.getElementById('ad-preview-modal');
+            const frame = document.getElementById('ad-video-frame');
+            
+            frame.src = "";
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Hide shimmer when page is fully loaded
+        window.addEventListener('load', function() {
+            const shimmer = document.getElementById('page-shimmer');
+            if (shimmer) {
+                setTimeout(() => {
+                    shimmer.classList.add('hidden');
+                }, 300);
+            }
+        });
+
+        // Show shimmer when clicking links
+        document.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                const href = this.getAttribute('href');
+                const target = this.getAttribute('target');
+                
+                if (href && 
+                    !href.startsWith('#') && 
+                    !href.includes('javascript:void(0)') &&
+                    !href.includes('download') && 
+                    !href.includes('logout') &&
+                    target !== '_blank' &&
+                    !e.metaKey && !e.ctrlKey) {
+                    
+                    const shimmer = document.getElementById('page-shimmer');
+                    if (shimmer) {
+                        shimmer.classList.remove('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+    @stack('scripts')
 </body>
 </html>

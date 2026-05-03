@@ -55,10 +55,8 @@
         <div class="absolute w-72 h-72 rounded-full opacity-20 top-10 -left-16" style="background:#fff;filter:blur(60px);"></div>
         <div class="absolute w-56 h-56 rounded-full opacity-15 bottom-20 -right-10" style="background:#818cf8;filter:blur(50px);"></div>
 
-        <div class="float-icon mb-8">
-            <div class="w-20 h-20 rounded-3xl flex items-center justify-center" style="background:rgba(255,255,255,.2);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.3);">
-                <i class="fa-solid fa-chart-line text-white text-3xl"></i>
-            </div>
+        <div class="float-icon mb-10 w-full max-w-xs">
+            <img src="{{ asset('images/storyset-illustration.png') }}" alt="Ad Dashboard Illustration" class="w-full h-auto drop-shadow-xl">
         </div>
 
         <h1 class="text-4xl font-bold text-white text-center leading-tight mb-4">Ad Dashboard</h1>

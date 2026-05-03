@@ -156,7 +156,7 @@
         <p><strong>Informasi Pembayaran</strong></p>
         <p style="margin-top:6px;">
             Harap selesaikan pembayaran dalam 30 hari dari tanggal invoice untuk menghindari gangguan layanan.<br>
-            Transfer ke: <strong>Bank BCA – 123-456-7890 – a/n PT Ad Dashboard Indonesia</strong><br>
+            Transfer ke: <strong>Bank BCA – 880-1234-567 – a/n PT Indosaku Digital Teknologi</strong><br>
             Gunakan nomor invoice <strong>{{ $invoice->invoice_number }}</strong> sebagai referensi pembayaran.
         </p>
     </div>

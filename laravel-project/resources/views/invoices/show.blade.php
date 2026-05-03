@@ -26,7 +26,7 @@
                     @default
                         <span class="px-4 py-2 rounded-full bg-gray-100 text-gray-700 font-medium">Draft</span>
                 @endswitch
-                <a href="{{ route('invoices.download', $invoice) }}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                <a href="{{ route('invoices.download', $invoice->id) }}" class="bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
                     <i class="fa-solid fa-download mr-2"></i> Download PDF
                 </a>
             </div>
@@ -73,7 +73,7 @@
         
         @if($invoice->status != 'paid')
         <div class="mt-6 pt-6 border-t border-gray-100">
-            <form action="{{ route('invoices.markPaid', $invoice) }}" method="POST">
+            <form action="{{ route('invoices.markPaid', $invoice->id) }}" method="POST">
                 @csrf
                 <button type="submit" class="w-full bg-green-600 text-white px-4 py-3 rounded-lg hover:bg-green-700 transition flex items-center justify-center">
                     <i class="fa-solid fa-check mr-2"></i> Mark as Paid

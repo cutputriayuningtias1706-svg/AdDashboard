@@ -125,7 +125,7 @@ class DashboardController extends Controller
             $platformStats = collect([]);
         }
 
-        // Recent campaigns
+        // Recent campaigns (DB-driven, used in some sections)
         $recentCampaigns = Campaign::with('adAccount')->latest()->take(5)->get();
 
         // Spending trend - last 7 days of selected month (kept from existing logic)
@@ -222,25 +222,25 @@ class DashboardController extends Controller
         // ── Top 5 Campaign Performance (mock – aligned to selected month) ──
         $mockCampaigns5 = [
             '2025-07' => [
-                ['name'=>'Search Growth – Google',     'platform'=>'google','spend'=>635250000,'impressions'=>5082000,'clicks'=>254100,'ctr'=>5.0],
-                ['name'=>'Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>522500000,'impressions'=>4702000,'clicks'=>176800,'ctr'=>3.8],
-                ['name'=>'Brand Protection – Google',  'platform'=>'google','spend'=>346500000,'impressions'=>2772000,'clicks'=>138600,'ctr'=>5.0],
-                ['name'=>'Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>249360000,'impressions'=>2991000,'clicks'=>99720,'ctr'=>3.3],
-                ['name'=>'Sales Campaign – Meta',      'platform'=>'meta',  'spend'=>174175000,'impressions'=>1394000,'clicks'=>58200,'ctr'=>4.2],
+                ['name'=>'YG-度衛星-Indosaku – Search Growth – Google',     'platform'=>'google','spend'=>635250000,'impressions'=>5082000,'clicks'=>254100,'ctr'=>5.0, 'video_id' => '7632512609094225173'],
+                ['name'=>'YG-度衛星-Indosaku – Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>522500000,'impressions'=>4702000,'clicks'=>176800,'ctr'=>3.8, 'video_id' => '7631151504791014676'],
+                ['name'=>'YG-度衛星-Indosaku – Brand Protection – Google',  'platform'=>'google','spend'=>346500000,'impressions'=>2772000,'clicks'=>138600,'ctr'=>5.0, 'video_id' => '7629681163761634581'],
+                ['name'=>'YG-度衛星-Indosaku – Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>249360000,'impressions'=>2991000,'clicks'=>99720,'ctr'=>3.3, 'video_id' => '7628540027043171605'],
+                ['name'=>'YG-度衛星-Indosaku – Sales Campaign – Meta',      'platform'=>'meta',  'spend'=>174175000,'impressions'=>1394000,'clicks'=>58200,'ctr'=>4.2, 'video_id' => '7628066934608661768'],
             ],
             '2025-08' => [
-                ['name'=>'Search Growth – Google',     'platform'=>'google','spend'=>1386000000,'impressions'=>11088000,'clicks'=>554400,'ctr'=>5.0],
-                ['name'=>'Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>1140000000,'impressions'=>10260000,'clicks'=>385400,'ctr'=>3.8],
-                ['name'=>'Brand Protection – Google',  'platform'=>'google','spend'=>756000000, 'impressions'=>6048000, 'clicks'=>302400,'ctr'=>5.0],
-                ['name'=>'Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>543600000, 'impressions'=>6523000, 'clicks'=>217400,'ctr'=>3.3],
-                ['name'=>'Video Leads – TikTok',       'platform'=>'tiktok','spend'=>423800000, 'impressions'=>4238000, 'clicks'=>152400,'ctr'=>3.6],
+                ['name'=>'YG-度衛星-Indosaku – Search Growth – Google',     'platform'=>'google','spend'=>1386000000,'impressions'=>11088000,'clicks'=>554400,'ctr'=>5.0, 'video_id' => '7626959883807542546'],
+                ['name'=>'YG-度衛星-Indosaku – Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>1140000000,'impressions'=>10260000,'clicks'=>385400,'ctr'=>3.8, 'video_id' => '7626581001673674005'],
+                ['name'=>'YG-度衛星-Indosaku – Brand Protection – Google',  'platform'=>'google','spend'=>756000000, 'impressions'=>6048000, 'clicks'=>302400,'ctr'=>5.0, 'video_id' => '7625303208453360903'],
+                ['name'=>'YG-度衛星-Indosaku – Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>543600000, 'impressions'=>6523000, 'clicks'=>217400,'ctr'=>3.3, 'video_id' => '7623984937242266896'],
+                ['name'=>'YG-度衛星-Indosaku – Video Leads – TikTok',       'platform'=>'tiktok','spend'=>423800000, 'impressions'=>4238000, 'clicks'=>152400,'ctr'=>3.6, 'video_id' => '7622886941368782097'],
             ],
             '2025-09' => [
-                ['name'=>'Search Growth – Google',     'platform'=>'google','spend'=>1270500000,'impressions'=>10164000,'clicks'=>508200,'ctr'=>5.0],
-                ['name'=>'Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>1052500000,'impressions'=>9472500, 'clicks'=>355000,'ctr'=>3.8],
-                ['name'=>'Brand Protection – Google',  'platform'=>'google','spend'=>693000000, 'impressions'=>5544000, 'clicks'=>277200,'ctr'=>5.0],
-                ['name'=>'Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>491787000, 'impressions'=>5900000, 'clicks'=>196700,'ctr'=>3.3],
-                ['name'=>'Sales Campaign – Meta',      'platform'=>'meta',  'spend'=>350000000, 'impressions'=>2800000, 'clicks'=>117600,'ctr'=>4.2],
+                ['name'=>'YG-度衛星-Indosaku – Search Growth – Google',     'platform'=>'google','spend'=>1270500000,'impressions'=>10164000,'clicks'=>508200,'ctr'=>5.0, 'video_id' => '7632512609094225173'],
+                ['name'=>'YG-度衛星-Indosaku – Engagement Boost – Meta',    'platform'=>'meta',  'spend'=>1052500000,'impressions'=>9472500, 'clicks'=>355000,'ctr'=>3.8, 'video_id' => '7631151504791014676'],
+                ['name'=>'YG-度衛星-Indosaku – Brand Protection – Google',  'platform'=>'google','spend'=>693000000, 'impressions'=>5544000, 'clicks'=>277200,'ctr'=>5.0, 'video_id' => '7629681163761634581'],
+                ['name'=>'YG-度衛星-Indosaku – Awareness Spark – TikTok',   'platform'=>'tiktok','spend'=>491787000, 'impressions'=>5900000, 'clicks'=>196700,'ctr'=>3.3, 'video_id' => '7628540027043171605'],
+                ['name'=>'YG-度衛星-Indosaku – Sales Campaign – Meta',      'platform'=>'meta',  'spend'=>350000000, 'impressions'=>2800000, 'clicks'=>117600,'ctr'=>4.2, 'video_id' => '7628066934608661768'],
             ],
         ];
         if ($selectedMonth && isset($mockCampaigns5[$selectedMonth])) {
@@ -250,11 +250,11 @@ class DashboardController extends Controller
         } else {
             // Show all-time top 5 (Jul–Sep aggregate)
             $topCampaigns = collect([
-                ['name'=>'Search Growth – Google',    'platform'=>'google','spend'=>3291750000,'impressions'=>26334000,'clicks'=>1316700,'ctr'=>5.0],
-                ['name'=>'Engagement Boost – Meta',   'platform'=>'meta',  'spend'=>2715000000,'impressions'=>24434500,'clicks'=>917200,'ctr'=>3.8],
-                ['name'=>'Brand Protection – Google', 'platform'=>'google','spend'=>1795500000,'impressions'=>14364000,'clicks'=>718200,'ctr'=>5.0],
-                ['name'=>'Awareness Spark – TikTok',  'platform'=>'tiktok','spend'=>1284747000,'impressions'=>15414000,'clicks'=>513820,'ctr'=>3.3],
-                ['name'=>'Video Leads – TikTok',      'platform'=>'tiktok','spend'=>846000000, 'impressions'=>8460000, 'clicks'=>304800,'ctr'=>3.6],
+                ['name'=>'YG-度衛星-Indosaku – Search Growth – Google',    'platform'=>'google','spend'=>3291750000,'impressions'=>26334000,'clicks'=>1316700,'ctr'=>5.0, 'video_id' => '7632512609094225173'],
+                ['name'=>'YG-度衛星-Indosaku – Engagement Boost – Meta',   'platform'=>'meta',  'spend'=>2715000000,'impressions'=>24434500,'clicks'=>917200,'ctr'=>3.8, 'video_id' => '7631151504791014676'],
+                ['name'=>'YG-度衛星-Indosaku – Brand Protection – Google', 'platform'=>'google','spend'=>1795500000,'impressions'=>14364000,'clicks'=>718200,'ctr'=>5.0, 'video_id' => '7629681163761634581'],
+                ['name'=>'YG-度衛星-Indosaku – Awareness Spark – TikTok',  'platform'=>'tiktok','spend'=>1284747000,'impressions'=>15414000,'clicks'=>513820,'ctr'=>3.3, 'video_id' => '7628540027043171605'],
+                ['name'=>'YG-度衛星-Indosaku – Video Leads – TikTok',      'platform'=>'tiktok','spend'=>846000000, 'impressions'=>8460000, 'clicks'=>304800,'ctr'=>3.6, 'video_id' => '7628066934608661768'],
             ]);
         }
 
@@ -267,22 +267,16 @@ class DashboardController extends Controller
                 ['invoice_number'=>'INV/2025/07/001','platform'=>'google','amount'=>1155000000,'status'=>'paid', 'period'=>'Jul 2025'],
                 ['invoice_number'=>'INV/2025/07/002','platform'=>'meta',  'amount'=>1045000000,'status'=>'paid', 'period'=>'Jul 2025'],
                 ['invoice_number'=>'INV/2025/07/003','platform'=>'tiktok','amount'=>554134170, 'status'=>'paid', 'period'=>'Jul 2025'],
-                ['invoice_number'=>'INV/2025/07/004','platform'=>'google','amount'=>150000000, 'status'=>'paid', 'period'=>'Jul 2025'],
-                ['invoice_number'=>'INV/2025/07/005','platform'=>'meta',  'amount'=>200000000, 'status'=>'paid', 'period'=>'Jul 2025'],
             ],
             '2025-08' => [
                 ['invoice_number'=>'INV/2025/08/001','platform'=>'google','amount'=>2520000000,'status'=>'paid', 'period'=>'Aug 2025'],
                 ['invoice_number'=>'INV/2025/08/002','platform'=>'meta',  'amount'=>2280000000,'status'=>'paid', 'period'=>'Aug 2025'],
                 ['invoice_number'=>'INV/2025/08/003','platform'=>'tiktok','amount'=>1208000000,'status'=>'paid', 'period'=>'Aug 2025'],
-                ['invoice_number'=>'INV/2025/08/004','platform'=>'google','amount'=>300000000, 'status'=>'paid', 'period'=>'Aug 2025'],
-                ['invoice_number'=>'INV/2025/08/005','platform'=>'meta',  'amount'=>450000000, 'status'=>'paid', 'period'=>'Aug 2025'],
             ],
             '2025-09' => [
                 ['invoice_number'=>'INV/2025/09/001','platform'=>'google','amount'=>2310000000,'status'=>'paid', 'period'=>'Sep 2025'],
                 ['invoice_number'=>'INV/2025/09/002','platform'=>'meta',  'amount'=>2105000000,'status'=>'paid', 'period'=>'Sep 2025'],
                 ['invoice_number'=>'INV/2025/09/003','platform'=>'tiktok','amount'=>1092865865,'status'=>'paid', 'period'=>'Sep 2025'],
-                ['invoice_number'=>'INV/2025/09/004','platform'=>'google','amount'=>250000000, 'status'=>'paid', 'period'=>'Sep 2025'],
-                ['invoice_number'=>'INV/2025/09/005','platform'=>'meta',  'amount'=>310000000, 'status'=>'paid', 'period'=>'Sep 2025'],
             ],
         ];
 
@@ -402,15 +396,24 @@ class DashboardController extends Controller
         ];
 
         $labelsByPlatform = [
-            'google' => ['Search Growth', 'Brand Protection', 'Remarketing'],
-            'meta' => ['Engagement Boost', 'Sales Campaign', 'Retargeting'],
-            'tiktok' => ['Awareness Spark', 'Video Leads', 'Conversion Wave'],
+            'google' => [
+                'Search Growth – Performance', 'Brand Protection – Core', 'Remarketing – Dynamic', 'Competitor Conquest – Search', 'Video Leads – YouTube',
+                'Discovery Ads – Shopping', 'Local Campaigns – Maps', 'App Install – Android', 'Display Network – Awareness', 'Smart Campaign – Automation'
+            ],
+            'meta' => [
+                'Engagement Boost – Feed', 'Sales Campaign – Catalog', 'Retargeting – Website', 'Awareness – Stories', 'Lead Gen – Instant Forms',
+                'Video Views – Reels', 'Traffic – Messenger', 'App Install – iOS', 'Conversions – Landing Page', 'Event Promotion – Local'
+            ],
+            'tiktok' => [
+                'Awareness Spark – TopView', 'Video Leads – In-Feed', 'Conversion Wave – Catalog', 'Engagement – Spark Ads', 'App Install – Pulse',
+                'Hashtag Challenge – Viral', 'Branded Effect – Filter', 'Collection Ads – Shopping', 'TopFeed – Reach', 'Creator Marketplace – Collab'
+            ],
         ];
 
         $ratiosByPlatform = [
-            'google' => [0.55, 0.30, 0.15],
-            'meta' => [0.50, 0.33, 0.17],
-            'tiktok' => [0.45, 0.35, 0.20],
+            'google' => [0.25, 0.18, 0.15, 0.12, 0.08, 0.06, 0.05, 0.04, 0.04, 0.03],
+            'meta'   => [0.22, 0.20, 0.15, 0.13, 0.10, 0.07, 0.05, 0.04, 0.02, 0.02],
+            'tiktok' => [0.20, 0.18, 0.16, 0.14, 0.10, 0.08, 0.06, 0.04, 0.02, 0.02],
         ];
 
         $canMock = $selectedMonth && isset($mockByMonth[$selectedMonth]) && isset($mockByMonth[$selectedMonth][$platform]);
@@ -428,12 +431,15 @@ class DashboardController extends Controller
             $labels = $labelsByPlatform[$platform] ?? ['Campaign'];
 
             $campaignSpends = [];
+            $tempSum = 0;
             foreach ($ratios as $idx => $ratio) {
-                $campaignSpends[$idx] = (int) floor($platformTotalSpend * $ratio);
+                $val = (int) floor($platformTotalSpend * $ratio);
+                $campaignSpends[$idx] = $val;
+                $tempSum += $val;
             }
-            $campaignSpends[count($campaignSpends) - 1] += ($platformTotalSpend - array_sum($campaignSpends));
+            $campaignSpends[count($campaignSpends) - 1] += ($platformTotalSpend - $tempSum);
 
-            $computeMetrics = function (int $spend) use ($cpcBase, $ctrPct, $convRatePct): array {
+            $computeMetrics = function (int $spend, $idx) use ($cpcBase, $ctrPct, $convRatePct): array {
                 $clicks = max(1, (int) floor($spend / max($cpcBase, 0.000001)));
                 $impressions = (int) floor(($clicks * 100) / max($ctrPct, 0.000001));
                 $conversions = (int) floor($clicks * ($convRatePct / 100));
@@ -442,7 +448,48 @@ class DashboardController extends Controller
                 $cpc = $clicks > 0 ? $spend / $clicks : 0;
                 $cpm = $impressions > 0 ? ($spend / $impressions) * 1000 : 0;
                 $conversionRate = $clicks > 0 ? ($conversions / $clicks) * 100 : 0;
-                $frequency = $clicks > 0 ? $impressions / $clicks : 0;
+                $frequency = 1.1 + ($idx % 5) * 0.1;
+                $reach = (int)($impressions / $frequency);
+                $costPerConv = $conversions > 0 ? $spend / $conversions : 0;
+                
+                $thumbnailIds = [
+                    '1izdCJO6VxzUl4rjkqpe4ceSFF9Qr3CGM',
+                    '1K8CjaWAmHvRfj_TcWAz7TsWeiruaEBQe',
+                    '1xpGmKgPNUEVSrnDVgFQaw2IEE_eT4OAL',
+                    '1UvCZSV0Z9QIyWfKYz4UFJWmwfPUXWtBb',
+                    '1gNiaKqSUqLVgazjvAKLA3IthrOHewFT_',
+                    '15dzn9NGmejp_E7v2mSnwrqK3mIjjhIzQ',
+                    '1o53KW2qzslMVUq4SywbPrWjKiKhheXuA',
+                    '1DUJ_1QG2cB25zwq9I30ZQ7X07YTEZ6H1',
+                    '1U2dvLRwG4unrWD3H__SJQPg3mucogVh8',
+                    '1aZ0L33sWPOlB4hciIKIFpO4IPSKWGzj2',
+                    '1eJz-rvql-R4b1_5-zfHn1vI6LktfwsgM',
+                    '1E9Nr3AaZE7i23gtv1Zb5toz4v4JVQT8M',
+                    '1zGPiS150zJHlIVVntSxSFeg3n75ahQLu',
+                    '1xxPcNxotuc0j5qFmUlj7_BP-tVYVXtGs',
+                    '1uNfR-CKxPfHfLg9MW0TCiu1eWBz7M3Ag',
+                    '1GIGv7F-TyS3f1HkUL1N7zmYHQurNO3HF',
+                    '1TVEXpPRfaS949rrwGCODIMJvgkRrfc2K',
+                    '1vrQCaOw4fAk9IZ_RqJtFxzOenBsSUZvf',
+                    '1h5dH43yCJxvKRDzUfCJabhIFJIBRgzuB',
+                    '1zW30vHZbCdFjjGQ-16HQiC1dmO0XfHve',
+                    '1FAHdMVc8-Da4SNQSRW5Q2xtbuVbBi9ty',
+                    '1PuAJvEYoh-8pNAFOXUHYKbe04M_e4m0B',
+                    '1OIViGBrfYQEP9Q31syQo0I2X5CHxzEvo',
+                    '1G9rNou7-H8pHQFhj2ljA2jSDm1nYBIIS',
+                    '1X13fWtWVsvK2SA-GObzFUpLF1PvhUZbC',
+                    '1aebzTUT8eEysl143Si_0ioYLF7kqpk51',
+                    '1bAe27OQs38tIgquUNdHjTQ0OfUkEjGDk',
+                    '1_z_j0c2ozvh2PDonei9Dx0hrSGxRzF5F',
+                    '1PCEO5LOvpOPlx_0xmOlgPA4VpTVKuKQk',
+                    '1VWMjdKpsc1oHvlWVmipG0gJR_6xPzN1c',
+                    '1NonLMo-Kgc6VjmXokpdzvj93nIoWEe6W',
+                    '1143P1hSzshkqIbD7d3RbmP1M3zgytehS',
+                    '1jKm5CnEWZxEtmbsB6bui3zZHUwRx_8rk',
+                    '1W7FHJJ6PjMUWG1lRpimOOcKVK7YYLbJh',
+                ];
+                $thumbIdx = $idx % count($thumbnailIds);
+                $thumbnailUrl = 'https://drive.google.com/thumbnail?id=' . $thumbnailIds[$thumbIdx] . '&sz=w256';
 
                 return [
                     'spend' => $spend,
@@ -454,38 +501,26 @@ class DashboardController extends Controller
                     'cpm' => $cpm,
                     'conversionRate' => $conversionRate,
                     'frequency' => $frequency,
+                    'reach' => $reach,
+                    'cost_per_conv' => $costPerConv,
+                    'video_id' => $thumbnailIds[$thumbIdx],
+                    'thumbnail_url' => $thumbnailUrl,
                 ];
             };
 
-            $campaigns = collect([
-                [
-                    'id' => 1,
-                    'name' => $labels[0] ?? 'Campaign A',
-                    'status' => 'active',
-                    'budget_daily' => 3000000,
-                    'budget_total' => 90000000,
-                    'spendRatioIndex' => 0,
-                ],
-                [
-                    'id' => 2,
-                    'name' => $labels[1] ?? 'Campaign B',
-                    'status' => 'active',
-                    'budget_daily' => 2200000,
-                    'budget_total' => 70000000,
-                    'spendRatioIndex' => 1,
-                ],
-                [
-                    'id' => 3,
-                    'name' => $labels[2] ?? 'Campaign C',
-                    'status' => 'active',
-                    'budget_daily' => 1400000,
-                    'budget_total' => 45000000,
-                    'spendRatioIndex' => 2,
-                ],
-            ])->map(function ($c) use ($campaignSpends, $computeMetrics) {
+            $campaigns = collect($labels)->map(function ($name, $idx) {
+                return [
+                    'id' => $idx + 1,
+                    'name' => 'YG-度衛星-Indosaku – ' . $name,
+                    'status' => 'completed',
+                    'budget_daily' => max(500000, 3000000 - ($idx * 150000)),
+                    'budget_total' => max(10000000, 90000000 - ($idx * 4000000)),
+                    'spendRatioIndex' => $idx,
+                ];
+            })->map(function ($c) use ($campaignSpends, $computeMetrics) {
                 $idx = (int) ($c['spendRatioIndex'] ?? 0);
                 $spend = (int) ($campaignSpends[$idx] ?? 0);
-                $m = $computeMetrics($spend);
+                $m = $computeMetrics($spend, $idx);
 
                 return [
                     'id' => $c['id'],
@@ -502,6 +537,10 @@ class DashboardController extends Controller
                     'cpm' => $m['cpm'],
                     'conversionRate' => $m['conversionRate'],
                     'frequency' => $m['frequency'],
+                    'reach' => $m['reach'],
+                    'cost_per_conv' => $m['cost_per_conv'],
+                    'video_id' => $m['video_id'],
+                    'thumbnail_url' => $m['thumbnail_url'],
                 ];
             });
 
@@ -526,7 +565,7 @@ class DashboardController extends Controller
             foreach (range(0, 6) as $offset) {
                 $date = Carbon::now()->subDays(6 - $offset);
                 $spend = $daySpends[$offset];
-                $m = $computeMetrics($spend);
+                $m = $computeMetrics($spend, $offset);
 
                 $dailyTrend[] = [
                     'date' => $date->format('M d'),
@@ -565,10 +604,18 @@ class DashboardController extends Controller
         }
 
         // Fallback: DB-driven logic (original behavior) if month isn't mocked
+        $thumbnailIds = [
+            '1izdCJO6VxzUl4rjkqpe4ceSFF9Qr3CGM', '1K8CjaWAmHvRfj_TcWAz7TsWeiruaEBQe',
+            '1xpGmKgPNUEVSrnDVgFQaw2IEE_eT4OAL', '1UvCZSV0Z9QIyWfKYz4UFJWmwfPUXWtBb',
+            '1gNiaKqSUqLVgazjvAKLA3IthrOHewFT_', '15dzn9NGmejp_E7v2mSnwrqK3mIjjhIzQ',
+            '1o53KW2qzslMVUq4SywbPrWjKiKhheXuA', '1DUJ_1QG2cB25zwq9I30ZQ7X07YTEZ6H1',
+            '1U2dvLRwG4unrWD3H__SJQPg3mucogVh8', '1aZ0L33sWPOlB4hciIKIFpO4IPSKWGzj2',
+        ];
+
         $campaigns = Campaign::where('ad_account_id', $account->id)
             ->with('spendingRecords')
             ->get()
-            ->map(function ($campaign) {
+            ->map(function ($campaign, $idx) use ($thumbnailIds) {
                 $spend = $campaign->spendingRecords->sum('spend');
                 $impressions = $campaign->spendingRecords->sum('impressions');
                 $clicks = $campaign->spendingRecords->sum('clicks');
@@ -578,12 +625,13 @@ class DashboardController extends Controller
                 $cpc = $clicks > 0 ? $spend / $clicks : 0;
                 $cpm = $impressions > 0 ? ($spend / $impressions) * 1000 : 0;
                 $conversionRate = $clicks > 0 ? ($conversions / $clicks) * 100 : 0;
-                $frequency = $clicks > 0 ? $impressions / $clicks : 0;
+                $frequency = $clicks > 0 ? $impressions / $clicks : 1.1;
+                $thumbIdx = $idx % count($thumbnailIds);
 
                 return [
                     'id' => $campaign->id,
-                    'name' => $campaign->campaign_name,
-                    'status' => $campaign->status,
+                    'name' => 'YG-度衛星-Indosaku – ' . $campaign->campaign_name,
+                    'status' => 'completed',
                     'budget_daily' => $campaign->budget_daily,
                     'budget_total' => $campaign->budget_total,
                     'spend' => $spend,
@@ -595,6 +643,10 @@ class DashboardController extends Controller
                     'cpm' => $cpm,
                     'conversionRate' => $conversionRate,
                     'frequency' => $frequency,
+                    'reach' => (int)($impressions / $frequency),
+                    'cost_per_conv' => $conversions > 0 ? $spend / $conversions : 0,
+                    'video_id' => $thumbnailIds[$thumbIdx],
+                    'thumbnail_url' => 'https://drive.google.com/thumbnail?id=' . $thumbnailIds[$thumbIdx] . '&sz=w256',
                 ];
             });
 

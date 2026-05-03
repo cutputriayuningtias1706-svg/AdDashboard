@@ -11,12 +11,10 @@
         .header h1 { font-size: 24px; color: #1f2937; margin-bottom: 5px; }
         .header p { color: #6b7280; }
         
-        .summary { display: flex; justify-content: space-between; margin-bottom: 30px; }
-        .summary-card { background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; flex: 1; margin: 0 5px; }
-        .summary-card:first-child { margin-left: 0; }
-        .summary-card:last-child { margin-right: 0; }
+        .summary { width: 100%; margin-bottom: 30px; display: table; table-layout: fixed; }
+        .summary-card { display: table-cell; background: #f9fafb; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid #e5e7eb; }
         .summary-card h3 { font-size: 10px; color: #6b7280; text-transform: uppercase; margin-bottom: 5px; }
-        .summary-card p { font-size: 18px; font-weight: bold; color: #1f2937; }
+        .summary-card p { font-size: 16px; font-weight: bold; color: #1f2937; }
         
         table { width: 100%; border-collapse: collapse; margin-top: 20px; }
         th { background: #3B82F6; color: white; padding: 12px 8px; text-align: left; font-weight: 600; }
@@ -48,6 +46,10 @@
             <div class="summary-card">
                 <h3>Clicks</h3>
                 <p>{{ number_format($totalClicks) }}</p>
+            </div>
+            <div class="summary-card">
+                <h3>Conversions</h3>
+                <p>{{ number_format($totalConversions) }}</p>
             </div>
         </div>
         

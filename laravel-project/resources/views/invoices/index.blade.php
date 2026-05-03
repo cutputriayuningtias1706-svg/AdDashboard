@@ -1,6 +1,17 @@
 @extends('layouts.main')
 
 @section('title', 'Invoices - Ad Dashboard')
+
+@section('shimmer-content')
+    <div class="shimmer-item w-1/4 mb-4"></div>
+    <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="shimmer-item h-24"></div>
+        <div class="shimmer-item h-24"></div>
+        <div class="shimmer-item h-24"></div>
+    </div>
+    <div class="shimmer-item w-full h-16 mb-6"></div> <!-- Filter -->
+    <div class="shimmer-item w-full h-80"></div> <!-- Table -->
+@endsection
 @section('page-title', 'Billing & Invoices')
 
 @section('content')
@@ -83,7 +94,7 @@
                 @forelse($invoices as $invoice)
                 <tr class="table-row-hover border-b border-slate-50">
                     <td class="px-6 py-4">
-                        <a href="{{ route('invoices.show', $invoice) }}" class="text-sm font-bold hover:underline" style="color:#6366f1;">{{ $invoice->invoice_number }}</a>
+                        <a href="{{ route('invoices.show', $invoice->id) }}" class="text-sm font-bold hover:underline" style="color:#6366f1;">{{ $invoice->invoice_number }}</a>
                     </td>
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
@@ -114,11 +125,11 @@
                     </td>
                     <td class="px-6 py-4 text-sm text-slate-500">{{ $invoice->due_date ? $invoice->due_date->format('M d, Y') : '–' }}</td>
                     <td class="px-6 py-4 text-right">
-                        <a href="{{ route('invoices.download', $invoice) }}" class="inline-flex w-8 h-8 items-center justify-center rounded-xl text-slate-400 hover:text-red-500 transition mr-1" style="background:#f8fafc;" title="Download PDF">
-                            <i class="fa-solid fa-download text-xs"></i>
+                        <a href="{{ route('invoices.download', $invoice->id) }}" class="inline-flex items-center px-3 py-1.5 rounded-lg border border-slate-200 text-xs font-bold text-slate-600 hover:bg-slate-50 transition-colors shadow-sm">
+                            <i class="fa-solid fa-download mr-1.5 text-slate-400"></i> Download
                         </a>
                         @if($invoice->status != 'paid')
-                        <form action="{{ route('invoices.markPaid', $invoice) }}" method="POST" class="inline">
+                        <form action="{{ route('invoices.markPaid', $invoice->id) }}" method="POST" class="inline">
                             @csrf
                             <button type="submit" class="inline-flex w-8 h-8 items-center justify-center rounded-xl text-slate-400 hover:text-emerald-600 transition" style="background:#f8fafc;" title="Mark as Paid">
                                 <i class="fa-solid fa-check text-xs"></i>
@@ -140,6 +151,8 @@
             </tbody>
         </table>
     </div>
+    @if(method_exists($invoices, 'links'))
     <div class="px-6 py-4 border-t border-slate-100">{{ $invoices->links() }}</div>
+    @endif
 </div>
 @endsection

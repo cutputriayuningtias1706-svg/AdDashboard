@@ -1,6 +1,20 @@
 @extends('layouts.main')
 
 @section('title', 'Dashboard - Ad Dashboard')
+
+@section('shimmer-content')
+    <div class="shimmer-item w-1/4 mb-4"></div>
+    <div class="grid grid-cols-4 gap-4 mb-8">
+        <div class="shimmer-item h-32"></div>
+        <div class="shimmer-item h-32"></div>
+        <div class="shimmer-item h-32"></div>
+        <div class="shimmer-item h-32"></div>
+    </div>
+    <div class="grid grid-cols-3 gap-4 mb-8">
+        <div class="shimmer-item h-64 col-span-2"></div>
+        <div class="shimmer-item h-64"></div>
+    </div>
+@endsection
 @section('page-title', 'Dashboard Overview')
 
 @section('content')
@@ -33,24 +47,24 @@
         </div>
         <div class="px-5 py-4 rounded-2xl text-white" style="background:linear-gradient(135deg,#6366f1,#8b5cf6); box-shadow:0 6px 20px rgba(99,102,241,0.35);">
             <p class="text-xs uppercase tracking-widest" style="color:rgba(199,210,254,0.85);">Total 3 Bulan</p>
-            <p class="text-2xl font-bold mt-1">Rp {{ number_format($monthlySpendingSummary[3]['value'], 0, ',', '.') }}</p>
+            <p class="text-xl xl:text-2xl font-bold mt-1 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[3]['value'], 0, ',', '.') }}</p>
         </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
         <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#eff6ff,#fff); border:1px solid #dbeafe;">
             <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#3b82f6,#6366f1);"></div>
             <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[0]['month'] }}</p>
-            <p class="text-2xl font-bold text-slate-800 mt-3">Rp {{ number_format($monthlySpendingSummary[0]['value'], 0, ',', '.') }}</p>
+            <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[0]['value'], 0, ',', '.') }}</p>
         </div>
         <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#f5f3ff,#fff); border:1px solid #ede9fe;">
             <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#a855f7);"></div>
             <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[1]['month'] }}</p>
-            <p class="text-2xl font-bold text-slate-800 mt-3">Rp {{ number_format($monthlySpendingSummary[1]['value'], 0, ',', '.') }}</p>
+            <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[1]['value'], 0, ',', '.') }}</p>
         </div>
         <div class="card-hover p-5 rounded-2xl relative overflow-hidden" style="background:linear-gradient(135deg,#ecfdf5,#fff); border:1px solid #d1fae5;">
             <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#10b981,#34d399);"></div>
             <p class="text-xs font-semibold uppercase tracking-widest text-slate-400">{{ $monthlySpendingSummary[2]['month'] }}</p>
-            <p class="text-2xl font-bold text-slate-800 mt-3">Rp {{ number_format($monthlySpendingSummary[2]['value'], 0, ',', '.') }}</p>
+            <p class="text-xl xl:text-2xl font-bold text-slate-800 mt-3 whitespace-nowrap tracking-tight">Rp {{ number_format($monthlySpendingSummary[2]['value'], 0, ',', '.') }}</p>
         </div>
     </div>
 </div>
@@ -72,12 +86,10 @@
         <div class="flex items-center justify-between pt-1">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Spend</p>
-                <p class="text-2xl font-bold text-slate-800">Rp {{ number_format($totalSpend, 0, ',', '.') }}</p>
+                <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">Rp {{ number_format($totalSpend, 0, ',', '.') }}</p>
                 <p class="text-xs mt-2 font-semibold" style="color:#10b981;"><i class="fa-solid fa-arrow-trend-up mr-1"></i>{{ number_format($spendChange, 0) }}% vs yesterday</p>
             </div>
-            <div class="w-13 h-13 w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background:linear-gradient(135deg,#3b82f6,#6366f1);">
-                <i class="fa-solid fa-dollar-sign text-white text-xl"></i>
-            </div>
+
         </div>
     </div>
     <!-- Total Impressions -->
@@ -86,11 +98,9 @@
         <div class="flex items-center justify-between pt-1">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Impressions</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalImpressions, 0) }}</p>
+                <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalImpressions, 0) }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-purple" style="background:linear-gradient(135deg,#8b5cf6,#a855f7);">
-                <i class="fa-solid fa-eye text-white text-xl"></i>
-            </div>
+
         </div>
     </div>
     <!-- Total Clicks -->
@@ -99,12 +109,10 @@
         <div class="flex items-center justify-between pt-1">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Clicks</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalClicks, 0) }}</p>
+                <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalClicks, 0) }}</p>
                 <p class="text-xs mt-2 font-semibold text-blue-500">CTR: {{ number_format($ctr, 1) }}%</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-green" style="background:linear-gradient(135deg,#10b981,#34d399);">
-                <i class="fa-solid fa-pointer text-white text-xl"></i>
-            </div>
+
         </div>
     </div>
     <!-- Total Conversions -->
@@ -113,12 +121,10 @@
         <div class="flex items-center justify-between pt-1">
             <div>
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Conversions</p>
-                <p class="text-2xl font-bold text-slate-800">{{ number_format($totalConversions, 0) }}</p>
+                <p class="text-xl xl:text-2xl font-bold text-slate-800 whitespace-nowrap tracking-tight">{{ number_format($totalConversions, 0) }}</p>
                 <p class="text-xs mt-2 text-slate-400 font-medium">CPC: Rp {{ number_format($cpc, 0, ',', '.') }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-amber" style="background:linear-gradient(135deg,#f59e0b,#f97316);">
-                <i class="fa-solid fa-bullseye text-white text-xl"></i>
-            </div>
+
         </div>
     </div>
 </div>
@@ -203,24 +209,31 @@
     <!-- Top Campaign Performance -->
     <div class="card-hover fade-up-2 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#ec4899,#8b5cf6);"></div>
-        <h3 class="text-base font-bold text-slate-800 mb-5">Top Campaign Performance</h3>
-        <div class="overflow-x-auto">
-            <table class="w-full">
+        <div class="flex items-center justify-between mb-5">
+            <h3 class="text-base font-bold text-slate-800">Top Campaign Performance</h3>
+        </div>
+        <div class="table-container">
+            <table class="w-full min-w-[800px]">
                 <thead>
                     <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100" style="background:#f8fafc;">
-                        <th class="py-3 px-2">Campaign</th>
-                        <th class="py-3 px-2">Platform</th>
-                        <th class="py-3 px-2 text-right">Spend</th>
-                        <th class="py-3 px-2 text-right">CTR</th>
+                        <th class="py-3 px-4 sticky-col">Campaign</th>
+                        <th class="py-3 px-4">Platform</th>
+                        <th class="py-3 px-4 text-right">Reach</th>
+                        <th class="py-3 px-4 text-right">Impr.</th>
+                        <th class="py-3 px-4 text-right">Freq.</th>
+                        <th class="py-3 px-4 text-right">Clicks</th>
+                        <th class="py-3 px-4 text-right">CTR</th>
+                        <th class="py-3 px-4 text-right">Spend</th>
                     </tr>
                 </thead>
                 <tbody>
                     @foreach($topCampaigns as $campaign)
-                    <tr class="table-row-hover border-b border-slate-50">
-                        <td class="py-3 px-2">
-                            <p class="text-sm font-semibold text-slate-700 truncate max-w-[140px]">{{ $campaign['name'] }}</p>
+                    <tr class="table-row-hover border-b border-slate-50 group">
+                        <td class="py-3 px-4 sticky-col">
+                            <p class="text-sm font-semibold text-slate-700 truncate max-w-[200px]" title="{{ $campaign['name'] }}">{{ $campaign['name'] }}</p>
+                            <span class="text-[10px] text-slate-400">ID: {{ substr($campaign['video_id'], 0, 8) }}</span>
                         </td>
-                        <td class="py-3 px-2">
+                        <td class="py-3 px-4">
                             <span class="capitalize text-sm inline-flex items-center gap-2 text-slate-600">
                                 @switch($campaign['platform'])
                                     @case('google') <i class="fa-brands fa-google text-blue-500"></i> @break
@@ -230,8 +243,12 @@
                                 {{ $campaign['platform'] }}
                             </span>
                         </td>
-                        <td class="py-3 px-2 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</td>
-                        <td class="py-3 px-2 text-right text-sm font-semibold" style="color:#6366f1;">{{ number_format($campaign['ctr'], 1) }}%</td>
+                        <td class="py-3 px-4 text-right text-sm text-slate-600">{{ number_format(($campaign['impressions'] ?? 0) / 1.2) }}</td>
+                        <td class="py-3 px-4 text-right text-sm text-slate-600">{{ number_format($campaign['impressions'] ?? 0) }}</td>
+                        <td class="py-3 px-4 text-right text-sm text-slate-600">1.20</td>
+                        <td class="py-3 px-4 text-right text-sm text-slate-600">{{ number_format($campaign['clicks'] ?? 0) }}</td>
+                        <td class="py-3 px-4 text-right text-sm font-semibold" style="color:#6366f1;">{{ number_format($campaign['ctr'] ?? 0, 1) }}%</td>
+                        <td class="py-3 px-4 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'] ?? 0, 0, ',', '.') }}</td>
                     </tr>
                     @endforeach
                 </tbody>
@@ -264,15 +281,47 @@
     <!-- Gender & Age Audience -->
     <div class="card-hover fade-up-2 relative overflow-hidden rounded-2xl p-6" style="background:#fff; border:1px solid #e2e8f0; box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#8b5cf6,#ec4899);"></div>
-        <div class="flex items-center justify-between mb-3">
-            <h3 class="text-base font-bold text-slate-800">Audiens</h3>
+        <div class="flex items-center justify-between mb-5">
+            <div>
+                <h3 class="text-base font-bold text-slate-800">Audiens</h3>
+                <p class="text-xs text-slate-400 mt-0.5">Berdasarkan umur & gender</p>
+            </div>
             <div class="flex items-center gap-3 text-xs font-semibold">
                 <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#3b82f6;"></span>Pria 58%</span>
                 <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full" style="background:#ec4899;"></span>Wanita 42%</span>
             </div>
         </div>
-        <div style="height:150px;">
-            <canvas id="audienceChart" data-audience='{{ json_encode($audienceData) }}'></canvas>
+        
+        <div class="space-y-3">
+            @php
+                $maxAgeVal = 0;
+                foreach($audienceData['ageGroups'] as $ag) {
+                    $total = $ag['male'] + $ag['female'];
+                    if($total > $maxAgeVal) $maxAgeVal = $total;
+                }
+            @endphp
+            @foreach($audienceData['ageGroups'] as $i => $ag)
+            @php
+                $total = $ag['male'] + $ag['female'];
+                $pct = $maxAgeVal > 0 ? round(($total / $maxAgeVal) * 100) : 0;
+                $colors = ['#6366f1','#3b82f6','#8b5cf6','#ec4899','#f43f5e'];
+                $bgColors = ['#eef2ff','#eff6ff','#f5f3ff','#fdf2f8','#fff1f2'];
+                $col = $colors[$i % count($colors)];
+                $bg = $bgColors[$i % count($bgColors)];
+            @endphp
+            <div>
+                <div class="flex items-center justify-between mb-1.5">
+                    <div class="flex items-center gap-2">
+                        <span class="w-7 h-5 rounded-md flex items-center justify-center text-[10px] font-bold" style="background:{{ $bg }};color:{{ $col }};">{{ $ag['label'] }}</span>
+                        <span class="text-sm font-semibold text-slate-700">Tingkat Interaksi</span>
+                    </div>
+                    <span class="text-xs font-bold text-slate-500">{{ $total }}%</span>
+                </div>
+                <div class="h-2 rounded-full overflow-hidden" style="background:#f1f5f9;">
+                    <div class="h-full rounded-full transition-all duration-700" style="width:{{ $pct }}%;background:{{ $col }};"></div>
+                </div>
+            </div>
+            @endforeach
         </div>
     </div>
     <!-- Top 5 Location Indonesia -->
@@ -332,21 +381,17 @@
             <div class="flex items-center justify-between p-3 rounded-xl transition" style="background:#f8fafc; border:1px solid #f1f5f9;" onmouseover="this.style.background='#fff';this.style.boxShadow='0 2px 8px rgba(0,0,0,0.06)'" onmouseout="this.style.background='#f8fafc';this.style.boxShadow='none'">
                 <div class="flex items-center min-w-0 gap-3">
                     <span class="w-5 h-5 rounded-md flex items-center justify-center text-[10px] font-bold flex-shrink-0" style="background:#eef2ff;color:#6366f1;">{{ $i+1 }}</span>
-                    @switch($campaign['platform'])
-                        @case('google')
-                            <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#eff6ff;">
-                                <i class="fa-brands fa-google text-blue-600 text-xs"></i>
-                            </div> @break
-                        @case('meta')
-                            <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#eef2ff;">
-                                <i class="fa-brands fa-facebook text-indigo-600 text-xs"></i>
-                            </div> @break
-                        @case('tiktok')
-                            <div class="w-8 h-8 rounded-xl flex items-center justify-center flex-shrink-0" style="background:#fdf2f8;">
-                                <i class="fa-brands fa-tiktok text-pink-600 text-xs"></i>
-                            </div> @break
-                    @endswitch
-                    <p class="text-sm font-semibold text-slate-700 truncate max-w-[150px]">{{ $campaign['name'] }}</p>
+                    <div class="min-w-0">
+                        <p class="text-sm font-semibold text-slate-700 truncate" title="{{ $campaign['name'] }}">{{ $campaign['name'] }}</p>
+                        <div class="flex items-center gap-2 mt-0.5">
+                            @switch($campaign['platform'])
+                                @case('google') <i class="fa-brands fa-google text-blue-500 text-[10px]"></i> @break
+                                @case('meta') <i class="fa-brands fa-facebook text-indigo-500 text-[10px]"></i> @break
+                                @case('tiktok') <i class="fa-brands fa-tiktok text-pink-500 text-[10px]"></i> @break
+                            @endswitch
+                            <span class="text-[10px] text-slate-400 capitalize">{{ $campaign['platform'] }}</span>
+                        </div>
+                    </div>
                 </div>
                 <div class="text-right flex-shrink-0 ml-2">
                     <p class="text-xs font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</p>
@@ -433,58 +478,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // ── Audience (Gender & Age) Grouped Bar Chart ──
-    const audienceEl = document.getElementById('audienceChart');
-    if (audienceEl) {
-        const aud = JSON.parse(audienceEl.dataset.audience);
-        new Chart(audienceEl, {
-            type: 'bar',
-            data: {
-                labels: aud.ageGroups.map(a => a.label),
-                datasets: [
-                    {
-                        label: 'Pria',
-                        data: aud.ageGroups.map(a => a.male),
-                        backgroundColor: '#3b82f6',
-                        borderRadius: 5,
-                        borderSkipped: false,
-                        barPercentage: 0.55,
-                    },
-                    {
-                        label: 'Wanita',
-                        data: aud.ageGroups.map(a => a.female),
-                        backgroundColor: '#ec4899',
-                        borderRadius: 5,
-                        borderSkipped: false,
-                        barPercentage: 0.55,
-                    }
-                ]
-            },
-            options: {
-                indexAxis: 'y', // Make the bar chart horizontal
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: { display: false },
-                    tooltip: {
-                        callbacks: { label: ctx => ` ${ctx.dataset.label}: ${ctx.raw}%` }
-                    }
-                },
-                scales: {
-                    x: {
-                        display: true,
-                        grid: { color: 'rgba(226,232,240,0.5)' },
-                        ticks: { font: { size: 10 }, callback: v => v + '%' },
-                        max: 30,
-                    },
-                    y: {
-                        grid: { display: false },
-                        ticks: { font: { size: 10 } }
-                    }
-                }
-            }
-        });
-    }
+    // Audience Chart script removed as it is now replaced by progress bars.
 
     // Tips Slider Auto Rotation
     let currentTip = 0;

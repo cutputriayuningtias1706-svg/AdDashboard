@@ -105,9 +105,7 @@
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Total Spend</p>
                 <p class="text-2xl font-bold text-slate-800">Rp {{ number_format($totalSpend, 0, ',', '.') }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background: linear-gradient(135deg,#3b82f6,#6366f1);">
-                <i class="fa-solid fa-dollar-sign text-white text-lg"></i>
-            </div>
+
         </div>
     </div>
 
@@ -119,9 +117,7 @@
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Impressions</p>
                 <p class="text-2xl font-bold text-slate-800">{{ number_format($totalImpressions) }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-purple" style="background: linear-gradient(135deg,#8b5cf6,#a855f7);">
-                <i class="fa-solid fa-eye text-white text-lg"></i>
-            </div>
+
         </div>
     </div>
 
@@ -133,9 +129,7 @@
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Clicks</p>
                 <p class="text-2xl font-bold text-slate-800">{{ number_format($totalClicks) }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-green" style="background: linear-gradient(135deg,#10b981,#34d399);">
-                <i class="fa-solid fa-pointer text-white text-lg"></i>
-            </div>
+
         </div>
     </div>
 
@@ -147,9 +141,7 @@
                 <p class="text-xs font-semibold uppercase tracking-widest text-slate-400 mb-2">Conversions</p>
                 <p class="text-2xl font-bold text-slate-800">{{ number_format($totalConversions) }}</p>
             </div>
-            <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-amber" style="background: linear-gradient(135deg,#f59e0b,#f97316);">
-                <i class="fa-solid fa-bullseye text-white text-lg"></i>
-            </div>
+
         </div>
     </div>
 </div>
@@ -231,45 +223,63 @@ document.addEventListener('DOMContentLoaded', function() {
             <i class="fa-solid fa-chart-bar text-xs"></i> View Full Report
         </a>
     </div>
-    <div class="overflow-x-auto">
-        <table class="w-full">
+    <div class="table-container">
+        <table class="w-full min-w-[1200px]">
             <thead>
                 <tr class="text-left text-xs font-semibold uppercase tracking-wider text-slate-400 border-b border-slate-100" style="background:#f8fafc;">
-                    <th class="px-6 py-4 font-semibold">Campaign</th>
+                    <th class="px-6 py-4 font-semibold sticky-col">Ad Asset</th>
+                    <th class="px-6 py-4 font-semibold sticky-col-2">Campaign</th>
                     <th class="px-6 py-4 font-semibold">Status</th>
-                    <th class="px-6 py-4 font-semibold text-right">Budget</th>
-                    <th class="px-6 py-4 font-semibold text-right">Spend</th>
+                    <th class="px-6 py-4 font-semibold text-right">Reach</th>
                     <th class="px-6 py-4 font-semibold text-right">Impr.</th>
+                    <th class="px-6 py-4 font-semibold text-right">Freq.</th>
                     <th class="px-6 py-4 font-semibold text-right">Clicks</th>
-                    <th class="px-6 py-4 font-semibold text-right">Conv.</th>
                     <th class="px-6 py-4 font-semibold text-right">CTR</th>
+                    <th class="px-6 py-4 font-semibold text-right">CPM</th>
                     <th class="px-6 py-4 font-semibold text-right">CPC</th>
+                    <th class="px-6 py-4 font-semibold text-right">Spend</th>
+                    <th class="px-6 py-4 font-semibold text-right">Conv.</th>
+                    <th class="px-6 py-4 font-semibold text-right">Cost/Conv.</th>
                     <th class="px-6 py-4 font-semibold text-right">Conv. Rate</th>
                 </tr>
             </thead>
             <tbody>
                 @foreach($campaigns as $campaign)
-                <tr class="table-row-hover border-b border-slate-50">
-                    <td class="px-6 py-4">
-                        <p class="text-sm font-semibold text-slate-800">{{ $campaign['name'] }}</p>
-                        <p class="text-xs text-slate-400 mt-0.5">ID: {{ $campaign['id'] }}</p>
+                <tr class="table-row-hover border-b border-slate-50 group">
+                    <td class="px-6 py-4 sticky-col">
+                        <img src="{{ $campaign['thumbnail_url'] }}" 
+                             class="ad-asset-thumb" 
+                             alt="Ad Asset"
+                             onerror="this.src='https://via.placeholder.com/128x170?text=Ad+Asset'"
+                             onclick="openAdModal('{{ $campaign['video_id'] }}', '{{ $campaign['name'] }}', '{{ ucfirst($platform) }}', 'Rp {{ number_format($campaign['spend'], 0, ',', '.') }}', '{{ number_format($campaign['conversions']) }}')">
+                    </td>
+                    <td class="px-6 py-4 sticky-col-2">
+                        <p class="text-sm font-semibold text-slate-800 truncate max-w-[180px]" title="{{ $campaign['name'] }}">{{ $campaign['name'] }}</p>
+                        <p class="text-[10px] text-slate-400 mt-0.5">ID: {{ $campaign['id'] }}</p>
                     </td>
                     <td class="px-6 py-4">
                         @if($campaign['status'] == 'active')
                             <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full" style="background:rgba(16,185,129,0.1); color:#059669;">
                                 <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 badge-active"></span>Active
                             </span>
+                        @elseif($campaign['status'] == 'completed')
+                            <span class="inline-flex items-center gap-1.5 px-2.5 py-1 text-xs font-semibold rounded-full" style="background:rgba(59,130,246,0.1); color:#2563eb;">
+                                <span class="w-1.5 h-1.5 rounded-full bg-blue-500"></span>Completed
+                            </span>
                         @else
                             <span class="px-2.5 py-1 text-xs font-semibold rounded-full capitalize" style="background:#f1f5f9; color:#64748b;">{{ $campaign['status'] }}</span>
                         @endif
                     </td>
-                    <td class="px-6 py-4 text-right text-sm text-slate-500">Rp {{ number_format($campaign['budget_daily'], 0, ',', '.') }}/hari</td>
-                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</td>
+                    <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['reach']) }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['impressions']) }}</td>
+                    <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['frequency'], 2) }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['clicks']) }}</td>
-                    <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['conversions']) }}</td>
                     <td class="px-6 py-4 text-right text-sm font-semibold" style="color:#3b82f6;">{{ number_format($campaign['ctr'], 2) }}%</td>
+                    <td class="px-6 py-4 text-right text-sm text-slate-600">Rp {{ number_format($campaign['cpm'] ?? 0, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-right text-sm text-slate-600">Rp {{ number_format($campaign['cpc'], 0, ',', '.') }}</td>
+                    <td class="px-6 py-4 text-right text-sm font-bold text-slate-800">Rp {{ number_format($campaign['spend'], 0, ',', '.') }}</td>
+                    <td class="px-6 py-4 text-right text-sm text-slate-600">{{ number_format($campaign['conversions']) }}</td>
+                    <td class="px-6 py-4 text-right text-sm text-slate-600">Rp {{ number_format($campaign['cost_per_conv'] ?? 0, 0, ',', '.') }}</td>
                     <td class="px-6 py-4 text-right text-sm font-semibold" style="color:#10b981;">{{ number_format($campaign['conversionRate'], 2) }}%</td>
                 </tr>
                 @endforeach
