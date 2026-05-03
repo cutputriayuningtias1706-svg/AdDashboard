@@ -303,7 +303,7 @@
                             <span class="capitalize text-sm inline-flex items-center gap-2 text-slate-600">
                                 @switch($campaign['platform'])
                                     @case('google') <i class="fa-brands fa-google text-blue-500"></i> @break
-                                    @case('meta') <i class="fa-brands fa-facebook text-blue-600"></i> @break
+                                    @case('meta') <i class="fa-brands fa-meta text-blue-600"></i> @break
                                     @case('tiktok') <i class="fa-brands fa-tiktok text-pink-500"></i> @break
                                 @endswitch
                                 {{ $campaign['platform'] }}
@@ -461,7 +461,7 @@
                         <div class="flex items-center gap-2 mt-0.5">
                             @switch($campaign['platform'])
                                 @case('google') <i class="fa-brands fa-google text-blue-500 text-[10px]"></i> @break
-                                @case('meta') <i class="fa-brands fa-facebook text-blue-600 text-[10px]"></i> @break
+                                @case('meta') <i class="fa-brands fa-meta text-blue-600 text-[10px]"></i> @break
                                 @case('tiktok') <i class="fa-brands fa-tiktok text-slate-800 text-[10px]"></i> @break
                             @endswitch
                             <span class="text-[10px] text-slate-400 capitalize">{{ $campaign['platform'] }}</span>
@@ -488,7 +488,7 @@
             <div class="flex items-center justify-between p-3 rounded-xl transition bg-slate-50 border border-slate-100 hover:bg-white hover:shadow-md dark:hover:bg-slate-700/50">
                 <div class="flex items-center gap-3">
                     @if($inv['platform']=='google') <i class="fa-brands fa-google text-blue-500 text-sm"></i>
-                    @elseif($inv['platform']=='meta') <i class="fa-brands fa-facebook text-blue-600 text-sm"></i>
+                    @elseif($inv['platform']=='meta') <i class="fa-brands fa-meta text-blue-600 text-sm"></i>
                     @else <i class="fa-brands fa-tiktok text-slate-800 text-sm"></i>
                     @endif
                     <div>

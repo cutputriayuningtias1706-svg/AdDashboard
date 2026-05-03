@@ -302,7 +302,7 @@
 
             <a href="{{ route('dashboard.meta', ['month' => request()->get('month')]) }}"
                class="nav-item {{ request()->routeIs('dashboard.meta') ? 'active' : '' }}">
-                <i class="fa-brands fa-facebook"></i>
+                <i class="fa-brands fa-meta"></i>
                 <span>Meta Ads</span>
             </a>
 

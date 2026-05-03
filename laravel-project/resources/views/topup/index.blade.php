@@ -98,7 +98,7 @@
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
                             @if($topup->adAccount->platform=='google') <i class="fa-brands fa-google text-blue-500"></i>
-                            @elseif($topup->adAccount->platform=='meta') <i class="fa-brands fa-facebook text-blue-600"></i>
+                            @elseif($topup->adAccount->platform=='meta') <i class="fa-brands fa-meta text-blue-600"></i>
                             @else <i class="fa-brands fa-tiktok text-slate-800"></i>
                             @endif
                             {{ $topup->adAccount->platform }}

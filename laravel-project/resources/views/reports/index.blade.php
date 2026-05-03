@@ -19,7 +19,7 @@
 <!-- Platform Nav Pills -->
 <div class="fade-up rounded-2xl p-4 mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <nav class="flex flex-wrap gap-2">
-        @php $pills = [['key'=>'all','label'=>'All Platforms','icon'=>'fa-layer-group'],['key'=>'google','label'=>'Google Ads','icon'=>'fa-brands fa-google'],['key'=>'meta','label'=>'Meta Ads','icon'=>'fa-brands fa-facebook'],['key'=>'tiktok','label'=>'TikTok Ads','icon'=>'fa-brands fa-tiktok']]; @endphp
+        @php $pills = [['key'=>'all','label'=>'All Platforms','icon'=>'fa-layer-group'],['key'=>'google','label'=>'Google Ads','icon'=>'fa-brands fa-google'],['key'=>'meta','label'=>'Meta Ads','icon'=>'fa-brands fa-meta'],['key'=>'tiktok','label'=>'TikTok Ads','icon'=>'fa-brands fa-tiktok']]; @endphp
         @foreach($pills as $pill)
         @php $active = (request('platform') == $pill['key']) || (!request('platform') && $pill['key']=='all'); @endphp
         <a href="{{ route('reports.index', array_merge(request()->except('platform'), ['platform' => $pill['key']])) }}"
@@ -143,7 +143,7 @@
                     <td class="px-6 py-4">
                         <span class="capitalize text-sm font-semibold text-slate-700 inline-flex items-center gap-2">
                             @if($report['platform']=='google') <i class="fa-brands fa-google text-blue-500"></i>
-                            @elseif($report['platform']=='meta') <i class="fa-brands fa-facebook text-blue-600"></i>
+                            @elseif($report['platform']=='meta') <i class="fa-brands fa-meta text-blue-600"></i>
                             @else <i class="fa-brands fa-tiktok text-slate-800"></i>
                             @endif
                             {{ ucfirst($report['platform']) }}

@@ -58,7 +58,7 @@
                     @break
                 @case('meta')
                     <div class="w-12 h-12 rounded-2xl flex items-center justify-center icon-glow-blue" style="background:linear-gradient(135deg,#3b82f6,#2563eb);">
-                        <i class="fa-brands fa-facebook text-white text-xl"></i>
+                        <i class="fa-brands fa-meta text-white text-xl"></i>
                     </div>
                     @break
                 @case('tiktok')
