@@ -60,7 +60,7 @@
 <!-- Overview Cards (Balance & Disbursement) -->
 <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-6 fade-up">
     <!-- Card Total Saldo -->
-    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-blue-300 transition-all bg-primary-card">
+    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-blue-300 transition-all bg-white border border-slate-200">
         <div class="relative z-10">
             <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Saldo Saat Ini</p>
             <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalBalance, 0, ',', '.') }}</h2>
@@ -74,7 +74,7 @@
     </div>
 
     <!-- Card Total Spending -->
-    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-emerald-300 transition-all bg-primary-card">
+    <div class="rounded-3xl p-6 shadow-sm flex items-center justify-between relative overflow-hidden group hover:border-emerald-300 transition-all bg-white border border-slate-200">
         <div class="relative z-10">
             <p class="text-slate-400 text-xs font-bold mb-2 uppercase tracking-widest">Total Spending</p>
             <h2 class="text-3xl font-bold text-slate-800 tracking-tight mb-4">Rp {{ number_format($totalDisbursement, 0, ',', '.') }}</h2>
@@ -87,7 +87,7 @@
 </div>
 
 <!-- Month Picker -->
-<div class="bg-primary-card rounded-3xl shadow-xl p-5 mb-6 fade-up">
+<div class="bg-white border border-slate-200 rounded-3xl shadow-xl p-5 mb-6 fade-up">
     <form method="GET" action="{{ route('dashboard.index') }}" class="flex flex-col md:flex-row md:items-center gap-4">
         <div class="flex items-center gap-3">
             <span class="text-sm font-semibold text-slate-700">Pilih Periode:</span>
@@ -107,7 +107,7 @@
 </div>
 
 <!-- Spending Iklan Jul–Sep 2025 (always shown, non-zero) -->
-<div class="fade-up rounded-2xl p-6 mb-5 bg-primary-card" style="box-shadow:0 2px 16px rgba(0,0,0,0.07);">
+<div class="fade-up rounded-2xl p-6 mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 16px rgba(0,0,0,0.07);">
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-3 mb-5">
         <div>
             <h3 class="text-base font-bold text-slate-800">Spending Iklan (Juli–September 2025)</h3>
@@ -138,7 +138,7 @@
 </div>
 
 @if(!$selectedMonth)
-<div class="fade-up rounded-3xl p-10 text-center mb-5 bg-primary-card" style="box-shadow:0 2px 8px rgba(0,0,0,0.04);">
+<div class="fade-up rounded-3xl p-10 text-center mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 8px rgba(0,0,0,0.04);">
     <div class="w-16 h-16 rounded-2xl flex items-center justify-center mx-auto mb-4 bg-slate-50 text-slate-400 border border-slate-100">
         <i class="fa-solid fa-calendar text-2xl"></i>
     </div>
@@ -149,7 +149,7 @@
 <!-- Stats Cards -->
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 mb-5">
     <!-- Total Spend -->
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -162,7 +162,7 @@
         </div>
     </div>
     <!-- Total Impressions -->
-    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-slate-800"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -172,7 +172,7 @@
         </div>
     </div>
     <!-- Total Clicks -->
-    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-400"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -183,7 +183,7 @@
         </div>
     </div>
     <!-- Total Conversions -->
-    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-emerald-500"></div>
         <div class="flex items-center justify-between pt-1">
             <div>
@@ -198,7 +198,7 @@
 <!-- Optimization Score & Top Campaign Performance -->
 <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-5">
 <!-- Optimization Score with Tips Slider -->
-    <div class="card-hover relative overflow-hidden rounded-3xl p-6 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-600"></div>
         <div class="flex items-center justify-between mb-5">
             <div>
@@ -326,20 +326,29 @@
 <!-- Device Summary & Performance Charts -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5">
     <!-- Devices Pie Chart -->
-    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm">
+    <div class="card-hover fade-up relative overflow-hidden rounded-3xl p-6 bg-white border border-slate-200 shadow-sm flex flex-col">
         <div class="absolute top-0 left-0 right-0 h-1 bg-blue-500"></div>
-        <h3 class="text-base font-bold text-slate-800 mb-3">Top Devices</h3>
-        <div class="flex justify-center mb-3" style="height:140px;">
-            <canvas id="devicePieChart" data-devices='{{ json_encode($deviceStats) }}'></canvas>
+        <h3 class="text-base font-bold text-slate-800 mb-5">Top Devices</h3>
+        
+        <div class="relative flex-1 flex items-center justify-center mb-5">
+            <div style="height:160px; width:160px;">
+                <canvas id="devicePieChart" data-devices='{{ json_encode($deviceStats) }}'></canvas>
+            </div>
+            <!-- Center Text -->
+            <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+                <span class="text-2xl font-black text-slate-800 leading-none">{{ number_format($totalClicks / 1000, 1) }}k</span>
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mt-1">Clicks</span>
+            </div>
         </div>
-        <div class="space-y-2 mt-2">
+
+        <div class="grid grid-cols-3 gap-2 mt-auto">
             @foreach($deviceStats as $device)
-            <div class="flex items-center justify-between text-xs">
-                <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full flex-shrink-0" style="background:{{ $device['color'] }};"></span>
-                    <span class="font-medium text-slate-600">{{ $device['device'] }}</span>
+            <div class="flex flex-col items-center p-2 rounded-2xl bg-slate-50 border border-slate-100/50">
+                <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter mb-1">{{ $device['device'] }}</span>
+                <span class="text-sm font-black text-slate-800">{{ $device['percentage'] }}%</span>
+                <div class="w-full h-1 rounded-full mt-2" style="background:{{ $device['color'] }}20;">
+                    <div class="h-full rounded-full" style="width:{{ $device['percentage'] }}%; background:{{ $device['color'] }};"></div>
                 </div>
-                <span class="font-bold text-slate-700">{{ $device['percentage'] }}%</span>
             </div>
             @endforeach
         </div>
@@ -531,14 +540,26 @@ document.addEventListener('DOMContentLoaded', function() {
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
-                cutout: '68%',
+                cutout: '82%',
                 plugins: {
                     legend: { display: false },
                     tooltip: {
+                        backgroundColor: '#fff',
+                        titleColor: '#1e293b',
+                        bodyColor: '#64748b',
+                        borderColor: '#e2e8f0',
+                        borderWidth: 1,
+                        padding: 10,
+                        displayColors: true,
+                        usePointStyle: true,
                         callbacks: {
                             label: ctx => ` ${ctx.label}: ${ctx.raw}%`
                         }
                     }
+                },
+                animation: {
+                    animateScale: true,
+                    animateRotate: true
                 }
             }
         });
@@ -571,12 +592,30 @@ document.addEventListener('DOMContentLoaded', function() {
         showTip(currentTip);
     }, 4000);
     
-    // Manual navigation
-    document.getElementById('tipsPrevBtn').addEventListener('click', () => {
-        currentTip = (currentTip - 1 + totalTips) % totalTips;
-        showTip(currentTip);
-    });
+    // Tips Manual navigation
+    const prevBtn = document.getElementById('tipsPrevBtn');
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            currentTip = (currentTip - 1 + totalTips) % totalTips;
+            showTip(currentTip);
+        });
+    }
 
+    // Greeting Animation
+    const gText = document.getElementById('greeting-text');
+    if (gText) {
+        setTimeout(() => {
+            gText.style.opacity = '0';
+            gText.style.transform = 'translateY(-10px)';
+            setTimeout(() => {
+                gText.innerText = 'Selamat Datang,';
+                gText.style.opacity = '1';
+                gText.style.transform = 'translateY(0)';
+            }, 600);
+        }, 2000);
+    }
+});
+</script>
 @endpush
 
 @endif
@@ -587,7 +626,7 @@ document.addEventListener('DOMContentLoaded', function() {
         <!-- Background overlay -->
         <div class="fixed inset-0 transition-opacity bg-slate-900/60 backdrop-blur-sm" onclick="document.getElementById('topupModal').classList.add('hidden')"></div>
 
-        <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full dark:bg-slate-800 dark:border dark:border-slate-700">
+        <div class="relative inline-block w-full max-w-lg p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-2xl rounded-2xl sm:my-8 sm:w-full">
             <div class="flex items-center justify-between mb-5">
                 <h3 class="text-xl font-bold text-slate-800 flex items-center gap-2">
                     <i class="fa-solid fa-wallet text-blue-500"></i> Top-up Saldo Cepat
@@ -634,22 +673,4 @@ document.addEventListener('DOMContentLoaded', function() {
 
 @endsection
 
-@push('scripts')
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Greeting Animation
-    const gText = document.getElementById('greeting-text');
-    if (gText) {
-        setTimeout(() => {
-            gText.style.opacity = '0';
-            gText.style.transform = 'translateY(-10px)';
-            setTimeout(() => {
-                gText.innerText = 'Selamat Datang,';
-                gText.style.opacity = '1';
-                gText.style.transform = 'translateY(0)';
-            }, 600);
-        }, 2000);
-    }
-});
-</script>
-@endpush
+

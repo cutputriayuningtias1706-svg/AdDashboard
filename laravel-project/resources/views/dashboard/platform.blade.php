@@ -5,7 +5,7 @@
 
 @section('content')
 <!-- Date Range Picker -->
-<div class="fade-up rounded-2xl p-5 mb-5 bg-primary-card" style="box-shadow:0 2px 8px rgba(0,0,0,0.05);">
+<div class="fade-up rounded-2xl p-5 mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 8px rgba(0,0,0,0.05);">
     <form method="GET" action="{{ request()->url() }}" class="flex flex-wrap items-end gap-4">
         <div>
             <label class="block text-xs font-semibold text-slate-500 mb-1.5 uppercase tracking-wider">Dari Tanggal</label>
@@ -48,7 +48,7 @@
 <!-- Platform Header & Tips Side-by-Side -->
 <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 mb-5 fade-up">
     <!-- Account Info Card -->
-    <div class="lg:col-span-2 rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4 h-full bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="lg:col-span-2 rounded-2xl p-6 flex flex-wrap items-center justify-between gap-4 h-full bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="flex items-center gap-4">
             @switch($platform)
                 @case('google')
@@ -84,7 +84,7 @@
     </div>
 
     <!-- Platform Tips Card -->
-    <div class="rounded-2xl p-6 relative overflow-hidden h-full flex flex-col justify-center bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="rounded-2xl p-6 relative overflow-hidden h-full flex flex-col justify-center bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5" style="background:linear-gradient(90deg,#f59e0b,#f97316);"></div>
         <div class="flex items-start gap-4">
             <div class="w-10 h-10 rounded-xl flex items-center justify-center flex-shrink-0" style="background:linear-gradient(135deg,#f59e0b,#f97316); box-shadow:0 4px 12px rgba(245,158,11,0.3);">
@@ -166,7 +166,7 @@
 
 <!-- 7-Day Performance Line Chart -->
 @if(!empty($dailyTrend))
-<div class="fade-up rounded-2xl p-6 mb-5 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl p-6 mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <div class="flex items-center justify-between mb-8">
         <div>
             <h3 class="text-base font-bold text-slate-800" id="currentChartTitle">7-Day Performance: Spend</h3>

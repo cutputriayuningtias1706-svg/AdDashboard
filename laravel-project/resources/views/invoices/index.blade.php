@@ -25,7 +25,7 @@
     ];
     @endphp
     @foreach($summaryCards as $card)
-    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+    <div class="card-hover fade-up rounded-2xl p-6 relative overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
         <div class="absolute top-0 left-0 right-0 h-0.5 rounded-t-2xl" style="background:{{ $card['grad'] }};"></div>
         <div class="flex items-center justify-between">
             <div>
@@ -41,7 +41,7 @@
 </div>
 
 <!-- Filter and Actions -->
-<div class="fade-up rounded-2xl p-5 mb-5 bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl p-5 mb-5 bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <div class="flex flex-wrap items-end justify-between gap-4">
         <form action="{{ route('invoices.index') }}" method="GET" class="flex flex-wrap gap-3 items-end">
             <div>
@@ -80,7 +80,7 @@
 </div>
 
 <!-- Invoices Table -->
-<div class="fade-up rounded-2xl overflow-hidden bg-primary-card" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
+<div class="fade-up rounded-2xl overflow-hidden bg-white border border-slate-200" style="box-shadow:0 2px 12px rgba(0,0,0,0.06);">
     <div class="overflow-x-auto">
         <table class="w-full">
             <thead>

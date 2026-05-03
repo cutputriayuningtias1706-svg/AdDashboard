@@ -187,9 +187,9 @@ class DashboardController extends Controller
 
         // ── Device Pie Chart (mock) ──
         $deviceStats = [
-            ['device'=>'Mobile',  'percentage'=>65, 'clicks'=>(int)($totalClicks*0.65), 'color'=>'#6366f1'],
-            ['device'=>'Desktop', 'percentage'=>25, 'clicks'=>(int)($totalClicks*0.25), 'color'=>'#3b82f6'],
-            ['device'=>'Tablet',  'percentage'=>10, 'clicks'=>(int)($totalClicks*0.10), 'color'=>'#10b981'],
+            ['device'=>'Mobile',  'percentage'=>65, 'clicks'=>(int)($totalClicks*0.65), 'color'=>'#3b82f6'],
+            ['device'=>'Desktop', 'percentage'=>25, 'clicks'=>(int)($totalClicks*0.25), 'color'=>'#10b981'],
+            ['device'=>'Tablet',  'percentage'=>10, 'clicks'=>(int)($totalClicks*0.10), 'color'=>'#f59e0b'],
         ];
 
         // ── Gender & Age Audience (replaces dayOfWeek spend) ──
